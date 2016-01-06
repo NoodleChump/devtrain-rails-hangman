@@ -1,5 +1,6 @@
 class HangmanState < ActiveRecord::Base
-  has_many :guesses
+  belongs_to :players
+  has_many :guesses, :dependent => :destroy
 
   validates :word_to_guess, presence: true
   validates :number_of_lives, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }

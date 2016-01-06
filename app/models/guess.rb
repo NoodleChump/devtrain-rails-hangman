@@ -11,4 +11,8 @@ class Guess < ActiveRecord::Base
       errors.add(:letter, "must be in the alphabet")
     end
   end
+
+  def unique_guess?
+    
+  end
 end

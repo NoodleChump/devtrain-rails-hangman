@@ -9,6 +9,10 @@ RSpec.describe HangmanState, type: :model do
     guess.save
   end
 
+  def make_guesses(state, letters)
+    letters.split(//).each { |letter| make_guess(state, letter) }
+  end
+
   context "when creating a new hangman state" do
     let(:state) { HangmanState.new }
 
@@ -61,7 +65,7 @@ RSpec.describe HangmanState, type: :model do
     end
   end
 
-  context "when the state runs out of guesses, the game is lost" do
+  context "when the state runs out of guesses" do
     let(:state) { HangmanState.new }
 
     before do
@@ -76,6 +80,28 @@ RSpec.describe HangmanState, type: :model do
 
     it "isn't won" do
       expect(state.won?).to eq false
+    end
+
+    it "is game over" do
+      expect(state.game_over?).to eq true
+    end
+  end
+
+  context "when all the letters in the word to guess are guessed" do
+    let(:state) { HangmanState.new }
+
+    before do
+      state.word_to_guess = "word"
+      state.number_of_lives = 1
+      make_guesses(state, "word")
+    end
+
+    it "is lost" do
+      expect(state.lost?).to eq false
+    end
+
+    it "isn't won" do
+      expect(state.won?).to eq true
     end
 
     it "is game over" do
