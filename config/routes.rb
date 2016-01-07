@@ -3,9 +3,9 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'hangman_games#index'
+  root 'hangman_states#index'
 
-  resource :hangman_games
+  resources :hangman_states
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

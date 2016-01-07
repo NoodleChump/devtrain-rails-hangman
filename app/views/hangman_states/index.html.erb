@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Hangman States</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @hangman_states.each do |hangman_state| %>
+      <tr>
+        <td><%= link_to 'Show', hangman_state %></td>
+        <td><%= link_to 'Edit', edit_hangman_state_path(hangman_state) %></td>
+        <td><%= link_to 'Destroy', hangman_state, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Hangman state', new_hangman_state_path %>
