@@ -6,7 +6,6 @@ class HangmanState < ActiveRecord::Base
   validates :number_of_lives, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   def won?
-    puts "ouch" if word_to_guess == nil
     word_to_guess.chars.all? do |letter|
       guessed_letters.include? letter.downcase
     end
