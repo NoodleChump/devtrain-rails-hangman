@@ -10,30 +10,35 @@ RSpec.describe Guess, type: :model do
     it { is_expected.to_not be_valid }
   end
 
-  context "doesn't validate a guess with a letter that isn't in the alphabet" do
+  context "when making a guess with a letter that isn't in the alphabet" do
     let(:letter) { "!" }
     it { is_expected.to_not be_valid }
   end
 
-  context "doesn't validate a guess when the letter is more than a single character" do
+  context "when making a guess with a word instead of a letter" do
     let(:letter) { "abc" }
     it { is_expected.to_not be_valid }
   end
 
-  context "validates a guess with a letter that is in the alphabet" do
+  context "when making a unique guess" do
     let(:letter) { "a" }
     it { is_expected.to be_valid }
   end
 
-=begin
-    it "doesn't validate when a guess for the same letter has already been made" do
-      state = HangmanState.new
-      state.word_to_guess = "word"
-      state.number_of_lives = 5
-      state.save
-      #TODO finish
-      #HangmanSpecHelper.make_guess("a")
-      #HangmanSpecHelper.make_guess("a")
+  context "when making a non-unique guess" do
+    before do
+      HangmanSpecHelper.make_guess(state, letter)
     end
-=end
+
+    it "shouldn't validate when a guess for the same letter has already been made" do
+      guess = state.guesses.create(letter: letter)
+      expect(guess).to_not be_valid
+    end
+
+    it "shouldn't save and the number of guesses taken is not affected" do
+      expect(state.guesses.build(letter: letter).save).to eq false
+      state.guesses.reload
+      expect(state.guesses.length).to eq 1
+    end
+  end
 end
