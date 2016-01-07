@@ -12,6 +12,34 @@
   <% end %>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= label :custom_word, "Use own custom word?" %>
+    <%= check_box("eula", "accepted", { class: 'custom-word-checkbox' }, "yes", "no") %>
+
+    <div class="custom-word-field">
+      <%= f.label :word_to_guess, "Word to guess" %>
+      <%= f.text_field :word_to_guess, class: 'form-control' %>
+    </div>
+
+    <%= f.label :number_of_lives, "Number of guesses" %>
+    <%= f.text_field :number_of_lives, class: 'form-control' %>
+
+    <%= f.submit (f.object.new_record? ? "Create" : "Save") + " Game", class: "btn btn-primary" %>
   </div>
 <% end %>
+
+<script>
+$(function() {
+    var $customWordField = $('.custom-word-field');
+    $('.custom-word-checkbox').change(function(e) {
+         // If the survey checkbox is ticked
+         if ( $(this).is(":checked") )  {
+              // Survey checkbox was ticked - show the survey_link input
+              $customWordField.css("max-height", 60);
+              $customWordField.css("opacity", 1);
+         } else {
+           $customWordField.css("max-height", 0);
+           $customWordField.css("opacity", 0);
+         }
+    });
+});
+</script>

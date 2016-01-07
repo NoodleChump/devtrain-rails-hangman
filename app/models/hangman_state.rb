@@ -1,5 +1,5 @@
 class HangmanState < ActiveRecord::Base
-  belongs_to :players
+  belongs_to :player
   has_many :guesses, :dependent => :destroy
 
   validates :word_to_guess, presence: true

@@ -1,20 +1,35 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Hangman States</h1>
+<h1>Hangman Games</h1>
 
-<table>
+<table cellspacing="20">
   <thead>
     <tr>
-      <th colspan="3"></th>
+      <th>Player</th>
+      <th>Revealed</th>
+      <th>Progress</th>
+      <th>Guesses Left</th>
+      <th>Play</th>
+      <th>Delete</th>
+
+      <!--<th>Edit</th>-->
     </tr>
   </thead>
 
   <tbody>
     <% @hangman_states.each do |hangman_state| %>
       <tr>
-        <td><%= link_to 'Show', hangman_state %></td>
-        <td><%= link_to 'Edit', edit_hangman_state_path(hangman_state) %></td>
-        <td><%= link_to 'Destroy', hangman_state, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= hangman_state.player %></td>
+
+        <!--TODO Fill this stuff in with real info-->
+        <td><%= hangman_state.word_to_guess %></td>
+        <td>Not Started</td>
+        <td><%= hangman_state.number_of_guesses_remaining %></td>
+
+        <td><%= link_to 'Play', hangman_state %></td>
+        <td><%= link_to 'Delete', hangman_state, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+        <!--<td><%= link_to 'Edit', edit_hangman_state_path(hangman_state) %></td>-->
       </tr>
     <% end %>
   </tbody>
@@ -22,4 +37,4 @@
 
 <br>
 
-<%= link_to 'New Hangman state', new_hangman_state_path %>
+<%= button_to 'Create New Game', new_hangman_state_path, {:class => "btn btn-primary", :method => :get} %>
