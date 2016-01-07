@@ -26,28 +26,22 @@ class PlayersController < ApplicationController
   def create
     @player = Player.new(player_params)
 
-    respond_to do |format|
-      if @player.save
-        format.html { redirect_to @player, notice: 'Player was successfully created.' }
-        format.json { render :show, status: :created, location: @player }
-      else
-        format.html { render :new }
-        format.json { render json: @player.errors, status: :unprocessable_entity }
-      end
+    if @player.save
+      flash[:success] = "Player created successfully"
+      redirect_to @player
+    else
+      render 'new'
     end
   end
 
   # PATCH/PUT /players/1
   # PATCH/PUT /players/1.json
   def update
-    respond_to do |format|
-      if @player.update(player_params)
-        format.html { redirect_to @player, notice: 'Player was successfully updated.' }
-        format.json { render :show, status: :ok, location: @player }
-      else
-        format.html { render :edit }
-        format.json { render json: @player.errors, status: :unprocessable_entity }
-      end
+    if @player.update(player_params)
+      flash[:success] = "Player updated successfully"
+      redirect_to @player
+    else
+      render 'edit'
     end
   end
 
@@ -55,20 +49,19 @@ class PlayersController < ApplicationController
   # DELETE /players/1.json
   def destroy
     @player.destroy
-    respond_to do |format|
-      format.html { redirect_to players_url, notice: 'Player was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    flash[:success] = "Player deleted successfully"
+    redirect_to players_url
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_player
-      @player = Player.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def player_params
-      params[:player].permit(:name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_player
+    @player = Player.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def player_params
+    params[:player].permit(:name)
+  end
 end

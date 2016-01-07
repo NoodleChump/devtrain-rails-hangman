@@ -32,6 +32,11 @@ table {
   width: 100%;
 }
 
+.actions {
+  width: 50%;
+  margin: auto;
+}
+
 .custom-word-field {
     transition: max-height 0.5s, opacity 0.5s ease-in;
     max-height: 0;
