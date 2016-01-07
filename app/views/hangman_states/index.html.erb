@@ -19,7 +19,7 @@
   <tbody>
     <% @hangman_states.each do |hangman_state| %>
       <tr>
-        <td><%= hangman_state.player %></td>
+        <td><%= link_to hangman_state.player.name, hangman_state.player %></td>
 
         <!--TODO Fill this stuff in with real info-->
         <td><%= hangman_state.word_to_guess %></td>

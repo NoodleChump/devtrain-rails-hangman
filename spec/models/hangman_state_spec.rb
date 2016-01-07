@@ -5,8 +5,9 @@ RSpec.describe HangmanState, type: :model do
   let(:word) { "word" }
   let(:lives) { 5 }
   let(:letters_to_guess) { "" }
+  let(:player) { Player.create!(name: "Jordane") }
 
-  subject(:state) { HangmanState.create(word_to_guess: word, number_of_lives: lives) }
+  subject(:state) { HangmanState.create(word_to_guess: word, number_of_lives: lives, player: player) }
 
   before do
     HangmanSpecHelper.make_guesses(state, letters_to_guess)

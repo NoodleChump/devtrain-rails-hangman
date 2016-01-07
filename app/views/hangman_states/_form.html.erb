@@ -12,6 +12,9 @@
   <% end %>
 
   <div class="actions">
+    <%= f.label :player_id, "Player" %>
+    <%= f.select :player_id, options_for_select(Player.all.map { |player| [player.name, player.id] }), :class => 'form-control' %>
+
     <%= label :custom_word, "Use own custom word?" %>
     <%= check_box("eula", "accepted", { class: 'custom-word-checkbox' }, "yes", "no") %>
 

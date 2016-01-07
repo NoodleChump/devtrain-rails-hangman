@@ -4,6 +4,7 @@ class HangmanState < ActiveRecord::Base
 
   validates :word_to_guess, presence: true
   validates :number_of_lives, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :player, presence: true
 
   def won?
     word_to_guess.chars.all? do |letter|

@@ -1,5 +1,6 @@
 module HangmanSpecHelper
   def self.make_guess(state, letter)
+    state.save!
     state.guesses.create!(letter: letter)
   end
 

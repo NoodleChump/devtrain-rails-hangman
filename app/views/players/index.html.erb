@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Players</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Games Played</th>
+      <th>Game Won</th>
+      <th>Show</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @players.each do |player| %>
+      <tr>
+        <td><%= player.name %></td>
+        <td>0</td>
+        <td>0</td><!-- TODO Create a method for this -->
+
+        <td><%= link_to 'Show', player %></td>
+        <td><%= link_to 'Edit', edit_player_path(player) %></td>
+        <td><%= link_to 'Delete', player, method: :delete, data: { confirm: "Are you sure? All of the player's games will be lost" } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= button_to 'New Player', new_player_path, {:class => "btn btn-primary", :method => :get} %>
