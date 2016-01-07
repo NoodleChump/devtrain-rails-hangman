@@ -24,11 +24,11 @@ RSpec.describe HangmanStatesController, type: :controller do
   # HangmanState. As you add validations to HangmanState, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    { word_to_guess: "word", number_of_lives: 2 }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    { word_to_guess: "", number_of_lives: -1 }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -102,15 +102,19 @@ RSpec.describe HangmanStatesController, type: :controller do
 
   describe "PUT #update" do
     context "with valid params" do
+      let(:new_word) { "another_world" }
+      let(:new_lives) { 3 }
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        { word_to_guess: new_word, number_of_lives: new_lives }
       }
 
       it "updates the requested hangman_state" do
         hangman_state = HangmanState.create! valid_attributes
         put :update, {:id => hangman_state.to_param, :hangman_state => new_attributes}, valid_session
         hangman_state.reload
-        skip("Add assertions for updated state")
+
+        expect(hangman_state.word_to_guess).to eq(new_word)
+        expect(hangman_state.number_of_lives).to eq(new_lives)
       end
 
       it "assigns the requested hangman_state as @hangman_state" do

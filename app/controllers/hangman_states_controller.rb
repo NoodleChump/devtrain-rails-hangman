@@ -69,6 +69,6 @@ class HangmanStatesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def hangman_state_params
-      params[:hangman_state]
+      params[:hangman_state].permit(:word_to_guess, :number_of_lives)
     end
 end
