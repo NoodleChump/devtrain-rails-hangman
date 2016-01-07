@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Hangman Games</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @hangman_games.each do |hangman_game| %>
+      <tr>
+        <td><%= link_to 'Show', hangman_game %></td>
+        <td><%= link_to 'Edit', edit_hangman_game_path(hangman_game) %></td>
+        <td><%= link_to 'Destroy', hangman_game, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Hangman game', new_hangman_games_path %>
