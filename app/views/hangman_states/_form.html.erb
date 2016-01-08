@@ -1,7 +1,7 @@
 <%= form_for(@hangman_state) do |f| %>
   <% if @hangman_state.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@hangman_state.errors.count, "error") %> prohibited this hangman_state from being saved:</h2>
+      <h2>There <%= @hangman_state.errors.count == 1 ? 'was an error' : 'were ' + pluralize(@hangman_state.errors.count, "error") %> stopping the game from being saved:</h2>
 
       <ul>
       <% @hangman_state.errors.full_messages.each do |message| %>
@@ -15,12 +15,12 @@
     <%= f.label :player_id, "Player" %>
     <%= f.select :player_id, options_for_select(Player.all.map { |player| [player.name, player.id] }), :class => 'form-control' %>
 
-    <%= label :custom_word, "Use own custom word?" %>
-    <%= check_box("eula", "accepted", { class: 'custom-word-checkbox' }, "yes", "no") %>
+    <%= f.label :custom_word, "Use own custom word?" %>
+    <%= f.check_box :custom_word, { :class => "custom-word-checkbox" }, "checked", "" %>
 
     <div class="custom-word-field">
       <%= f.label :word_to_guess, "Word to guess" %>
-      <%= f.text_field :word_to_guess, class: 'form-control' %>
+      <%= f.password_field :word_to_guess, class: 'form-control' %>
     </div>
 
     <%= f.label :number_of_lives, "Number of guesses" %>
@@ -32,17 +32,38 @@
 
 <script>
 $(function() {
-    var $customWordField = $('.custom-word-field');
-    $('.custom-word-checkbox').change(function(e) {
-         // If the survey checkbox is ticked
-         if ( $(this).is(":checked") )  {
-              // Survey checkbox was ticked - show the survey_link input
-              $customWordField.css("max-height", 60);
-              $customWordField.css("opacity", 1);
-         } else {
-           $customWordField.css("max-height", 0);
-           $customWordField.css("opacity", 0);
-         }
-    });
+  // When the checkbox is toggled, show/hide the custom word field
+  var $customWordField = $('.custom-word-field');
+  $('.custom-word-checkbox').change(function(e) {
+    if ( $(this).is(":checked") )  {
+      $customWordField.css("max-height", 60);
+      $customWordField.css("opacity", 1);
+    } else {
+      $customWordField.css("max-height", 0);
+      $customWordField.css("opacity", 0);
+    }
+  });
+
+  // If the field for the custom word was showing, make it expanded by default again
+  if (<%= params[:hangman_state] && params[:hangman_state][:custom_word] == "checked" ? true : false %>) {
+    $customWordField.addClass('notransition');
+    $('.custom-word-checkbox').prop('checked', true);
+    $customWordField.css("max-height", 60);
+    $customWordField.css("opacity", 1);
+    $customWordField[0].offsetHeight;
+    $customWordField.removeClass('notransition');
+  }
+
+  // Set word to either the last custom word, or a random word by default
+  if ( !$('.custom-word-checkbox').is(":checked") )  {
+    $('#hangman_state_word_to_guess').val("<%= HangmanStatesHelper.random_word %>")
+  } else {
+    $('#hangman_state_word_to_guess').val("<%= params[:hangman_state][:custom_word] if params[:hangman_state] %>")
+  }
+
+  // Set default number of lives
+  if ( $('#hangman_state_number_of_lives').val() == "" )  {
+    $('#hangman_state_number_of_lives').val("5")
+  }
 });
 </script>

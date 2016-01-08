@@ -1,7 +1,7 @@
 <%= form_for(@player) do |f| %>
   <% if @player.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@player.errors.count, "error") %> prohibited this player from being saved:</h2>
+      <h2>There <%= @player.errors.count == 1 ? 'was an error' : 'were ' + pluralize(@player.errors.count, "error") %> stopping the player from being saved:</h2>
 
       <ul>
       <% @player.errors.full_messages.each do |message| %>
