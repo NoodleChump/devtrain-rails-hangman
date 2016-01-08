@@ -37,7 +37,6 @@ class HangmanStatesController < ApplicationController
   # PATCH/PUT /hangman_states/1
   # PATCH/PUT /hangman_states/1.json
   def update
-    #TODO Do this kind of stuff in the player controller too
     if @hangman_state.update(hangman_state_params)
       flash[:success] = "Game updated successfully"
       redirect_to @hangman_state

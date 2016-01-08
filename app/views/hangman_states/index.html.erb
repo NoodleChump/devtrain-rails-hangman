@@ -20,13 +20,9 @@
     <% @hangman_states.each do |hangman_state| %>
       <tr>
         <td><%= link_to hangman_state.player.name, hangman_state.player %></td>
-
-        <!--TODO Fill this stuff in with real info (censored word and game progress)-->
-        <td><%= hangman_state.word_to_guess %></td>
-        <td>Not Started</td>
-
+        <td><%= hangman_state.censored_word %></td>
+        <td><%= hangman_state.progress.to_s.humanize %></td>
         <td><%= hangman_state.number_of_guesses_remaining %></td>
-
         <td><%= link_to 'Play', hangman_state %></td>
         <td><%= link_to 'Delete', hangman_state, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 

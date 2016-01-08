@@ -8,6 +8,8 @@ class HangmanState < ActiveRecord::Base
 
   attr_accessor :custom_word
 
+  CENSOR_CHARACTER = "*"
+
   def won?
     word_to_guess.chars.all? do |letter|
       guessed_letters.include? letter.downcase
@@ -28,6 +30,24 @@ class HangmanState < ActiveRecord::Base
 
   def number_of_guesses_remaining
     [number_of_lives - number_of_incorrect_guesses, 0].max
+  end
+
+  def progress
+    if won?
+      :won
+    elsif lost?
+      :lost
+    elsif guesses.count == 0
+      :not_started
+    else
+      :in_progress
+    end
+  end
+
+  def censored_word
+    word_to_guess.chars.map do |letter|
+      (guessed_letters.include?(letter) ? letter : CENSOR_CHARACTER)
+    end.join
   end
 
   private

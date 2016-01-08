@@ -36,6 +36,14 @@ RSpec.describe HangmanState, type: :model do
     it "should have no guessed letters" do
       expect(state.guesses.length).to eq 0
     end
+
+    it "should be not started" do
+      expect(state.progress).to eq :not_started
+    end
+
+    it "should have a completely censored word" do
+      expect(state.censored_word).to eq HangmanState::CENSOR_CHARACTER * word.length
+    end
   end
 
   context "when the state runs out of guesses" do
@@ -53,6 +61,10 @@ RSpec.describe HangmanState, type: :model do
     it "should have the guessed letter stored correctly" do
       expect(state.guessed_letters.include?("z")).to eq true
     end
+
+    it "should be lost" do
+      expect(state.progress).to eq :lost
+    end
   end
 
   context "when all the letters in the word to guess are guessed" do
@@ -68,6 +80,34 @@ RSpec.describe HangmanState, type: :model do
 
     it "should have each of the guessed letters stored correctly" do
       expect(letters_to_guess.chars.all? { |letter| state.guessed_letters.include?(letter) }).to eq true
+    end
+
+    it "should be won" do
+      expect(state.progress).to eq :won
+    end
+
+    it "should have a completely uncensored word" do
+      expect(state.censored_word).to eq word
+    end
+  end
+
+  context "when there are some correct and incorrect guesses in a running game" do
+    let(:letters_to_guess) { "wo" }
+
+    it { is_expected.to_not be_lost }
+    it { is_expected.to_not be_won }
+    it { is_expected.to_not be_game_over }
+
+    it "should have some guesses left" do
+      expect(state.number_of_guesses_remaining).to be > 0
+    end
+
+    it "should be in progress" do
+      expect(state.progress).to eq :in_progress
+    end
+
+    it "should have a partially censored word" do
+      expect(state.censored_word).to eq "wo" + HangmanState::CENSOR_CHARACTER * 2
     end
   end
 end
