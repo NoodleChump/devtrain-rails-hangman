@@ -1,5 +1,5 @@
 class HangmanStatesController < ApplicationController
-  before_action :set_hangman_state, only: [:show, :edit, :update, :destroy]
+  before_action :set_hangman_state, only: [:show, :edit, :update, :destroy, :submit_guess]
 
   # GET /hangman_states
   # GET /hangman_states.json
@@ -56,11 +56,10 @@ class HangmanStatesController < ApplicationController
 
   def submit_guess
     @guess = Guess.new(guess_params)
-    @hangman_state = @guess.hangman_state
 
+    #TODO A little redundant for the same-ish action? Just save and render show?
     if @guess.save
-      #flash[:success] = "Game created successfully"
-      redirect_to @guess.hangman_state
+      redirect_to @hangman_state
     else
       render 'show'
     end
@@ -79,6 +78,6 @@ class HangmanStatesController < ApplicationController
   end
 
   def guess_params
-    params[:guess].permit(:letter, :hangman_state_id) #TODO hangman state id?
+    params[:guess].permit(:letter, :hangman_state_id)
   end
 end
