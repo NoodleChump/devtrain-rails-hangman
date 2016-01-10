@@ -43,6 +43,7 @@ RSpec.describe Player, type: :model do
 
   context "a player with a game won, lost, and in progress" do
     subject(:player) { Player.create!(name: "Player") }
+    let(:player2) { Player.create!(name: "Player 2") }
     let(:lives) { 1 }
     let(:word1) { "a" }
     let(:won_game) { HangmanState.create!(word_to_guess: word1, number_of_lives: lives, player: player) }
@@ -78,8 +79,12 @@ RSpec.describe Player, type: :model do
       expect(player.win_loss_rate).to eq 1.0
     end
 
-    it "should have a rank of 1 (as the only player)" do
+    it "should have a rank of 1 (as the only player having played games)" do
       expect(player.ranking).to eq 1
+    end
+
+    it "should have player 2 with a rank of 2" do
+      expect(player2.ranking).to eq 2
     end
   end
 end
