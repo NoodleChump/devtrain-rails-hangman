@@ -1,8 +1,7 @@
 <%= form_for(@guess, :url => { :action => "submit_guess" }) do |f| %>
   <% if @guess.errors.any? %>
     <div id="error_explanation">
-      <h2>There <%= @guess.errors.count == 1 ? 'was an error' : 'were ' + pluralize(@guess.errors.count, "error") %> stopping the game from being saved:</h2>
-
+      <h2>There <%= @guess.errors.count == 1 ? 'was an error' : 'were ' + pluralize(@guess.errors.count, "error") %> stopping the guess from being made:</h2>
       <ul>
       <% @guess.errors.full_messages.each do |message| %>
         <li><%= message %></li>

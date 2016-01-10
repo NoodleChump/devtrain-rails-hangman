@@ -56,6 +56,7 @@ class HangmanStatesController < ApplicationController
 
   def submit_guess
     @guess = Guess.new(guess_params)
+    @hangman_state = @guess.hangman_state
 
     if @guess.save
       #flash[:success] = "Game created successfully"

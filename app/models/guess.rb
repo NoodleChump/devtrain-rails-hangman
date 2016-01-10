@@ -15,13 +15,13 @@ class Guess < ActiveRecord::Base
 
   def letter_in_alphabet?
     if !(ALPHABET).include?(letter.downcase)
-      errors.add(:not_in_alphabet, "guessed letters must be in the English alphabet")
+      errors.add(:letter, "must be in the English alphabet")
     end
   end
 
   def already_guessed?
     if hangman_state.guesses.any? { |guess| guess.letter == letter }
-      errors.add(:already_guessed, "guessed letters must be unique")
+      errors.add(:letter, "has already been guessed")
     end
   end
 end

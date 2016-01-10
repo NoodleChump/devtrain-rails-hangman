@@ -1,11 +1,14 @@
 <p id="notice"><%= notice %></p>
 
-<pre><%= @hangman_state.inspect %></pre>
-<p>Guesses: <%= @hangman_state.guesses.inspect %></p>
-
 <h1><%= @hangman_state.censored_word %></h1>
+<h2>Previous Guesses: <%= @hangman_state.guessed_letters.join(", ") %></h2>
 
-<%= render 'guess_form' %>
+<% if !@hangman_state.game_over? %>
+  <%= render 'guess_form' %>
+<% elsif @hangman_state.won? %>
+  <h2>Game has been won</h2>
+<% else %>
+  <h2>Game has been lost</h2>
+<% end %>
 
-<%= link_to 'Edit', edit_hangman_state_path(@hangman_state) %> |
 <%= link_to 'Back', hangman_states_path %>
