@@ -45,9 +45,7 @@ class HangmanState < ActiveRecord::Base
   end
 
   def censored_word
-    if game_over?
-      word_to_guess
-    end
+    return word_to_guess if game_over?
     word_to_guess.chars.map do |letter|
       (guessed_letters.include?(letter) ? letter : CENSOR_CHARACTER)
     end.join

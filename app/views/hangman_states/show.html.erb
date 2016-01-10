@@ -2,7 +2,6 @@
 
 <h1><%= @hangman_state.censored_word %></h1>
 <h2>Previous Guesses: <%= @hangman_state.guessed_letters.join(", ") %></h2>
-
 <% if !@hangman_state.game_over? %>
   <%= render 'guess_form' %>
 <% elsif @hangman_state.won? %>
