@@ -6,9 +6,9 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Total Games</th>
       <th>Games Won</th>
       <th>Games Lost</th>
+
       <th>Show</th>
       <th>Edit</th>
       <th>Delete</th>
@@ -19,9 +19,9 @@
     <% @players.each do |player| %>
       <tr>
         <td><%= link_to player.name, player %></td>
-        <td><%= player.games.count %></td>
         <td><%= player.won_games.count %></td>
         <td><%= player.lost_games.count %></td>
+
         <td><%= link_to 'Show', player %></td>
         <td><%= link_to 'Edit', edit_player_path(player) %></td>
         <td><%= link_to 'Delete', player, method: :delete, data: { confirm: "Are you sure? All of the player's games will be lost" } %></td>

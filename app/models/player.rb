@@ -14,4 +14,16 @@ class Player < ActiveRecord::Base
   def lost_games
     hangman_states.select { |game| game.lost? }
   end
+
+  def in_progress_games
+    hangman_states.select { |game| !game.game_over? }
+  end
+
+  def win_loss_ratio
+
+  end
+
+  def ranking
+    
+  end
 end
