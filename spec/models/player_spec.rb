@@ -14,14 +14,30 @@ RSpec.describe Player, type: :model do
     it { is_expected.to_not be_valid }
   end
 
-  context "when a player's name is of suitable length" do
-    it { is_expected.to be_valid }
-  end
-
   context "when a player's name is not unique" do
     it "shouldn't be valid" do
       player.save
       expect(Player.create(name: name)).to_not be_valid
+    end
+  end
+
+  context "when a valid player is created with a name is of suitable length" do
+    it { is_expected.to be_valid }
+
+    it "should have a win-loss rate of 0, having played no games" do
+      expect(player.win_loss_rate).to eq 0
+    end
+
+    it "should have no games total" do
+      expect(player.games.count).to eq 0
+    end
+
+    it "should have no games won" do
+      expect(player.won_games.count).to eq 0
+    end
+
+    it "should have no games lost" do
+      expect(player.lost_games.count).to eq 0
     end
   end
 
@@ -58,8 +74,8 @@ RSpec.describe Player, type: :model do
       expect(player.in_progress_games).to eq [in_progress_game]
     end
 
-    it "should have a win-loss ratio of 0.5" do
-      expect(player.win_loss_ratio).to eq 0.5
+    it "should have a win-loss rate of 1.0" do
+      expect(player.win_loss_rate).to eq 1.0
     end
 
     it "should have a rank of 1 (as the only player)" do

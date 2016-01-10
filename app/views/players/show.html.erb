@@ -9,7 +9,7 @@
       <th>Games Lost</th>
       <th>Games In Progress</th>
       <th>Total Games</th>
-      <th>Win Ratio</th>
+      <th>Win-Loss Rate</th>
       <th>Ranking</th>
     </tr>
   </thead>
@@ -19,7 +19,7 @@
       <td><%= @player.lost_games.count %></td>
       <td><%= @player.in_progress_games.count %></td>
       <td><%= @player.games.count %></td>
-      <td><%= @player.win_loss_ratio %></td>
+      <td><%= @player.win_loss_rate %></td>
       <td><%= @player.ranking %></td>
     </tr>
   </tbody>

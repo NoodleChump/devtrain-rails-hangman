@@ -19,11 +19,15 @@ class Player < ActiveRecord::Base
     hangman_states.select { |game| !game.game_over? }
   end
 
-  def win_loss_ratio
-
+  def win_loss_rate
+    if lost_games.count == 0
+      won_games.count.to_f
+    else
+      won_games.count / lost_games.count.to_f
+    end
   end
 
   def ranking
-    
+    #TODO Implement ranking based on w-l and num games played?
   end
 end
