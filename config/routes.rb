@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   resources :hangman_states, :players
 
+  post 'hangman_states/:id/guess' => 'hangman_states#submit_guess'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

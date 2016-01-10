@@ -5,6 +5,8 @@ class Guess < ActiveRecord::Base
   validate :letter_in_alphabet?, :already_guessed?
   before_save :downcase_letter
 
+  ALPHABET = 'a'..'z'
+
   private
 
   def downcase_letter
@@ -12,7 +14,7 @@ class Guess < ActiveRecord::Base
   end
 
   def letter_in_alphabet?
-    if !('a'..'z').include?(letter.downcase)
+    if !(ALPHABET).include?(letter.downcase)
       errors.add(:not_in_alphabet, "guessed letters must be in the English alphabet")
     end
   end

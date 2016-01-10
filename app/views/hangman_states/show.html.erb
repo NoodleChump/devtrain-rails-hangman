@@ -1,4 +1,11 @@
 <p id="notice"><%= notice %></p>
 
+<pre><%= @hangman_state.inspect %></pre>
+<p>Guesses: <%= @hangman_state.guesses.inspect %></p>
+
+<h1><%= @hangman_state.censored_word %></h1>
+
+<%= render 'guess_form' %>
+
 <%= link_to 'Edit', edit_hangman_state_path(@hangman_state) %> |
 <%= link_to 'Back', hangman_states_path %>

@@ -10,6 +10,7 @@ class HangmanStatesController < ApplicationController
   # GET /hangman_states/1
   # GET /hangman_states/1.json
   def show
+    @guess = Guess.new
   end
 
   # GET /hangman_states/new
@@ -53,6 +54,17 @@ class HangmanStatesController < ApplicationController
     redirect_to hangman_states_url
   end
 
+  def submit_guess
+    @guess = Guess.new(guess_params)
+
+    if @guess.save
+      #flash[:success] = "Game created successfully"
+      redirect_to @guess.hangman_state
+    else
+      render 'show'
+    end
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -63,5 +75,9 @@ class HangmanStatesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def hangman_state_params
     params[:hangman_state].permit(:word_to_guess, :number_of_lives, :player_id)
+  end
+
+  def guess_params
+    params[:guess].permit(:letter, :hangman_state_id) #TODO hangman state id?
   end
 end
