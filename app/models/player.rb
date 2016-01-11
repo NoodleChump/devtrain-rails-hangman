@@ -28,11 +28,9 @@ class Player < ActiveRecord::Base
   end
 
   def ranking
-    players = Player.all.sort_by { |post| post.rank_weight }.reverse
+    players = Player.all.sort_by { |player| player.rank_weight }.reverse
     players.index(self) + 1
   end
-
-  private
 
   def rank_weight
     win_loss_rate * games.count + won_games.count

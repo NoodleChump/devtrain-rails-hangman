@@ -1,5 +1,6 @@
 class HangmanStatesController < ApplicationController
   before_action :set_hangman_state, only: [:show, :edit, :update, :destroy, :submit_guess]
+  helper_method :sort_column, :sort_direction
 
   #NOTE Rename to just HangmanController?
 
@@ -7,6 +8,22 @@ class HangmanStatesController < ApplicationController
   # GET /hangman_states.json
   def index
     @hangman_states = HangmanState.all
+
+    case sort_column
+    when "player_name"
+      @hangman_states = @hangman_states.sort_by { |hangman_state| hangman_state.player.name }
+    when "progress"
+      #TODO implement
+      @hangman_states = @hangman_states.sort_by { |hangman_state| hangman_state.progress }
+    when "remaining_guesses"
+      @hangman_states = @hangman_states.sort_by { |hangman_state| hangman_state.number_of_guesses_remaining }
+    else
+      @hangman_states = @hangman_states.sort_by { |hangman_state| hangman_state.player.name }
+    end
+
+    if sort_direction == "desc"
+      @hangman_states.reverse!
+    end
   end
 
   # GET /hangman_states/1
@@ -72,9 +89,17 @@ class HangmanStatesController < ApplicationController
     @hangman_state = HangmanState.find(params[:id])
   end
 
+  def sort_column
+    params[:sort] ? params[:sort] : "player_name"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
+
   # Never trust parameters from the scary internet, only allow the white list through.
   def hangman_state_params
-    params[:hangman_state].permit(:word_to_guess, :number_of_lives, :player_id)
+    params[:hangman_state].permit(:word_to_guess, :number_of_lives, :player_id, :sort, :direction)
   end
 
   def guess_params

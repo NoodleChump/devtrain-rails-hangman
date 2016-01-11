@@ -5,10 +5,10 @@
 <table cellspacing="20">
   <thead>
     <tr>
-      <th>Player</th>
+      <th><%= sortable("player_name", "Player") %></th>
       <th>Revealed</th>
-      <th>Progress</th>
-      <th>Guesses Left</th>
+      <th><%= sortable("progress", "Progress") %></th>
+      <th><%= sortable("remaining_guesses", "Guesses Remaining") %></th>
       <th>Play</th>
       <th>Delete</th>
 
