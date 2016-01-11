@@ -10,9 +10,9 @@
       <th><%= sortable("won_games.count", "Games Won") %></th>
       <th><%= sortable("lost_games.count", "Games Lost") %></th>
 
-      <th>Show</th>
-      <th>Edit</th>
-      <th>Delete</th>
+      <th class="right-aligned">Show</th>
+      <th class="right-aligned">Edit</th>
+      <th class="right-aligned">Delete</th>
     </tr>
   </thead>
 
@@ -24,9 +24,9 @@
         <td><%= player.won_games.count %></td>
         <td><%= player.lost_games.count %></td>
 
-        <td><%= link_to 'Show', player %></td>
-        <td><%= link_to 'Edit', edit_player_path(player) %></td>
-        <td><%= link_to 'Delete', player, method: :delete, data: { confirm: "Are you sure? All of the player's games will be lost" } %></td>
+        <td class="right-aligned"><%= link_to 'Show', player %></td>
+        <td class="right-aligned"><%= link_to 'Edit', edit_player_path(player) %></td>
+        <td class="right-aligned"><%= link_to 'Delete', player, method: :delete, data: { confirm: "Are you sure? All of the player's games will be lost" } %></td>
       </tr>
     <% end %>
   </tbody>

@@ -9,8 +9,8 @@
       <th><%= sortable("number_of_blanks_remaining", "Revealed") %></th>
       <th><%= sortable("progress", "Progress") %></th>
       <th><%= sortable("number_of_guesses_remaining", "Guesses Remaining") %></th>
-      <th>Play</th>
-      <th>Delete</th>
+      <th class="right-aligned">Play</th>
+      <th class="right-aligned">Delete</th>
     </tr>
   </thead>
 
@@ -21,8 +21,8 @@
         <td><%= game.censored_word %></td>
         <td><%= game.progress.to_s.humanize %></td>
         <td><%= game.number_of_guesses_remaining %></td>
-        <td><%= link_to 'Play', game %></td>
-        <td><%= link_to 'Delete', game, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="right-aligned"><%= link_to 'Play', game %></td>
+        <td class="right-aligned"><%= link_to 'Delete', game, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
