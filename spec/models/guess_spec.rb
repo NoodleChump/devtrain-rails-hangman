@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Guess, type: :model do
   let(:letter) { "a" }
-  let(:state) { Game.create(word_to_guess: "word", number_of_lives: 5, player: Player.create!(name: "Jordane")) }
-  subject(:guess) { Guess.new(letter: letter, game: state) }
+  let(:game) { Game.create(word_to_guess: "word", number_of_lives: 5, player: Player.create!(name: "Jordane")) }
+  subject(:guess) { Guess.new(letter: letter, game: game) }
 
   context "when creating a new guess" do
     let(:letter) { "" }
@@ -27,18 +27,18 @@ RSpec.describe Guess, type: :model do
 
   context "when making a non-unique guess" do
     before do
-      HangmanSpecHelper.make_guess(state, letter)
+      HangmanSpecHelper.make_guess(game, letter)
     end
 
     it "shouldn't validate when a guess for the same letter has already been made" do
-      guess = state.guesses.create(letter: letter)
+      guess = game.guesses.create(letter: letter)
       expect(guess).to_not be_valid
     end
 
     it "shouldn't save and the number of guesses taken is not affected" do
-      expect(state.guesses.build(letter: letter).save).to eq false
-      state.guesses.reload
-      expect(state.guesses.length).to eq 1
+      expect(game.guesses.build(letter: letter).save).to eq false
+      game.guesses.reload
+      expect(game.guesses.length).to eq 1
     end
   end
 end
