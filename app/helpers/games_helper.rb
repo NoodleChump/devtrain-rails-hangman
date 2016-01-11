@@ -1,4 +1,4 @@
-module HangmanStatesHelper
+module GamesHelper
   WORDS_FILE = 'app/assets/words.txt'
 
   def self.random_word

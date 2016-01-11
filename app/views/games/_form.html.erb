@@ -1,10 +1,10 @@
-<%= form_for(@hangman_state) do |f| %>
-  <% if @hangman_state.errors.any? %>
+<%= form_for(@game) do |f| %>
+  <% if @game.errors.any? %>
     <div id="error_explanation">
-      <h2>There <%= @hangman_state.errors.count == 1 ? 'was an error' : 'were ' + pluralize(@hangman_state.errors.count, "error") %> stopping the game from being saved:</h2>
+      <h2>There <%= @game.errors.count == 1 ? 'was an error' : 'were ' + pluralize(@game.errors.count, "error") %> stopping the game from being saved:</h2>
 
       <ul>
-      <% @hangman_state.errors.full_messages.each do |message| %>
+      <% @game.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -45,7 +45,7 @@ $(function() {
   });
 
   // If the field for the custom word was showing, make it expanded by default again
-  if (<%= params[:hangman_state] && params[:hangman_state][:custom_word] == "checked" ? true : false %>) {
+  if (<%= params[:game] && params[:game][:custom_word] == "checked" ? true : false %>) {
     $customWordField.addClass('notransition');
     $('.custom-word-checkbox').prop('checked', true);
     $customWordField.css("max-height", 60);
@@ -56,16 +56,16 @@ $(function() {
 
   // Set word to either the last custom word, or a random word by default
   if ( !$('.custom-word-checkbox').is(":checked") )  {
-    $('#hangman_state_word_to_guess').val("<%= HangmanStatesHelper.random_word %>")
+    $('#game_word_to_guess').val("<%= GamesHelper.random_word %>")
   } else {
-    $('#hangman_state_word_to_guess').val("<%= params[:hangman_state][:custom_word] if params[:hangman_state] %>")
+    $('#game_word_to_guess').val("<%= params[:game][:custom_word] if params[:game] %>")
   }
 
   // Set default number of lives
-  if ( $('#hangman_state_number_of_lives').val() == "" )  {
-    $('#hangman_state_number_of_lives').val("5")
+  if ( $('#game_number_of_lives').val() == "" )  {
+    $('#game_number_of_lives').val("5")
   }
 
-  $("#hangman_state_player_id").focus();
+  $("#game_player_id").focus();
 });
 </script>

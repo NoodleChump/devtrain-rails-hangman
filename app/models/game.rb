@@ -1,4 +1,4 @@
-class HangmanState < ActiveRecord::Base
+class Game < ActiveRecord::Base
   belongs_to :player
   has_many :guesses, :dependent => :destroy
 
@@ -6,7 +6,7 @@ class HangmanState < ActiveRecord::Base
   validates :number_of_lives, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :player, presence: true
 
-  attr_accessor :custom_word
+  attr_accessor :custom_word #NOTE This is boolean kept for view on creation page
 
   CENSOR_CHARACTER = "*"
 

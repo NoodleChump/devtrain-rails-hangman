@@ -1,0 +1,18 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= @game.censored_word %></h1>
+<h2>Previous Guesses: <%= @game.guessed_letters.join(", ") %></h2>
+
+<% if @game.game_over? %>
+  <% if @game.won? %>
+    <h2>You guessed the word correctly with <%= pluralize(@game.number_of_guesses_remaining, "guess") %> remaining!</h2>
+  <% else %>
+    <h2>Sorry, you've run out of guesses!</h2>
+  <% end %>
+  <%= button_to 'Create New Game', new_game_path, {:class => "btn btn-primary", :method => :get} %>
+<% else %>
+  <h2><%= pluralize(@game.number_of_guesses_remaining, "Guess") %> Remaining</h2>
+  <%= render 'guess_form' %>
+<% end %>
+
+<%= link_to 'Back', games_path %>

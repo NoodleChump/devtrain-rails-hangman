@@ -1,5 +1,5 @@
 class Guess < ActiveRecord::Base
-  belongs_to :hangman_state
+  belongs_to :game
 
   validates :letter, presence: true, length: { is: 1 }
   validate :letter_in_alphabet?, :already_guessed?
@@ -20,7 +20,7 @@ class Guess < ActiveRecord::Base
   end
 
   def already_guessed?
-    if hangman_state.guesses.any? { |guess| guess.letter == letter }
+    if game.guesses.any? { |guess| guess.letter == letter }
       errors.add(:letter, "has already been guessed")
     end
   end

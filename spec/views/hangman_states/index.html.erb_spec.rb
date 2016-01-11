@@ -1,14 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe "hangman_states/index", type: :view do
+RSpec.describe "games/index", type: :view do
   before(:each) do
-    assign(:hangman_states, [
-      HangmanState.create!(word_to_guess: "word", number_of_lives: 5, player: Player.create!(name: "Jordane")),
-      HangmanState.create!(word_to_guess: "anotherword", number_of_lives: 8, player: Player.create!(name: "Player"))
+    assign(:games, [
+      Game.create!(word_to_guess: "word", number_of_lives: 5, player: Player.create!(name: "Jordane")),
+      Game.create!(word_to_guess: "anotherword", number_of_lives: 8, player: Player.create!(name: "Player"))
     ])
   end
 
-  it "renders a list of hangman_states" do
+  it "renders a list of games" do
     render
   end
 end

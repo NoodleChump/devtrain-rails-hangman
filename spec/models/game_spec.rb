@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe HangmanState, type: :model do
+RSpec.describe Game, type: :model do
 
   let(:word) { "word" }
   let(:lives) { 5 }
   let(:letters_to_guess) { "" }
   let(:player) { Player.create!(name: "Jordane") }
 
-  subject(:state) { HangmanState.create(word_to_guess: word, number_of_lives: lives, player: player) }
+  subject(:state) { Game.create(word_to_guess: word, number_of_lives: lives, player: player) }
 
   before do
     HangmanSpecHelper.make_guesses(state, letters_to_guess)
@@ -42,7 +42,7 @@ RSpec.describe HangmanState, type: :model do
     end
 
     it "should have a completely censored word" do
-      expect(state.censored_word).to eq HangmanState::CENSOR_CHARACTER * word.length
+      expect(state.censored_word).to eq Game::CENSOR_CHARACTER * word.length
     end
   end
 
@@ -107,7 +107,7 @@ RSpec.describe HangmanState, type: :model do
     end
 
     it "should have a partially censored word" do
-      expect(state.censored_word).to eq "wo" + HangmanState::CENSOR_CHARACTER * 2
+      expect(state.censored_word).to eq "wo" + Game::CENSOR_CHARACTER * 2
     end
   end
 end

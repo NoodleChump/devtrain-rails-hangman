@@ -8,9 +8,9 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'static_pages#home'
 
-  resources :hangman_states, :players
+  resources :games, :players
 
-  post 'hangman_states/:id/guess' => 'hangman_states#submit_guess'
+  post 'games/:id/guess' => 'games#submit_guess'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

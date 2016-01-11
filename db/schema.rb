@@ -13,16 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20160106032526) do
 
-  create_table "guesses", force: :cascade do |t|
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-    t.string   "letter"
-    t.integer  "hangman_state_id"
-  end
-
-  add_index "guesses", ["hangman_state_id"], name: "index_guesses_on_hangman_state_id"
-
-  create_table "hangman_states", force: :cascade do |t|
+  create_table "games", force: :cascade do |t|
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.integer  "number_of_lives"
@@ -30,7 +21,16 @@ ActiveRecord::Schema.define(version: 20160106032526) do
     t.integer  "player_id"
   end
 
-  add_index "hangman_states", ["player_id"], name: "index_hangman_states_on_player_id"
+  add_index "games", ["player_id"], name: "index_games_on_player_id"
+
+  create_table "guesses", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "letter"
+    t.integer  "game_id"
+  end
+
+  add_index "guesses", ["game_id"], name: "index_guesses_on_game_id"
 
   create_table "players", force: :cascade do |t|
     t.datetime "created_at", null: false

@@ -46,11 +46,11 @@ RSpec.describe Player, type: :model do
     let(:player2) { Player.create!(name: "Player 2") }
     let(:lives) { 1 }
     let(:word1) { "a" }
-    let(:won_game) { HangmanState.create!(word_to_guess: word1, number_of_lives: lives, player: player) }
+    let(:won_game) { Game.create!(word_to_guess: word1, number_of_lives: lives, player: player) }
     let(:word2) { "b" }
-    let(:lost_game) { HangmanState.create!(word_to_guess: word2, number_of_lives: lives, player: player) }
+    let(:lost_game) { Game.create!(word_to_guess: word2, number_of_lives: lives, player: player) }
     let(:word3) { "ab" }
-    let(:in_progress_game) { HangmanState.create!(word_to_guess: word3, number_of_lives: lives, player: player) }
+    let(:in_progress_game) { Game.create!(word_to_guess: word3, number_of_lives: lives, player: player) }
 
     before do
       HangmanSpecHelper.make_guess(won_game, word1)
