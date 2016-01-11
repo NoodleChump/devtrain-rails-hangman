@@ -28,8 +28,13 @@ class Player < ActiveRecord::Base
   end
 
   def ranking
-    #TODO Implement ranking based on w-l and num games played as well?
-    players = Player.all.sort_by {|post| post.win_loss_rate }.reverse
+    players = Player.all.sort_by { |post| post.rank_weight }.reverse
     players.index(self) + 1
+  end
+
+  private
+
+  def rank_weight
+    win_loss_rate * games.count + won_games.count
   end
 end
