@@ -1,28 +1,33 @@
 <p id="notice"><%= notice %></p>
 
 <h1><%= @player.name %></h1>
+
 <h2>Stats</h2>
-<table>
-  <thead>
+<table id="stats">
     <tr>
       <th>Games Won</th>
-      <th>Games Lost</th>
-      <th>Games In Progress</th>
-      <th>Total Games</th>
-      <th>Win-Loss Rate</th>
-      <th>Ranking</th>
+      <td align="right"><%= @player.won_games.count %></td>
     </tr>
-  </thead>
-  <tbody>
     <tr>
-      <td><%= @player.won_games.count %></td>
-      <td><%= @player.lost_games.count %></td>
-      <td><%= @player.in_progress_games.count %></td>
-      <td><%= @player.games.count %></td>
-      <td><%= @player.win_loss_rate %></td>
-      <td><%= @player.ranking %></td>
+      <th>Games Lost</th>
+      <td align="right"><%= @player.lost_games.count %></td>
     </tr>
-  </tbody>
+    <tr>
+      <th>Games In Progress</th>
+      <td align="right"><%= @player.in_progress_games.count %></td>
+    </tr>
+    <tr>
+      <th>Total Games</th>
+      <td align="right"><%= @player.games.count %></td>
+    </tr>
+    <tr>
+      <th>Win-Loss Rate</th>
+      <td align="right"><%= @player.win_loss_rate %></td>
+    </tr>
+    <tr>
+      <th>Ranking</th>
+      <td align="right"><%= @player.ranking %></td>
+    </tr>
 </table>
 
 <%= link_to 'Edit', edit_player_path(@player) %> |

@@ -28,8 +28,21 @@ textarea {
   }
 }
 
+#stats {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  th:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+}
+
 table {
   width: 100%;
+}
+
+tr:hover td {
+  background-color: rgba(0, 0, 0, 0.04);
 }
 
 form {
