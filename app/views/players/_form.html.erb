@@ -18,3 +18,7 @@
     <%= f.submit (f.object.new_record? ? "Create" : "Save") + " Player", class: "btn btn-primary" %>
   </div>
 <% end %>
+
+<script>
+  $("#player_name").focus();
+</script>
