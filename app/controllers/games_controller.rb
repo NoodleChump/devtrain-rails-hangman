@@ -1,10 +1,10 @@
 class GamesController < ApplicationController
   before_action :set_game, only: [:show, :edit, :update, :destroy, :submit_guess] #TODO Move into guess controller (nesting)
-  helper_method :sort_column, :sort_direction
+  helper_method :sort_column
 
   def index
-    @games = Game.all
-    apply_sort
+    games = Game.all
+    @games = apply_sort(games, sort_column, sort_direction)
   end
 
   def show
@@ -55,16 +55,12 @@ class GamesController < ApplicationController
 
   private
 
+  def sort_column
+    params[:sort] ? params[:sort] : "player.name"
+  end
+
   def set_game
     @game = Game.find(params[:id])
-  end
-
-  def sort_column
-    params[:sort] ? params[:sort] : "player_name"
-  end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 
   def game_params
@@ -73,22 +69,5 @@ class GamesController < ApplicationController
 
   def guess_params
     params[:guess].permit(:letter, :game_id)
-  end
-
-  def apply_sort # This is presenter logic #TODO Make and move it
-    case sort_column
-    when "player_name"
-      @games = @games.sort_by { |game| game.player.name }
-    when "progress"
-      @games = @games.sort_by { |game| game.progress }
-    when "remaining_guesses"
-      @games = @games.sort_by { |game| game.number_of_guesses_remaining }
-    else
-      @games = @games.sort_by { |game| game.player.name }
-    end
-
-    if sort_direction == "desc"
-      @games.reverse!
-    end
   end
 end

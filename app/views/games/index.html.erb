@@ -5,14 +5,12 @@
 <table cellspacing="20">
   <thead>
     <tr>
-      <th><%= sortable("player_name", "Player") %></th>
+      <th><%= sortable("player.name", "Player") %></th>
       <th>Revealed</th>
       <th><%= sortable("progress", "Progress") %></th>
-      <th><%= sortable("remaining_guesses", "Guesses Remaining") %></th>
+      <th><%= sortable("number_of_guesses_remaining", "Guesses Remaining") %></th>
       <th>Play</th>
       <th>Delete</th>
-
-      <!--<th>Edit</th>-->
     </tr>
   </thead>
 
@@ -25,8 +23,6 @@
         <td><%= game.number_of_guesses_remaining %></td>
         <td><%= link_to 'Play', game %></td>
         <td><%= link_to 'Delete', game, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-
-        <!--<td><%= link_to 'Edit', edit_game_path(game) %></td>-->
       </tr>
     <% end %>
   </tbody>
