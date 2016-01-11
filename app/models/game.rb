@@ -51,7 +51,7 @@ class Game < ActiveRecord::Base
     end.join
   end
 
-  def remaining_blanks
+  def number_of_blanks_remaining
     censored_word.count(CENSOR_CHARACTER)
   end
 
