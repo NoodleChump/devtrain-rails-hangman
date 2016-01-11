@@ -51,6 +51,10 @@ class HangmanState < ActiveRecord::Base
     end.join
   end
 
+  def remaining_blanks
+    censored_word.count(CENSOR_CHARACTER)
+  end
+
   private
 
   def number_of_incorrect_guesses

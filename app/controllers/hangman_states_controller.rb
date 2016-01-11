@@ -1,34 +1,26 @@
 class HangmanStatesController < ApplicationController
-  before_action :set_hangman_state, only: [:show, :edit, :update, :destroy, :submit_guess]
+  before_action :set_hangman_state, only: [:show, :edit, :update, :destroy, :submit_guess] #TODO Move into guess controller (nesting)
   helper_method :sort_column, :sort_direction
 
-  #NOTE Rename to just HangmanController?
+  #TODO Rename to GamesController
 
-  # GET /hangman_states
-  # GET /hangman_states.json
   def index
     @hangman_states = HangmanState.all
-
     apply_sort
   end
 
-  # GET /hangman_states/1
-  # GET /hangman_states/1.json
+
   def show
     @guess = Guess.new
   end
 
-  # GET /hangman_states/new
   def new
     @hangman_state = HangmanState.new
   end
 
-  # GET /hangman_states/1/edit
   def edit
   end
 
-  # POST /hangman_states
-  # POST /hangman_states.json
   def create
     @hangman_state = HangmanState.new(hangman_state_params)
 
@@ -40,8 +32,6 @@ class HangmanStatesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /hangman_states/1
-  # PATCH/PUT /hangman_states/1.json
   def update
     if @hangman_state.update(hangman_state_params)
       flash[:success] = "Game updated successfully"
@@ -51,8 +41,6 @@ class HangmanStatesController < ApplicationController
     end
   end
 
-  # DELETE /hangman_states/1
-  # DELETE /hangman_states/1.json
   def destroy
     @hangman_state.destroy
     flash[:success] = "Game deleted successfully"
@@ -70,7 +58,6 @@ class HangmanStatesController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_hangman_state
     @hangman_state = HangmanState.find(params[:id])
   end
@@ -83,7 +70,6 @@ class HangmanStatesController < ApplicationController
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def hangman_state_params
     params[:hangman_state].permit(:word_to_guess, :number_of_lives, :player_id)
   end
@@ -97,7 +83,6 @@ class HangmanStatesController < ApplicationController
     when "player_name"
       @hangman_states = @hangman_states.sort_by { |hangman_state| hangman_state.player.name }
     when "progress"
-      #TODO implement
       @hangman_states = @hangman_states.sort_by { |hangman_state| hangman_state.progress }
     when "remaining_guesses"
       @hangman_states = @hangman_states.sort_by { |hangman_state| hangman_state.number_of_guesses_remaining }
