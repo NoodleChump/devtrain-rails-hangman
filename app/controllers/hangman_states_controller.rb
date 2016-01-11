@@ -1,7 +1,7 @@
 class HangmanStatesController < ApplicationController
   before_action :set_hangman_state, only: [:show, :edit, :update, :destroy, :submit_guess]
 
-  #TODO Rename to just HangmanController?
+  #NOTE Rename to just HangmanController?
 
   # GET /hangman_states
   # GET /hangman_states.json
