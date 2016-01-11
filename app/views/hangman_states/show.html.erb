@@ -2,12 +2,13 @@
 
 <h1><%= @hangman_state.censored_word %></h1>
 <h2>Previous Guesses: <%= @hangman_state.guessed_letters.join(", ") %></h2>
+<h2><%= pluralize(@hangman_state.number_of_guesses_remaining, "Guess") %> Remaining</h2>
 <% if !@hangman_state.game_over? %>
   <%= render 'guess_form' %>
 <% elsif @hangman_state.won? %>
-  <h2>Game has been won</h2>
+  <h2>You guessed the word correctly!</h2>
 <% else %>
-  <h2>Game has been lost</h2>
+  <h2>Sorry, you've run out of guesses!</h2>
 <% end %>
 
 <%= link_to 'Back', hangman_states_path %>
