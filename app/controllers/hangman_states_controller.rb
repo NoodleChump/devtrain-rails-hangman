@@ -9,21 +9,7 @@ class HangmanStatesController < ApplicationController
   def index
     @hangman_states = HangmanState.all
 
-    case sort_column
-    when "player_name"
-      @hangman_states = @hangman_states.sort_by { |hangman_state| hangman_state.player.name }
-    when "progress"
-      #TODO implement
-      @hangman_states = @hangman_states.sort_by { |hangman_state| hangman_state.progress }
-    when "remaining_guesses"
-      @hangman_states = @hangman_states.sort_by { |hangman_state| hangman_state.number_of_guesses_remaining }
-    else
-      @hangman_states = @hangman_states.sort_by { |hangman_state| hangman_state.player.name }
-    end
-
-    if sort_direction == "desc"
-      @hangman_states.reverse!
-    end
+    apply_sort
   end
 
   # GET /hangman_states/1
@@ -99,10 +85,28 @@ class HangmanStatesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def hangman_state_params
-    params[:hangman_state].permit(:word_to_guess, :number_of_lives, :player_id, :sort, :direction)
+    params[:hangman_state].permit(:word_to_guess, :number_of_lives, :player_id)
   end
 
   def guess_params
     params[:guess].permit(:letter, :hangman_state_id)
+  end
+
+  def apply_sort
+    case sort_column
+    when "player_name"
+      @hangman_states = @hangman_states.sort_by { |hangman_state| hangman_state.player.name }
+    when "progress"
+      #TODO implement
+      @hangman_states = @hangman_states.sort_by { |hangman_state| hangman_state.progress }
+    when "remaining_guesses"
+      @hangman_states = @hangman_states.sort_by { |hangman_state| hangman_state.number_of_guesses_remaining }
+    else
+      @hangman_states = @hangman_states.sort_by { |hangman_state| hangman_state.player.name }
+    end
+
+    if sort_direction == "desc"
+      @hangman_states.reverse!
+    end
   end
 end

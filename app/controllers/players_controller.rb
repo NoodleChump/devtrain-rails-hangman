@@ -1,10 +1,12 @@
 class PlayersController < ApplicationController
   before_action :set_player, only: [:show, :edit, :update, :destroy]
+  helper_method :sort_column, :sort_direction
 
   # GET /players
   # GET /players.json
   def index
     @players = Player.all
+    apply_sort
   end
 
   # GET /players/1
@@ -55,6 +57,14 @@ class PlayersController < ApplicationController
 
   private
 
+  def sort_column
+    params[:sort] ? params[:sort] : "name"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_player
     @player = Player.find(params[:id])
@@ -63,5 +73,24 @@ class PlayersController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def player_params
     params[:player].permit(:name)
+  end
+
+  def apply_sort
+    case sort_column
+    when "name"
+      @players = @players.sort_by { |player| player.name }
+    when "rank"
+      @players = @players.sort_by { |player| player.ranking }
+    when "won"
+      @players = @players.sort_by { |player| player.won_games.count }
+    when "lost"
+      @players = @players.sort_by { |player| player.lost_games.count }
+    else
+      @players = @players.sort_by { |player| player.name }
+    end
+
+    if sort_direction == "desc"
+      @players.reverse!
+    end
   end
 end
