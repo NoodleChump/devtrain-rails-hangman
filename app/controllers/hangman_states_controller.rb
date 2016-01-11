@@ -1,6 +1,8 @@
 class HangmanStatesController < ApplicationController
   before_action :set_hangman_state, only: [:show, :edit, :update, :destroy, :submit_guess]
 
+  #TODO Rename to just HangmanController?
+
   # GET /hangman_states
   # GET /hangman_states.json
   def index
@@ -56,8 +58,6 @@ class HangmanStatesController < ApplicationController
 
   def submit_guess
     @guess = Guess.new(guess_params)
-
-    #TODO A little redundant for the same-ish action? Just save and render show?
     if @guess.save
       redirect_to @hangman_state
     else
