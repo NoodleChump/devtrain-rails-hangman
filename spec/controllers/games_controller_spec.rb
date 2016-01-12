@@ -61,6 +61,7 @@ RSpec.describe GamesController, type: :controller do
     end
   end
 
+=begin
   describe "GET #edit" do
     it "assigns the requested game as @game" do
       game = Game.create! valid_attributes
@@ -68,6 +69,7 @@ RSpec.describe GamesController, type: :controller do
       expect(assigns(:game)).to eq(game)
     end
   end
+=end
 
   describe "POST #create" do
     context "with valid params" do
