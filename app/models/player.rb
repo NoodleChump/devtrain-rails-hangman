@@ -28,6 +28,8 @@ class Player < ActiveRecord::Base
     players.index(self) + 1
   end
 
+  protected
+
   def rank_weight
     win_loss_rate * games.count + won_games.count
   end
