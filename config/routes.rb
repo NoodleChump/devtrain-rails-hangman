@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'static_pages#home'
 
-  resources :games do
+  resources :games, except: :edit do
     resources :guesses
   end
 

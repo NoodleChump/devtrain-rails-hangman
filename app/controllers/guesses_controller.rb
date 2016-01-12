@@ -1,6 +1,7 @@
 class GuessesController < ApplicationController
   def create
     @guess = Guess.new(guess_params)
+    @game = @guess.game
     if @guess.save
       redirect_to @guess.game
     else
