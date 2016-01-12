@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_action :set_game, only: [:show, :edit, :update, :destroy, :submit_guess] #TODO Move into guess controller (nesting)
+  before_action :set_game, only: [:show, :edit, :update, :destroy]
   helper_method :sort_column
 
   def index
@@ -44,15 +44,6 @@ class GamesController < ApplicationController
     redirect_to games_url
   end
 
-  def submit_guess
-    @guess = Guess.new(guess_params)
-    if @guess.save
-      redirect_to @game
-    else
-      render 'show'
-    end
-  end
-
   private
 
   def sort_column
@@ -65,9 +56,5 @@ class GamesController < ApplicationController
 
   def game_params
     params[:game].permit(:word_to_guess, :number_of_lives, :player_id)
-  end
-
-  def guess_params
-    params[:guess].permit(:letter, :game_id)
   end
 end

@@ -1,4 +1,4 @@
-<%= form_for(@guess, :url => { :action => "submit_guess", :id => @game.id }) do |f| %>
+<%= form_for([@game, @guess]) do |f| %>
   <% if @guess.errors.any? %>
     <div id="error_explanation">
       <h2>There <%= @guess.errors.count == 1 ? 'was an error' : 'were ' + pluralize(@guess.errors.count, "error") %> stopping the guess from being made:</h2>
@@ -12,7 +12,7 @@
 
   <div class="actions">
     <%= f.label :letter, "Letter" %>
-    <%= f.text_field :letter, class: 'form-control' %>
+    <%= f.text_field :letter, :autocomplete => :off, class: 'form-control' %>
 
     <%= f.hidden_field :game_id, :value => @game.id %>
 
