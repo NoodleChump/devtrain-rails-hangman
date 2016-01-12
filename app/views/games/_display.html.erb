@@ -1,3 +1,5 @@
+<%= image_tag("hang#{0}.gif", :class => "hangman-image") %>
+
 <% if @game.game_over? %>
   <% if @game.won? %>
     <h2>You guessed the word correctly with <%= pluralize(@game.number_of_guesses_remaining, "guess") %> remaining!</h2>
