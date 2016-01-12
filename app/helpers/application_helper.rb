@@ -6,13 +6,14 @@ module ApplicationHelper
     link_to title, {:sort => column, :direction => direction}, {:class => css_class}
   end
 
+  # NOTE Is this helper or presenter logic?
   def apply_sort(items, sort_function, sort_direction)
     items = items.sort_by { |item| eval("item." + sort_function) }
     sort_direction == "desc" ? items.reverse : items
   end
 
   private
-  
+
   def sort_column
     params[:sort] ? params[:sort] : "id"
   end
