@@ -16,6 +16,8 @@ class GamesController < ApplicationController
   end
 
   def edit
+    # Don't want to be able to edit games anymore, that's cheating.
+    redirect_to @game
   end
 
   def create

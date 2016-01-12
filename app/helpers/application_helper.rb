@@ -7,10 +7,12 @@ module ApplicationHelper
   end
 
   def apply_sort(items, sort_function, sort_direction)
-    items = items.sort_by { |item| eval("item." + sort_function) }#item.send(sort_function) }
+    items = items.sort_by { |item| eval("item." + sort_function) }
     sort_direction == "desc" ? items.reverse : items
   end
 
+  private
+  
   def sort_column
     params[:sort] ? params[:sort] : "id"
   end
