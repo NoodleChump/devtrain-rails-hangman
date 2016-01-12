@@ -45,7 +45,11 @@ $(function() {
     } else {
       $customWordField.css("max-height", 0);
       $customWordField.css("opacity", 0);
-      $customWordField.css("visibility", "hidden");
+      setTimeout(function () {
+
+$customWordField.css("visibility", "hidden");
+
+      }, 500);
     }
   });
 
