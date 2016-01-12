@@ -12,7 +12,10 @@
   <% end %>
 
   <div class="actions">
-    <%= f.label :player_id, "Player" %>
+    <div>
+    <div style="display: inline-block;"><%= f.label :player_id, "Player" %></div>
+    <div style="float: right;"><%= link_to "Create New Player", new_player_path %></div>
+    </div>
     <%= f.select :player_id, options_for_select(Player.all.map { |player| [player.name, player.id] }), :class => 'form-control' %>
 
     <%= f.label :custom_word, "Use own custom word?" %>
@@ -38,9 +41,11 @@ $(function() {
     if ( $(this).is(":checked") )  {
       $customWordField.css("max-height", 60);
       $customWordField.css("opacity", 1);
+      $customWordField.css("visibility", "visible");
     } else {
       $customWordField.css("max-height", 0);
       $customWordField.css("opacity", 0);
+      $customWordField.css("visibility", "hidden");
     }
   });
 
@@ -50,6 +55,7 @@ $(function() {
     $('.custom-word-checkbox').prop('checked', true);
     $customWordField.css("max-height", 60);
     $customWordField.css("opacity", 1);
+    $customWordField.css("visibility", "visible");
     $customWordField[0].offsetHeight;
     $customWordField.removeClass('notransition');
   }
