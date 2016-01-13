@@ -58,20 +58,20 @@ RSpec.describe Player, type: :model do
       HangmanSpecHelper.make_guess(in_progress_game, word1)
     end
 
-    it "has the three total games" do
+    it "has three total games" do
       expect(player.games.count).to eq 3
       expect([won_game, lost_game].all? { |game| player.games.include?(game) }).to eq true
     end
 
-    it "has the single game won" do
+    it "has a single game won" do
       expect(player.won_games).to eq [won_game]
     end
 
-    it "has the single game lost" do
+    it "has a single game lost" do
       expect(player.lost_games).to eq [lost_game]
     end
 
-    it "has the single game in progress" do
+    it "has a single game in progress" do
       expect(player.in_progress_games).to eq [in_progress_game]
     end
 
