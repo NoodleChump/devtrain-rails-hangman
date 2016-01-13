@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Player, type: :model do
   let(:name) { "foobar" }
-  subject(:player) { Player.create(name: name) }
+  subject(:player) { Player.create!(name: name) }
 
   context "when a player's name is too small" do
     let(:name) { "f" }
@@ -16,8 +16,8 @@ RSpec.describe Player, type: :model do
 
   context "when a player's name is not unique" do
     it "isn't valid" do
-      player.save
-      expect(Player.create(name: name)).to_not be_valid
+      player.save!
+      expect(Player.create!(name: name)).to_not be_valid
     end
   end
 

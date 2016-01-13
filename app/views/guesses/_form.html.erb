@@ -1,4 +1,5 @@
 <%= form_for([@game, @guess]) do |f| %>
+<!-- TODO partial and give @game/@guess -->
   <% if @guess.errors.any? %>
     <div id="error_explanation">
       <h2>There <%= @guess.errors.count == 1 ? 'was an error' : 'were ' + pluralize(@guess.errors.count, "error") %> stopping the guess from being made:</h2>

@@ -23,7 +23,7 @@ class Player < ActiveRecord::Base
     end
   end
 
-  def ranking
+  def ranking # TODO Call in controller instead
     FindPlayerRanking.new.call({
         player: self
       })

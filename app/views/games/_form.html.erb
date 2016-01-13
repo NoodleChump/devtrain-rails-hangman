@@ -29,8 +29,8 @@
     <%= f.label :number_of_lives, "Number of guesses" %>
     <%= f.text_field :number_of_lives, class: 'form-control' %>
 
-    <%= f.submit (f.object.new_record? ? "Create" : "Save") + " Game", class: "btn btn-primary" %>
+    <%= f.submit "#{ f.object.new_record? ? "Create" : "Save" } Game", class: "btn btn-primary" %>
   </div>
 <% end %>
 
-<%= javascript_include_tag "games_form" %>
+<%= javascript_include_tag "games_form" %> <!-- TODO JS global -->

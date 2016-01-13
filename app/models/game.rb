@@ -8,13 +8,15 @@ class Game < ActiveRecord::Base
 
   attr_accessor :custom_word
 
-  CENSOR_CHARACTER = "*"
+  CENSOR_CHARACTER = "*" #TODO view
+
+  #TODO Get rid of prem returns
 
   def guessed_letters
     guesses.map(&:letter)
   end
 
-  def censored_word
+  def censored_word #TODO return array with some nils?
     return word_to_guess if game_over?
 
     word_to_guess.chars.map do |letter|
@@ -24,7 +26,7 @@ class Game < ActiveRecord::Base
 
   def won?
     word_to_guess.chars.all? do |letter|
-      guessed_letters.include? letter.downcase
+      guessed_letters.include?(letter.downcase)
     end
   end
 
@@ -40,7 +42,7 @@ class Game < ActiveRecord::Base
     won? || lost?
   end
 
-  def progress
+  def progress #TODO progress or progessss
     return :won if won?
     return :lost if lost?
     return :in_progress if guesses.present?
@@ -52,7 +54,7 @@ class Game < ActiveRecord::Base
     [number_of_lives - number_of_incorrect_guesses, 0].max
   end
 
-  def number_of_blanks_remaining
+  def number_of_blanks_remaining #refactor or shift out for view
     censored_word.count(CENSOR_CHARACTER)
   end
 
