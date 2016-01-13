@@ -1,4 +1,4 @@
-class FindUserRanking
+class FindPlayerRanking
   def call(params)
     players = Player.all.sort_by { |player| rank_weight(player) }.reverse
     players.index(params[:player]) + 1

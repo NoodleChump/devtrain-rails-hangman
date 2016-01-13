@@ -24,7 +24,7 @@ class Player < ActiveRecord::Base
   end
 
   def ranking
-    FindUserRanking.new.call({
+    FindPlayerRanking.new.call({
         player: self
       })
   end
