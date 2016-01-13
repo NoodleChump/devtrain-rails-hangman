@@ -5,7 +5,7 @@ class Guess < ActiveRecord::Base
   validate :letter_in_alphabet?, :not_already_guessed?
   before_save :downcase_letter
 
-  ALPHABET = 'a'..'z'
+  ALPHABET = ('a'..'z').to_a
 
   private
 
