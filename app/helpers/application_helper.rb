@@ -6,6 +6,9 @@ module ApplicationHelper
     link_to title, {:sort => column, :direction => direction}, {:class => css_class}
   end
 
+
+  # TODO - burn the eval - sort_function = "id; File.readlines('/etc/password').map({|thing| puts thing})"
+  # ['player', 'id'].reduce(game) { |receiver, method| receiver.send(method) }
   # NOTE Is this helper or presenter logic?
   def apply_sort(items, sort_function, sort_direction)
     items = items.sort_by { |item| eval("item." + sort_function) }

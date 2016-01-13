@@ -30,12 +30,12 @@ RSpec.describe Guess, type: :model do
       HangmanSpecHelper.make_guess(game, letter)
     end
 
-    it "shouldn't validate when a guess for the same letter has already been made" do
+    it "doesn't validate when a guess for the same letter has already been made" do
       guess = game.guesses.create(letter: letter)
       expect(guess).to_not be_valid
     end
 
-    it "shouldn't save and the number of guesses taken is not affected" do
+    it "doesn't save and the number of guesses taken is not affected" do
       expect(game.guesses.build(letter: letter).save).to eq false
       game.guesses.reload
       expect(game.guesses.length).to eq 1

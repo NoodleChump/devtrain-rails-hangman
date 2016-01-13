@@ -12,6 +12,7 @@ class GuessesController < ApplicationController
   private
 
   def guess_params
+    # TODO require
     params[:guess].permit(:letter, :game_id)
   end
 end

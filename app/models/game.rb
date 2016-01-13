@@ -11,13 +11,14 @@ class Game < ActiveRecord::Base
   CENSOR_CHARACTER = "*"
 
   def guessed_letters
-    guesses.map { |guess| guess.letter }
+    guesses.map(&:letter)
   end
 
   def censored_word
     return word_to_guess if game_over?
+
     word_to_guess.chars.map do |letter|
-      (guessed_letters.include?(letter) ? letter : CENSOR_CHARACTER)
+      guessed_letters.include?(letter) ? letter : CENSOR_CHARACTER
     end.join
   end
 
@@ -40,15 +41,11 @@ class Game < ActiveRecord::Base
   end
 
   def progress
-    if won?
-      :won
-    elsif lost?
-      :lost
-    elsif guesses.count == 0
-      :not_started
-    else
-      :in_progress
-    end
+    return :won if won?
+    return :lost if lost?
+    return :in_progress if guesses.present?
+
+    :not_started
   end
 
   def number_of_guesses_remaining

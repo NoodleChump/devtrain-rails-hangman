@@ -22,9 +22,7 @@ RSpec.describe Game, type: :model do
   context "when creating a new game with an invalid word" do
     let(:word) { "" }
 
-    it "shouldn't validate the game" do
-      expect(game.valid?).to eq false
-    end
+    it { is_expected.not_to be_valid }
   end
 
   context "when a game is created with a valid word and number of lives" do
@@ -33,15 +31,15 @@ RSpec.describe Game, type: :model do
     it { is_expected.to_not be_won }
     it { is_expected.to_not be_game_over }
 
-    it "should have no guessed letters" do
+    it "has no guessed letters" do
       expect(game.guesses.length).to eq 0
     end
 
-    it "should be not started" do
+    it "is not started" do
       expect(game.progress).to eq :not_started
     end
 
-    it "should have a completely censored word" do
+    it "has a completely censored word" do
       expect(game.censored_word).to eq Game::CENSOR_CHARACTER * word.length
     end
   end
@@ -54,15 +52,15 @@ RSpec.describe Game, type: :model do
     it { is_expected.to_not be_won }
     it { is_expected.to be_game_over }
 
-    it "shouldn't have any more guesses left" do
+    it "doesn't have any more guesses left" do
       expect(game.number_of_guesses_remaining).to eq 0
     end
 
-    it "should have the guessed letter stored correctly" do
-      expect(game.guessed_letters.include?("z")).to eq true
+    it "has the guessed letter stored correctly" do
+      expect(game.guessed_letters).to include letters_to_guess
     end
 
-    it "should be lost" do
+    it "is lost" do
       expect(game.progress).to eq :lost
     end
   end
@@ -74,19 +72,19 @@ RSpec.describe Game, type: :model do
     it { is_expected.to be_won }
     it { is_expected.to be_game_over }
 
-    it "should have some guesses left" do
+    it "has some guesses left" do
       expect(game.number_of_guesses_remaining).to be > 0
     end
 
-    it "should have each of the guessed letters stored correctly" do
-      expect(letters_to_guess.chars.all? { |letter| game.guessed_letters.include?(letter) }).to eq true
+    it "has each of the guessed letters stored correctly" do
+      expect(game.guessed_letters).to match_array letters_to_guess.chars
     end
 
-    it "should be won" do
+    it "is won" do
       expect(game.progress).to eq :won
     end
 
-    it "should have a completely uncensored word" do
+    it "has a completely uncensored word" do
       expect(game.censored_word).to eq word
     end
   end
@@ -98,15 +96,15 @@ RSpec.describe Game, type: :model do
     it { is_expected.to_not be_won }
     it { is_expected.to_not be_game_over }
 
-    it "should have some guesses left" do
+    it "has some guesses left" do
       expect(game.number_of_guesses_remaining).to be > 0
     end
 
-    it "should be in progress" do
+    it "is in progress" do
       expect(game.progress).to eq :in_progress
     end
 
-    it "should have a partially censored word" do
+    it "has a partially censored word" do
       expect(game.censored_word).to eq "wo" + Game::CENSOR_CHARACTER * 2
     end
   end

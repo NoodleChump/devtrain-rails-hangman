@@ -26,15 +26,6 @@ class GamesController < ApplicationController
     end
   end
 
-  def update
-    if @game.update(game_params)
-      flash[:success] = "Game updated successfully"
-      redirect_to @game
-    else
-      render 'edit'
-    end
-  end
-
   def destroy
     @game.destroy
     flash[:success] = "Game deleted successfully"
@@ -52,6 +43,6 @@ class GamesController < ApplicationController
   end
 
   def game_params
-    params[:game].permit(:word_to_guess, :number_of_lives, :player_id)
+    params.require(:game).permit(:word_to_guess, :number_of_lives, :player_id)
   end
 end

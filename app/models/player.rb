@@ -4,15 +4,15 @@ class Player < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true, length: { minimum: 3, maximum: 20 }
 
   def won_games
-    games.select { |game| game.won? }
+    games.select(&:won?)
   end
 
   def lost_games
-    games.select { |game| game.lost? }
+    games.select(&:lost?)
   end
 
   def in_progress_games
-    games.select { |game| !game.game_over? }
+    games.reject(&:game_over?)
   end
 
   def win_loss_rate
@@ -23,12 +23,11 @@ class Player < ActiveRecord::Base
     end
   end
 
+  #TODO Ranking logic as a service?
   def ranking
-    players = Player.all.sort_by { |player| player.rank_weight }.reverse
+    players = Player.all.sort_by(&:rank_weight).reverse
     players.index(self) + 1
   end
-
-  protected
 
   def rank_weight
     win_loss_rate * games.count + won_games.count
