@@ -23,13 +23,9 @@ class Player < ActiveRecord::Base
     end
   end
 
-  #TODO Ranking logic as a service?
   def ranking
-    players = Player.all.sort_by(&:rank_weight).reverse
-    players.index(self) + 1
-  end
-
-  def rank_weight
-    win_loss_rate * games.count + won_games.count
+    FindUserRanking.new.call({
+        player: self
+      })
   end
 end
