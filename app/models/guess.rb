@@ -2,7 +2,7 @@ class Guess < ActiveRecord::Base
   belongs_to :game
 
   validates :letter, presence: true, length: { is: 1 }
-  validate :letter_in_alphabet?, :already_guessed?
+  validate :letter_in_alphabet?, :not_already_guessed?
   before_save :downcase_letter
 
   ALPHABET = 'a'..'z'
@@ -19,7 +19,7 @@ class Guess < ActiveRecord::Base
     end
   end
 
-  def already_guessed? #TODO NOT
+  def not_already_guessed?
     if game.guesses.pluck(:letter).include?(letter)
       errors.add(:letter, "has already been guessed")
     end
