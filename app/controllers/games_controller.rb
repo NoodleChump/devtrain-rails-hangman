@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_action :set_game, only: [:show, :edit, :update, :destroy, :submit_guess] #TODO Move into guess controller (nesting)
+  before_action :set_game, only: [:show, :edit, :update, :destroy]
   helper_method :sort_column
 
   def index
@@ -15,9 +15,6 @@ class GamesController < ApplicationController
     @game = Game.new
   end
 
-  def edit
-  end
-
   def create
     @game = Game.new(game_params)
 
@@ -29,28 +26,10 @@ class GamesController < ApplicationController
     end
   end
 
-  def update
-    if @game.update(game_params)
-      flash[:success] = "Game updated successfully"
-      redirect_to @game
-    else
-      render 'edit'
-    end
-  end
-
   def destroy
     @game.destroy
     flash[:success] = "Game deleted successfully"
     redirect_to games_url
-  end
-
-  def submit_guess
-    @guess = Guess.new(guess_params)
-    if @guess.save
-      redirect_to @game
-    else
-      render 'show'
-    end
   end
 
   private
@@ -64,10 +43,6 @@ class GamesController < ApplicationController
   end
 
   def game_params
-    params[:game].permit(:word_to_guess, :number_of_lives, :player_id)
-  end
-
-  def guess_params
-    params[:guess].permit(:letter, :game_id)
+    params.require(:game).permit(:word_to_guess, :number_of_lives, :player_id)
   end
 end

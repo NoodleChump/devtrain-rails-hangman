@@ -6,10 +6,13 @@ module ApplicationHelper
     link_to title, {:sort => column, :direction => direction}, {:class => css_class}
   end
 
-  def apply_sort(items, sort_function, sort_direction)
-    items = items.sort_by { |item| eval("item." + sort_function) }#item.send(sort_function) }
+  def apply_sort(items, sort_functions, sort_direction)
+    items = items.sort_by { |item| sort_functions.split(".")
+      .reduce(item) { |item, sort_function| item.send(sort_function) }}
     sort_direction == "desc" ? items.reverse : items
   end
+
+  private
 
   def sort_column
     params[:sort] ? params[:sort] : "id"

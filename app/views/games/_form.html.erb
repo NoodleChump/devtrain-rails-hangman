@@ -12,7 +12,10 @@
   <% end %>
 
   <div class="actions">
-    <%= f.label :player_id, "Player" %>
+    <div>
+    <div style="display: inline-block;"><%= f.label :player_id, "Player" %></div>
+    <div style="float: right;"><%= link_to "Create New Player", new_player_path %></div>
+    </div>
     <%= f.select :player_id, options_for_select(Player.all.map { |player| [player.name, player.id] }), :class => 'form-control' %>
 
     <%= f.label :custom_word, "Use own custom word?" %>
@@ -32,37 +35,51 @@
 
 <script>
 $(function() {
-  // When the checkbox is toggled, show/hide the custom word field
   var $customWordField = $('.custom-word-field');
-  $('.custom-word-checkbox').change(function(e) {
-    if ( $(this).is(":checked") )  {
-      $customWordField.css("max-height", 60);
-      $customWordField.css("opacity", 1);
+  var $customWordCheckbox = $('.custom-word-checkbox');
+
+  var showCustomWordField = function() {
+    $customWordField.css("max-height", 60);
+    $customWordField.css("opacity", 1);
+    $customWordField.css("visibility", "visible");
+  };
+
+  var hideCustomWordField = function() {
+    $customWordField.css("max-height", 0);
+    $customWordField.css("opacity", 0);
+    setTimeout(function() {
+      $customWordField.css("visibility", "hidden");
+    }, 500);
+  }
+
+  // When the checkbox is toggled, show/hide the custom word field
+  $customWordCheckbox.change(function(e) {
+    if ($(this).is(":checked"))  {
+      showCustomWordField();
     } else {
-      $customWordField.css("max-height", 0);
-      $customWordField.css("opacity", 0);
+      hideCustomWordField();
     }
   });
 
   // If the field for the custom word was showing, make it expanded by default again
   if (<%= params[:game] && params[:game][:custom_word] == "checked" ? true : false %>) {
+    console.log("checked");
+    $customWordCheckbox.prop('checked', true);
     $customWordField.addClass('notransition');
-    $('.custom-word-checkbox').prop('checked', true);
-    $customWordField.css("max-height", 60);
-    $customWordField.css("opacity", 1);
+    showCustomWordField();
     $customWordField[0].offsetHeight;
     $customWordField.removeClass('notransition');
   }
 
   // Set word to either the last custom word, or a random word by default
-  if ( !$('.custom-word-checkbox').is(":checked") )  {
+  if (!$customWordCheckbox.is(":checked"))  {
     $('#game_word_to_guess').val("<%= GamesHelper.random_word %>")
   } else {
-    $('#game_word_to_guess').val("<%= params[:game][:custom_word] if params[:game] %>")
+    $('#game_word_to_guess').val("<%= params[:game][:word_to_guess] if params[:game] %>")
   }
 
   // Set default number of lives
-  if ( $('#game_number_of_lives').val() == "" )  {
+  if ($('#game_number_of_lives').val() == "")  {
     $('#game_number_of_lives').val("5")
   }
 

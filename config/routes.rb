@@ -8,9 +8,11 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'static_pages#home'
 
-  resources :games, :players
+  resources :games, except: :edit do
+    resources :guesses
+  end
 
-  post 'games/:id/guess' => 'games#submit_guess'
+  resources :players
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
