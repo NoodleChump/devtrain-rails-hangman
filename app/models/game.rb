@@ -56,7 +56,8 @@ class Game < ActiveRecord::Base
     censored_word.count(CENSOR_CHARACTER)
   end
 
-  def progress_percentage # TODO test me
+  def progress_percentage
+    return 100.0 if game_over?
     (number_of_incorrect_guesses / number_of_lives.to_f) * 100
   end
 

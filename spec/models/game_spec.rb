@@ -35,6 +35,10 @@ RSpec.describe Game, type: :model do
       expect(game.guesses.length).to eq 0
     end
 
+    it "has a progress of 0(%)" do
+      expect(game.progress_percentage). to eq 0.0
+    end
+
     it "is not started" do
       expect(game.progress).to eq :not_started
     end
@@ -54,6 +58,10 @@ RSpec.describe Game, type: :model do
 
     it "doesn't have any more guesses left" do
       expect(game.number_of_guesses_remaining).to eq 0
+    end
+
+    it "has a progress of 100(%)" do
+      expect(game.progress_percentage). to eq 100.0
     end
 
     it "has the guessed letter stored correctly" do
@@ -76,6 +84,10 @@ RSpec.describe Game, type: :model do
       expect(game.number_of_guesses_remaining).to be > 0
     end
 
+    it "has a progress of 100(%)" do
+      expect(game.progress_percentage). to eq 100.0
+    end
+
     it "has each of the guessed letters stored correctly" do
       expect(game.guessed_letters).to match_array letters_to_guess.chars
     end
@@ -90,7 +102,8 @@ RSpec.describe Game, type: :model do
   end
 
   context "when there are some correct and incorrect guesses in a running game" do
-    let(:letters_to_guess) { "wo" }
+    let(:letters_to_guess) { "woxz" }
+    let(:lives) { 4 }
 
     it { is_expected.to_not be_lost }
     it { is_expected.to_not be_won }
@@ -102,6 +115,10 @@ RSpec.describe Game, type: :model do
 
     it "is in progress" do
       expect(game.progress).to eq :in_progress
+    end
+
+    it "has a progress of 50(%)" do
+      expect(game.progress_percentage). to eq 50.0
     end
 
     it "has a partially censored word" do
