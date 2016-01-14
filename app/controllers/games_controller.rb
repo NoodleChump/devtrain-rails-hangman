@@ -1,4 +1,6 @@
 class GamesController < ApplicationController
+  include GamesPresenter
+  
   before_action :set_game, only: [:show, :edit, :update, :destroy]
   helper_method :sort_column
 
@@ -35,7 +37,7 @@ class GamesController < ApplicationController
   private
 
   def sort_column
-    params[:sort] ? params[:sort] : "player.name"
+    params[:sort] || "player.name"
   end
 
   def set_game

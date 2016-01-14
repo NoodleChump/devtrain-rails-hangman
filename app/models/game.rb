@@ -42,12 +42,16 @@ class Game < ActiveRecord::Base
     won? || lost?
   end
 
-  def progress #TODO progress or progessss
-    return :won if won?
-    return :lost if lost?
-    return :in_progress if guesses.present?
-
-    :not_started
+  def progress
+    if won?
+      :won
+    elsif lost?
+      :lost
+    elsif guesses.present?
+      :in_progress
+    else
+      :not_started
+    end
   end
 
   def number_of_guesses_remaining
@@ -59,8 +63,7 @@ class Game < ActiveRecord::Base
   end
 
   def progress_percentage
-    return 100.0 if game_over?
-    (number_of_incorrect_guesses / number_of_lives.to_f) * 100
+    game_over? ? 100.0 : (number_of_incorrect_guesses / number_of_lives.to_f) * 100
   end
 
   private

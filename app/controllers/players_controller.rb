@@ -1,4 +1,6 @@
 class PlayersController < ApplicationController
+  include PlayersPresenter
+  
   before_action :set_player, only: [:show, :edit, :update, :destroy]
   helper_method :sort_column
 

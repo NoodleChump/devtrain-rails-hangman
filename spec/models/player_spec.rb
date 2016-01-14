@@ -17,7 +17,7 @@ RSpec.describe Player, type: :model do
   context "when a player's name is not unique" do
     it "isn't valid" do
       player.save!
-      expect(Player.create!(name: name)).to_not be_valid
+      expect(Player.create(name: name)).to_not be_valid
     end
   end
 
@@ -43,19 +43,18 @@ RSpec.describe Player, type: :model do
 
   context "a player with a game won, lost, and in progress" do
     subject(:player) { Player.create!(name: "Player") }
-    let(:player2) { Player.create!(name: "Player 2") }
     let(:lives) { 1 }
-    let(:word1) { "a" }
-    let(:won_game) { Game.create!(word_to_guess: word1, number_of_lives: lives, player: player) }
-    let(:word2) { "b" }
-    let(:lost_game) { Game.create!(word_to_guess: word2, number_of_lives: lives, player: player) }
-    let(:word3) { "ab" }
-    let(:in_progress_game) { Game.create!(word_to_guess: word3, number_of_lives: lives, player: player) }
+    let(:word_a) { "a" }
+    let(:won_game) { Game.create!(word_to_guess: word_b, number_of_lives: lives, player: player) }
+    let(:word_b) { "b" }
+    let(:lost_game) { Game.create!(word_to_guess: word_b, number_of_lives: lives, player: player) }
+    let(:word_ab) { "ab" }
+    let(:in_progress_game) { Game.create!(word_to_guess: word_ab, number_of_lives: lives, player: player) }
 
     before do
-      HangmanSpecHelper.make_guess(won_game, word1)
-      HangmanSpecHelper.make_guess(lost_game, word1)
-      HangmanSpecHelper.make_guess(in_progress_game, word1)
+      HangmanSpecHelper.make_guess(won_game, word_a)
+      HangmanSpecHelper.make_guess(lost_game, word_a)
+      HangmanSpecHelper.make_guess(in_progress_game, word_a)
     end
 
     it "has three total games" do
