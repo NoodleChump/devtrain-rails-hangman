@@ -1,15 +1,18 @@
 class PlayersController < ApplicationController
   include PlayersPresenter
-  
+
   before_action :set_player, only: [:show, :edit, :update, :destroy]
   helper_method :sort_column
 
   def index
     players = Player.all
     @players = apply_sort(players, sort_column, sort_direction)
+    @rankings = Hash.new
+    players.each { |player| @rankings[player.id] = FindPlayerRanking.new(player).call() }
   end
 
   def show
+    @ranking = FindPlayerRanking.new(@player).call()
   end
 
   def new

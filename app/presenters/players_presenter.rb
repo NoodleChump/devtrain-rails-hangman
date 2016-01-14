@@ -1,7 +1,7 @@
 module PlayersPresenter
   SORT_MAPPINGS = {
     'name' => -> (player) { player.name },
-    'ranking' => -> (player) { player.ranking },
+    'ranking' => -> (player) { FindPlayerRanking.new(player).call() },
     'won' => -> (player) { player.won_games.length },
     'lost' => -> (player) { player.lost_games.length }
   }

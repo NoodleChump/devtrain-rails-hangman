@@ -9,8 +9,8 @@ class Guess < ActiveRecord::Base
 
   private
 
-  def downcase_letter #TODO assign instead
-    self.letter.downcase! # if letter
+  def downcase_letter
+    letter = letter.downcase if letter
   end
 
   def not_already_guessed

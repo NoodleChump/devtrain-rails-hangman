@@ -22,8 +22,4 @@ class Player < ActiveRecord::Base
       won_games.count / lost_games.count.to_f
     end
   end
-
-  def ranking # TODO Call in controller instead
-    FindPlayerRanking.new(self).call()
-  end
 end

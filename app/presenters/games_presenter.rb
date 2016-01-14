@@ -30,7 +30,7 @@ module GamesPresenter
     end
 
     def method_missing(m, *args, &block)
-      @object.send(m, *args, &block)
+      @game.send(m, *args, &block)
     end
 
     def censored_word
