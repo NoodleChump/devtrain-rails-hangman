@@ -20,7 +20,7 @@
         <td><%= link_to game.player.name, game.player %></td>
         <td><%= game.censored_word %></td>
         <td><%= game.progress.to_s.humanize %></td>
-        <td><%= game.number_of_guesses_remaining %></td>
+        <td><%= game.number_of_lives_remaining %></td>
         <td class="right-aligned"><%= link_to 'Play', game %></td>
         <td class="right-aligned"><%= link_to 'Delete', game, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

@@ -57,7 +57,7 @@ RSpec.describe Game, type: :model do
     it { is_expected.to be_game_over }
 
     it "doesn't have any more guesses left" do
-      expect(game.number_of_guesses_remaining).to eq 0
+      expect(game.number_of_lives_remaining).to eq 0
     end
 
     it "has a progress of 100(%)" do
@@ -81,7 +81,7 @@ RSpec.describe Game, type: :model do
     it { is_expected.to be_game_over }
 
     it "has some guesses left" do
-      expect(game.number_of_guesses_remaining).to be > 0
+      expect(game.number_of_lives_remaining).to be > 0
     end
 
     it "has a progress of 100(%)" do
@@ -110,7 +110,7 @@ RSpec.describe Game, type: :model do
     it { is_expected.to_not be_game_over }
 
     it "has some guesses left" do
-      expect(game.number_of_guesses_remaining).to be > 0
+      expect(game.number_of_lives_remaining).to be > 0
     end
 
     it "is in progress" do

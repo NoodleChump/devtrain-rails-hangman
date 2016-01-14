@@ -31,7 +31,7 @@ class Game < ActiveRecord::Base
   end
 
   def out_of_lives?
-    number_of_guesses_remaining == 0
+    number_of_lives_remaining == 0
   end
 
   def lost?
@@ -54,7 +54,7 @@ class Game < ActiveRecord::Base
     end
   end
 
-  def number_of_guesses_remaining
+  def number_of_lives_remaining
     [number_of_lives - number_of_incorrect_guesses, 0].max
   end
 
