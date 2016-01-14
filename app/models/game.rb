@@ -12,7 +12,7 @@ class Game < ActiveRecord::Base
     guesses.map(&:letter)
   end
 
-  def censored_word #TODO return array with some nils?
+  def censored_word
     if game_over?
       word_to_guess.chars
     else

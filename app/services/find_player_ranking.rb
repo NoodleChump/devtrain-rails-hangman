@@ -3,7 +3,7 @@ class FindPlayerRanking
     @player = player
   end
 
-  def call() #TODO use @player
+  def call
     players = Player.all.sort_by { |player| rank_weight(player) }.reverse
     players.index(@player) + 1
   end

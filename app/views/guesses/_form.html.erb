@@ -1,15 +1,6 @@
 <%= form_for([@game, @guess]) do |f| %>
-<!-- TODO partial and give @game/@guess -->
-  <% if @guess.errors.any? %>
-    <div id="error_explanation">
-      <h2>There <%= @guess.errors.count == 1 ? 'was an error' : 'were ' + pluralize(@guess.errors.count, "error") %> stopping the guess from being made:</h2>
-      <ul>
-      <% @guess.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+
+  <%= render :partial => "layouts/errors", :locals => { :item => @guess } %>
 
   <div class="actions">
     <%= f.label :letter, "Letter" %>

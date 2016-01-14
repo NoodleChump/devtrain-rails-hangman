@@ -1,15 +1,6 @@
 <%= form_for(@game) do |f| %>
-  <% if @game.errors.any? %>
-    <div id="error_explanation">
-      <h2>There <%= @game.errors.count == 1 ? 'was an error' : 'were ' + pluralize(@game.errors.count, "error") %> stopping the game from being saved:</h2>
 
-      <ul>
-      <% @game.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render :partial => "layouts/errors", :locals => { :item => @game } %>
 
   <div class="actions" data-custom-word="<%= params[:game][:word_to_guess] if params[:game] %>" data-random-word="<%= GamesHelper.random_word %>" data-custom-word-checked="<%= params[:game] && params[:game][:custom_word] ? true : false %>">
     <div>
