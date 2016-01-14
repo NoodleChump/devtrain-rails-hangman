@@ -15,26 +15,9 @@ module GamesPresenter
 
     direction == "desc" ? games.reverse : games
   end
-
-  class GamePresenter
-    CENSOR_CHARACTER = "*"
-
-    delegate :player, to: :@game
-
-    def initialize(game)
-      @game = game
-    end
-
-    def _h
-      @game
-    end
-
-    def method_missing(m, *args, &block)
-      @game.send(m, *args, &block)
-    end
-
-    def censored_word
-      @game.censored_word.map { |item| item != nil ? item : CENSOR_CHARACTER }.join
-    end
-  end
 end
+
+# REVIEW Are these presenters right?
+# TODO Test presenters
+
+# TODO Unit test things
