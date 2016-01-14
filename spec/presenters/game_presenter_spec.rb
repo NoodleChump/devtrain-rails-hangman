@@ -15,11 +15,11 @@ RSpec.describe GamePresenter, type: :presenter do
 
   context "when a game has some guesses made" do
     before do
-      HangmanSpecHelper.make_guesses(game, word[0..word.length - 2])
+      HangmanSpecHelper.make_guesses(game, word[0..-2])
     end
 
     it "has a partially censored word" do
-      expect(presented_game.censored_word).to eq word[0..word.length - 2] + GamePresenter::CENSOR_CHARACTER
+      expect(presented_game.censored_word).to eq word[0..-2] + GamePresenter::CENSOR_CHARACTER
     end
   end
 
