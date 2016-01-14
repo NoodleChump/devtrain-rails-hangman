@@ -1,4 +1,4 @@
-class FindPlayerRanking
+class FindPlayerRanking #TODO Test me
   def initialize(player)
     @player = player
   end
