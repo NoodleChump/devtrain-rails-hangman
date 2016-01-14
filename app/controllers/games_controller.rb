@@ -1,16 +1,17 @@
 class GamesController < ApplicationController
   include GamesPresenter
-  
+
   before_action :set_game, only: [:show, :edit, :update, :destroy]
   helper_method :sort_column
 
   def index
-    games = Game.all
+    games = Game.all.map { |game| GamePresenter.new(game) }
     @games = apply_sort(games, sort_column, sort_direction)
   end
 
   def show
     @guess = Guess.new
+    @game = GamePresenter.new(Game.find(params[:id]))
   end
 
   def new

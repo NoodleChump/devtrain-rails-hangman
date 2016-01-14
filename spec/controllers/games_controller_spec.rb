@@ -42,7 +42,8 @@ RSpec.describe GamesController, type: :controller do
     it "assigns all games as @games" do
       game = Game.create! valid_attributes
       get :index, {}, valid_session
-      expect(assigns(:games)).to eq([game])
+      expect(assigns(:games)[0]._h).to eq(game)
+      expect(assigns(:games).length).to eq 1
     end
   end
 
@@ -50,7 +51,7 @@ RSpec.describe GamesController, type: :controller do
     it "assigns the requested game as @game" do
       game = Game.create! valid_attributes
       get :show, {:id => game.to_param}, valid_session
-      expect(assigns(:game)).to eq(game)
+      expect(assigns(:game)._h).to eq(game)
     end
   end
 

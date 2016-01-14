@@ -7,6 +7,8 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'hangman_spec_helper'
 # Add additional requires below this line. Rails is not loaded until this point!
+Dir[Rails.root.join("app/services/*.rb")].sort.each { |f| require f }
+Dir[Rails.root.join("app/presenters/*.rb")].sort.each { |f| require f }
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are

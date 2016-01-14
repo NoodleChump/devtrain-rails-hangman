@@ -15,4 +15,27 @@ module GamesPresenter
 
     direction == "desc" ? games.reverse : games
   end
+
+  class GamePresenter
+    CENSOR_CHARACTER = "*"
+
+    delegate :player, to: :@game
+    #delegate :to_model, :player, :guessed_letters, :won?, :out_of_lives?, :lost?, :game_over?, :progress, :number_of_lives_remaining, :number_of_blanks_remaining, :progress_percentage, to: :@game
+
+    def initialize(game)
+      @game = game
+    end
+
+    def _h
+      @game
+    end
+
+    def method_missing(m, *args, &block)
+      @object.send(m, *args, &block)
+    end
+
+    def censored_word
+      @game.censored_word.map { |item| item != nil ? item : CENSOR_CHARACTER }.join
+    end
+  end
 end

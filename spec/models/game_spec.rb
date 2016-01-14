@@ -44,7 +44,7 @@ RSpec.describe Game, type: :model do
     end
 
     it "has a completely censored word" do
-      expect(game.censored_word).to eq Game::CENSOR_CHARACTER * word.length
+      expect(game.censored_word).to eq [nil] * word.length
     end
   end
 
@@ -97,7 +97,7 @@ RSpec.describe Game, type: :model do
     end
 
     it "has a completely uncensored word" do
-      expect(game.censored_word).to eq word
+      expect(game.censored_word).to eq word.chars
     end
   end
 
@@ -122,7 +122,7 @@ RSpec.describe Game, type: :model do
     end
 
     it "has a partially censored word" do
-      expect(game.censored_word).to eq "wo" + Game::CENSOR_CHARACTER * 2
+      expect(game.censored_word).to eq "wo".chars + [nil] * 2
     end
   end
 end

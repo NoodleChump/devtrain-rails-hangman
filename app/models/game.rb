@@ -8,19 +8,17 @@ class Game < ActiveRecord::Base
 
   attr_accessor :custom_word
 
-  CENSOR_CHARACTER = "*" #TODO view
-
   def guessed_letters
     guesses.map(&:letter)
   end
 
   def censored_word #TODO return array with some nils?
     if game_over?
-      word_to_guess
+      word_to_guess.chars
     else
       word_to_guess.chars.map do |letter|
-        guessed_letters.include?(letter) ? letter : CENSOR_CHARACTER
-      end.join
+        guessed_letters.include?(letter) ? letter : nil
+      end
     end
   end
 
@@ -59,7 +57,7 @@ class Game < ActiveRecord::Base
   end
 
   def number_of_blanks_remaining #refactor or shift out for view
-    censored_word.count(CENSOR_CHARACTER)
+    censored_word.count(nil)
   end
 
   def progress_percentage
