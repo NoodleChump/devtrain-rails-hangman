@@ -3,7 +3,7 @@ module GamesPresenter
     'name' => -> (game) { game.player.name },
     'guesses' => -> (game) { game.number_of_lives_remaining },
     'blanks' => -> (game) { game.number_of_blanks_remaining },
-    'progress' => -> (game) { game.progress }
+    'progress' => -> (game) { game.progression }
   }
 
   def apply_sort(games, field, direction)

@@ -1,4 +1,3 @@
 $(function() {
-  $letterField = $("#guess_letter");
-  $letterField.select();
+  $("#guess_letter").select();
 });

@@ -40,7 +40,7 @@ class Game < ActiveRecord::Base
     won? || lost?
   end
 
-  def progress
+  def progression
     if won?
       :won
     elsif lost?
@@ -60,8 +60,8 @@ class Game < ActiveRecord::Base
     censored_word.count(nil)
   end
 
-  def progress_percentage
-    game_over? ? 100.0 : (number_of_incorrect_guesses / number_of_lives.to_f) * 100
+  def progression_percentage
+    lost? ? 100.0 : (number_of_incorrect_guesses / number_of_lives.to_f) * 100
   end
 
   private
