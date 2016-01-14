@@ -10,18 +10,18 @@ class Game < ActiveRecord::Base
 
   CENSOR_CHARACTER = "*" #TODO view
 
-  #TODO Get rid of prem returns
-
   def guessed_letters
     guesses.map(&:letter)
   end
 
   def censored_word #TODO return array with some nils?
-    return word_to_guess if game_over?
-
-    word_to_guess.chars.map do |letter|
-      guessed_letters.include?(letter) ? letter : CENSOR_CHARACTER
-    end.join
+    if game_over?
+      word_to_guess
+    else
+      word_to_guess.chars.map do |letter|
+        guessed_letters.include?(letter) ? letter : CENSOR_CHARACTER
+      end.join
+    end
   end
 
   def won?
