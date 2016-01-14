@@ -4,20 +4,22 @@ RSpec.describe Player, type: :model do
   let(:name) { "foobar" }
   subject(:player) { Player.create!(name: name) }
 
-  context "when a player's name is too small" do
-    let(:name) { "f" }
-    it { is_expected.to_not be_valid }
+  context "when creating a player with a name that is too small" do
+    it "it doesn't pass validation" do
+      expect { Player.create!(name: "f") }.to raise_exception(ActiveRecord::RecordInvalid)
+    end
   end
 
-  context "when a player's name is too long" do
-    let(:name) { "foo" * 10 }
-    it { is_expected.to_not be_valid }
+  context "when creating a player with a name that is too long" do
+    it "it doesn't pass validation" do
+      expect { Player.create!(name: "foo" * 10) }.to raise_exception(ActiveRecord::RecordInvalid)
+    end
   end
 
-  context "when a player's name is not unique" do
-    it "isn't valid" do
+  context "when creating a player with a name that isn't unique" do
+    it "it doesn't pass validation" do
       player.save!
-      expect(Player.create(name: name)).to_not be_valid
+      expect { Player.create!(name: name) }.to raise_exception(ActiveRecord::RecordInvalid)
     end
   end
 
@@ -43,9 +45,10 @@ RSpec.describe Player, type: :model do
 
   context "a player with a game won, lost, and in progress" do
     subject(:player) { Player.create!(name: "Player") }
+    subject(:another_player) { Player.create!(name: "Another Player") }
     let(:lives) { 1 }
     let(:word_a) { "a" }
-    let(:won_game) { Game.create!(word_to_guess: word_b, number_of_lives: lives, player: player) }
+    let(:won_game) { Game.create!(word_to_guess: word_a, number_of_lives: lives, player: player) }
     let(:word_b) { "b" }
     let(:lost_game) { Game.create!(word_to_guess: word_b, number_of_lives: lives, player: player) }
     let(:word_ab) { "ab" }
@@ -83,7 +86,7 @@ RSpec.describe Player, type: :model do
     end
 
     it "has player 2 with a rank of 2" do
-      expect(player2.ranking).to eq 2
+      expect(another_player.ranking).to eq 2
     end
   end
 end
