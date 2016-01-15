@@ -13,7 +13,7 @@ class Guess < ActiveRecord::Base
     letter = letter.downcase if letter
   end
 
-  def not_already_guessed
+  def not_already_guessed # TODO Do this from a higher level, MakeGuess service maybe?
     if game.guesses.pluck(:letter).include?(letter)
       errors.add(:letter, "has already been guessed")
     end

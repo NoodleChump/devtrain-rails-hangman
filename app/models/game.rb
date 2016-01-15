@@ -56,24 +56,7 @@ class Game < ActiveRecord::Base
     end
   end
 
-
-  #TODO Move these into presenter
-
   def number_of_lives_remaining
-    [number_of_lives - number_of_incorrect_guesses, 0].max
-  end
-
-  def number_of_blanks_remaining #refactor or shift out for view
-    censored_word.count(nil)
-  end
-
-  def progression_percentage
-    lost? ? 100.0 : (number_of_incorrect_guesses / number_of_lives.to_f) * 100
-  end
-
-  private
-
-  def number_of_incorrect_guesses
-    incorrect_guesses.length
+    [number_of_lives - incorrect_guesses.length, 0].max
   end
 end

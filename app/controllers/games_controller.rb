@@ -13,11 +13,11 @@ class GamesController < ApplicationController
   end
 
   def new
-    @game = Game.new
+    @game = GamePresenter.new()
   end
 
   def create
-    @game = Game.new(game_params)
+    @game = GamePresenter.new(Game.new(game_params))
 
     if @game.save
       flash[:success] = "Game created successfully"
@@ -40,7 +40,7 @@ class GamesController < ApplicationController
   end
 
   def set_game
-    @game = Game.find(params[:id])
+    @game = GamePresenter.new(Game.find(params[:id]))
   end
 
   def game_params
