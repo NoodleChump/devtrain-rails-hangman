@@ -40,7 +40,11 @@ class Game < ActiveRecord::Base
     won? || lost?
   end
 
-  def progression
+  def incorrect_guesses
+    guessed_letters - word_to_guess.chars
+  end
+
+  def progression #TODO Move this into presenter or as a field in DB
     if won?
       :won
     elsif lost?
@@ -51,6 +55,9 @@ class Game < ActiveRecord::Base
       :not_started
     end
   end
+
+
+  #TODO Move these into presenter
 
   def number_of_lives_remaining
     [number_of_lives - number_of_incorrect_guesses, 0].max
@@ -67,6 +74,6 @@ class Game < ActiveRecord::Base
   private
 
   def number_of_incorrect_guesses
-    (guessed_letters - word_to_guess.chars).length
+    incorrect_guesses.length
   end
 end
