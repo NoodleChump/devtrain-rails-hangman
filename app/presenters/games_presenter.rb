@@ -6,7 +6,7 @@ module GamesPresenter
     'progress' => -> (game) { game.progression }
   }
 
-  def apply_sort(games, field, direction)
+  def self.apply_sort(games, field, direction)
     if sorter = SORT_MAPPINGS[field]
       games = games.sort_by(&sorter)
     else
@@ -18,6 +18,3 @@ module GamesPresenter
 end
 
 # REVIEW Are these presenters right?
-# TODO Test presenters
-
-# TODO Unit test things

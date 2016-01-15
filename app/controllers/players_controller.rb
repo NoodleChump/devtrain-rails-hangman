@@ -1,12 +1,10 @@
 class PlayersController < ApplicationController
-  include PlayersPresenter
-
   before_action :set_player, only: [:show, :edit, :update, :destroy]
   before_action :set_rankings, only: [:index]
   helper_method :sort_column
 
   def index
-    @players = apply_sort(Player.all, sort_column, sort_direction)
+    @players = PlayersPresenter.apply_sort(Player.all, sort_column, sort_direction)
   end
 
   def show

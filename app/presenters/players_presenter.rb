@@ -6,7 +6,7 @@ module PlayersPresenter
     'lost' => -> (player) { player.lost_games.length }
   }
 
-  def apply_sort(games, field, direction)
+  def self.apply_sort(games, field, direction)
     if sorter = SORT_MAPPINGS[field]
       games = games.sort_by(&sorter)
     else
