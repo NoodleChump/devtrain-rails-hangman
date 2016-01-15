@@ -6,8 +6,6 @@
     <%= f.label :letter, "Letter" %>
     <%= f.text_field :letter, :autocomplete => :off, class: 'form-control' %>
 
-    <%= f.hidden_field :game_id, :value => @game.id %>
-
     <%= f.submit "Guess!", class: "btn btn-primary" %>
   </div>
 <% end %>

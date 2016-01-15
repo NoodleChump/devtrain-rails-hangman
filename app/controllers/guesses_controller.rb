@@ -1,15 +1,20 @@
 class GuessesController < ApplicationController
+  before_action :find_game
+
   def create
-    @guess = Guess.new(guess_params)
-    @game = @guess.game
+    @guess = @game.guesses.build(guess_params)
     if @guess.save
-      redirect_to @guess.game
+      redirect_to @game
     else
       render 'games/show'
     end
   end
 
   private
+
+  def find_game
+    @game = GamePresenter.new(Game.find(params[:game_id]))
+  end
 
   def guess_params
     params.require(:guess).permit(:letter, :game_id)
