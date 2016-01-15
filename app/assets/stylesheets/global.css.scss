@@ -79,10 +79,25 @@ form {
 }
 
 .custom-word-field {
-    transition: max-height 0.5s, opacity 0.5s ease-in;
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
+  transition: max-height 0.5s, opacity 0.5s ease-in;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.custom-word-checkbox {
+  width: 20px;
+}
+
+.custom-word-checkbox-label {
+  flex-grow: 0;
+  flex-shrink: 0;
+  float: left;
+}
+
+.custom-word {
+  display: flex;
+  flex-wrap: nowrap;
 }
 
 .notransition {

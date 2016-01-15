@@ -9,8 +9,10 @@
     </div>
     <%= f.select :player_id, options_for_select(Player.all.map { |player| [player.name, player.id] }), :class => 'form-control' %>
 
-    <%= f.label :custom_word, "Use own custom word?" %>
-    <%= f.check_box :custom_word, { :class => "custom-word-checkbox" }, "checked", "" %>
+    <div class="custom-word">
+      <%= f.check_box :custom_word, { :class => "custom-word-checkbox" }, "checked", "" %>
+      <%= f.label :custom_word, "Use own custom word?", { :class => "custom-word-checkbox-label" } %>
+    </div>
 
     <div class="custom-word-field">
       <%= f.label :word_to_guess, "Word to guess" %>
