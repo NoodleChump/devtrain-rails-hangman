@@ -9,9 +9,9 @@ RSpec.describe GamesPresenter, type: :presenter do
   let(:a_word) { "a" }
   let(:other_word) { "other" }
 
-  let(:boring_game) { Game.create!(word_to_guess: boring_word, number_of_lives: 5, player: player) }
-  let(:a_game) { Game.create!(word_to_guess: a_word, number_of_lives: 3, player: ai_player) }
-  let(:other_game) { Game.create!(word_to_guess: other_word, number_of_lives: 1, player: other_player) }
+  let(:boring_game) { GamePresenter.new(Game.create!(word_to_guess: boring_word, number_of_lives: 5, player: player)) }
+  let(:a_game) { GamePresenter.new(Game.create!(word_to_guess: a_word, number_of_lives: 3, player: ai_player)) }
+  let(:other_game) { GamePresenter.new(Game.create!(word_to_guess: other_word, number_of_lives: 1, player: other_player)) }
 
   let(:games) { [boring_game, a_game, other_game] }
 

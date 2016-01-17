@@ -1,7 +1,9 @@
+require 'game'
+
 class GamePresenter < BasicObject
   CENSOR_CHARACTER = "*"
 
-  def initialize(game = Game.new)
+  def initialize(game)
     @game = game
   end
 

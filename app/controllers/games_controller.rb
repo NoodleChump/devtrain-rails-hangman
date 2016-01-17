@@ -13,7 +13,7 @@ class GamesController < ApplicationController
   end
 
   def new
-    @game = GamePresenter.new()
+    @game = GamePresenter.new(Game.new)
   end
 
   def create
@@ -36,7 +36,7 @@ class GamesController < ApplicationController
   private
 
   def sort_column
-    params[:sort] || "player.name"
+    params[:sort] || "name"
   end
 
   def set_game
