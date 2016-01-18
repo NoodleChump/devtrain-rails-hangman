@@ -12,7 +12,7 @@ class GamePresenter < BasicObject
   end
 
   def number_of_blanks_remaining
-    censored_word.count(nil)
+    @game.censored_word.count(nil)
   end
 
   def progression_percentage
