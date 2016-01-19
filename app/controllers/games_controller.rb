@@ -3,8 +3,8 @@ class GamesController < ApplicationController
   helper_method :sort_column
 
   def index
-    @games = Game.all
-    #@games = GamesPresenter.apply_sort(games, sort_column, sort_direction)
+    @games = GamesPresenter.apply_sort(Game.all, sort_column, sort_direction)
+    #IDEA Add dates to sort and columns?
   end
 
   def show
