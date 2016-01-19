@@ -3,10 +3,6 @@ $(function() {
   var $customWordCheckbox = $('.custom-word-checkbox');
   var $actions = $('.actions')
 
-  console.log($actions.data('custom-word'));
-  console.log($actions.data('random-word'));
-  console.log($actions.data('custom-word-checked'));
-
   var showCustomWordField = function() {
     $customWordField.css("max-height", 60);
     $customWordField.css("opacity", 1);
@@ -44,11 +40,6 @@ $(function() {
     $('#game_word_to_guess').val($actions.data("custom-word"));
   } else {
     $('#game_word_to_guess').val($actions.data('random-word'));
-  }
-
-  // Set default number of lives
-  if ($('#game_number_of_lives').val() == "")  {
-    $('#game_number_of_lives').val("5")
   }
 
   $("#game_player_id").focus();
