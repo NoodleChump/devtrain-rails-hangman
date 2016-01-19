@@ -1,4 +1,4 @@
-module PlayersPresenter
+class PlayersPresenter < BasePresenter
   SORT_MAPPINGS = {
     'name' => -> (player) { player.name },
     'ranking' => -> (player) { FindPlayerRanking.new(player).call() },

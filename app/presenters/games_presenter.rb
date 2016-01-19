@@ -1,10 +1,11 @@
-module GamesPresenter
+include ApplicationHelper
+
+class GamesPresenter < BasePresenter
   SORT_MAPPINGS = {
     'name' => -> (game) { game.player.name },
     'guesses' => -> (game) { game.number_of_lives_remaining },
-    'blanks' => -> (game) { game.number_of_blanks_remaining },
-    'progress' => -> (game) { game.progression }
-    #TODO From Steve: 'progress' => &:progression
+    'blanks' => -> (game) { (present game).number_of_blanks_remaining },
+    'progress' => -> (game) { (present game).progression }
   }
 
   def self.apply_sort(games, field, direction)

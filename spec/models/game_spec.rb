@@ -35,10 +35,6 @@ RSpec.describe Game, type: :model do
       expect(game.guesses.length).to eq 0
     end
 
-    it "is not started" do
-      expect(game.progression).to eq :not_started
-    end
-
     it "has a completely censored word" do
       expect(game.censored_word).to eq [nil] * word.length
     end
@@ -59,10 +55,6 @@ RSpec.describe Game, type: :model do
     it "has it's guesses associated correctly" do
       expect(game.guessed_letters).to include letters_to_guess
     end
-
-    it "is lost" do
-      expect(game.progression).to eq :lost
-    end
   end
 
   context "when all the letters in the word to guess are guessed without mistake" do
@@ -80,10 +72,6 @@ RSpec.describe Game, type: :model do
       expect(game.guessed_letters).to match_array letters_to_guess.chars
     end
 
-    it "is won" do
-      expect(game.progression).to eq :won
-    end
-
     it "has a completely uncensored word" do
       expect(game.censored_word).to eq word.chars
     end
@@ -99,10 +87,6 @@ RSpec.describe Game, type: :model do
 
     it "has some guesses left" do
       expect(game.number_of_lives_remaining).to be > 0
-    end
-
-    it "is in progress" do
-      expect(game.progression).to eq :in_progress
     end
 
     it "has a partially censored word" do

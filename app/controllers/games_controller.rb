@@ -3,21 +3,21 @@ class GamesController < ApplicationController
   helper_method :sort_column
 
   def index
-    games = Game.all.map { |game| GamePresenter.new(game) }
-    @games = GamesPresenter.apply_sort(games, sort_column, sort_direction)
+    @games = Game.all
+    #@games = GamesPresenter.apply_sort(games, sort_column, sort_direction)
   end
 
   def show
     @guess = Guess.new
-    @game = GamePresenter.new(Game.find(params[:id]))
+    @game = Game.find(params[:id])
   end
 
   def new
-    @game = GamePresenter.new(Game.new)
+    @game = Game.new
   end
 
   def create
-    @game = GamePresenter.new(Game.new(game_params))
+    @game = Game.new(game_params)
 
     if @game.save
       flash[:success] = "Game created successfully"
@@ -40,7 +40,7 @@ class GamesController < ApplicationController
   end
 
   def set_game
-    @game = GamePresenter.new(Game.find(params[:id]))
+    @game = Game.find(params[:id])
   end
 
   def game_params

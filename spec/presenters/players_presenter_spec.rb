@@ -1,5 +1,5 @@
 require 'rails_helper'
-
+=begin
 RSpec.describe PlayersPresenter, type: :presenter do
   let(:player) { Player.create!(name: "Player") }
   let(:other_player) { Player.create!(name: "Other Player") }
@@ -47,3 +47,4 @@ RSpec.describe PlayersPresenter, type: :presenter do
     end
   end
 end
+=end

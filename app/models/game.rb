@@ -44,18 +44,6 @@ class Game < ActiveRecord::Base
     guessed_letters - word_to_guess.chars
   end
 
-  def progression #TODO Move this into presenter or as a field in DB
-    if won?
-      :won
-    elsif lost?
-      :lost
-    elsif guesses.present?
-      :in_progress
-    else
-      :not_started
-    end
-  end
-
   def number_of_lives_remaining
     [number_of_lives - incorrect_guesses.length, 0].max
   end

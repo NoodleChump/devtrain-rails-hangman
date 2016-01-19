@@ -1,9 +1,11 @@
+<% game_presenter = present @game %>
+
 <p id="notice"><%= notice %></p>
 
-<h1><%= @game.censored_word %></h1>
+<h1><%= game_presenter.censored_word %></h1>
 <h2>Previous Guesses: <%= @game.guessed_letters.join(", ") %></h2>
 
-<%= image_tag("hang#{ (@game.progression_percentage / 10).to_i }.gif", class: "hangman-image") %>
+<%= game_presenter.hangman_image %>
 
 <% if @game.game_over? %>
   <% if @game.won? %>
