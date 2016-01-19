@@ -3,7 +3,7 @@ class GuessesController < ApplicationController
 
   def create
     @guess = @game.guesses.build(guess_params)
-    if @guess.save
+    if MakeGuess.new(@guess).call
       redirect_to @game
     else
       render 'games/show'
@@ -13,7 +13,7 @@ class GuessesController < ApplicationController
   private
 
   def find_game
-    @game = GamePresenter.new(Game.find(params[:game_id]))
+    @game = Game.find(params[:game_id])
   end
 
   def guess_params
