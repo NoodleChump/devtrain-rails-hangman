@@ -40,10 +40,5 @@ $(function() {
     $customWordCheckbox.prop('checked', false);
   }
 
-  // Set word to either the last custom word
-  if ($customWordCheckbox.is(":checked"))  {
-    $('#game_word_to_guess').val($actions.data("custom-word"));
-  }
-
   $("#game_player_id").focus();
 });
