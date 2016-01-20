@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe GamePresenter, type: :presenter do
+  include ActionView::TestCase::Behavior
+
   let(:player) { Player.create!(name: "Player") }
   let(:word) { "word" }
   let(:lives) { 5 }
@@ -18,8 +20,8 @@ RSpec.describe GamePresenter, type: :presenter do
       expect(presented_game.censored_word).to eq GamePresenter::CENSOR_CHARACTER * word.length
     end
 
-    it "has a progress of 0(%)" do
-      expect(presented_game.progression_percentage). to eq 0.0
+    it "has an image of a blank hangman canvas" do
+      expect(presented_game.hangman_image).to include "hang0.gif"
     end
 
     it "has a status of not started" do
@@ -35,8 +37,8 @@ RSpec.describe GamePresenter, type: :presenter do
       expect(presented_game.censored_word).to eq word[0..-2] + GamePresenter::CENSOR_CHARACTER
     end
 
-    it "has a progress of 50(%)" do
-      expect(presented_game.progression_percentage). to eq 50.0
+    it "has an image of a hangman canvas, halfway through a game" do
+      expect(presented_game.hangman_image).to include "hang5.gif"
     end
 
     it "has a status of in progress" do
@@ -51,8 +53,8 @@ RSpec.describe GamePresenter, type: :presenter do
       expect(presented_game.censored_word).to eq word
     end
 
-    it "has a progress of 0(%) (No incorrect guesses)" do
-      expect(presented_game.progression_percentage). to eq 0.0
+    it "has an image of a blank hangman canvas" do
+      expect(presented_game.hangman_image).to include "hang0.gif"
     end
 
     it "has a status of won" do
@@ -68,8 +70,8 @@ RSpec.describe GamePresenter, type: :presenter do
       expect(presented_game.progression).to eq :lost
     end
 
-    it "has a progress of 100(%)" do
-      expect(presented_game.progression_percentage). to eq 100.0
+    it "has an image of a complete hangman canvas" do
+      expect(presented_game.hangman_image).to include "hang10.gif"
     end
   end
 end

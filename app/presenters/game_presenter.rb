@@ -11,10 +11,6 @@ class GamePresenter < BasePresenter
     game.censored_word.count(nil)
   end
 
-  def progression_percentage #TODO float/decimal NOT percentage
-    game.lost? ? 100.0 : (number_of_incorrect_guesses / game.number_of_lives.to_f) * 100
-  end
-
   def progression
     if game.won?
       :won
@@ -28,12 +24,16 @@ class GamePresenter < BasePresenter
   end
 
   def hangman_image
-    h.image_tag("hang#{ (progression_percentage / 10).to_i }.gif", class: "hangman-image")
+    h.image_tag("hang#{ (lives_used_as_percentage / 10).to_i }.gif", class: "hangman-image")
   end
 
   private
 
   def number_of_incorrect_guesses
     game.incorrect_guesses.length
+  end
+
+  def lives_used_as_percentage
+    game.lost? ? 100.0 : (number_of_incorrect_guesses / game.number_of_lives.to_f) * 100
   end
 end
