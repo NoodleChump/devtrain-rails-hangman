@@ -1,45 +1,48 @@
 $(function() {
-  var $customWordField = $('.custom-word-field');
+  var $customWordWrapper = $('.custom-word-field');
+  var $customWordField = $('#game_word_to_guess');
   var $customWordCheckbox = $('.custom-word-checkbox');
-  var $actions = $('.actions')
+  var $actions = $('.actions');
 
-  var showCustomWordField = function() {
-    $customWordField.css("max-height", 60);
-    $customWordField.css("opacity", 1);
-    $customWordField.css("visibility", "visible");
+  var showcustomWordWrapper = function() {
+    $customWordWrapper.css("max-height", 60);
+    $customWordWrapper.css("opacity", 1);
+    $customWordWrapper.css("visibility", "visible");
   };
 
-  var hideCustomWordField = function() {
-    $customWordField.css("max-height", 0);
-    $customWordField.css("opacity", 0);
+  var hidecustomWordWrapper = function() {
+    customWordValue = $customWordWrapper.val()
+    $customWordWrapper.css("max-height", 0);
+    $customWordWrapper.css("opacity", 0);
     setTimeout(function() {
-      $customWordField.css("visibility", "hidden");
-    }, 500);
+      $customWordWrapper.css("visibility", "hidden");
+    }, 250);
   }
 
   // When the checkbox is toggled, show/hide the custom word field
   $customWordCheckbox.change(function(e) {
     if ($(this).is(":checked"))  {
-      showCustomWordField();
+      showcustomWordWrapper();
+      $customWordField.select();
     } else {
-      hideCustomWordField();
+      hidecustomWordWrapper();
     }
   });
 
   // If the field for the custom word was showing, make it expanded by default again
   if ($actions.data('custom-word-checked')) {
     $customWordCheckbox.prop('checked', true);
-    $customWordField.addClass('notransition');
-    showCustomWordField();
-    $customWordField[0].offsetHeight;
-    $customWordField.removeClass('notransition');
+    $customWordWrapper.addClass('notransition');
+    showcustomWordWrapper();
+    $customWordWrapper[0].offsetHeight;
+    $customWordWrapper.removeClass('notransition');
+  } else {
+    $customWordCheckbox.prop('checked', false);
   }
 
-  // Set word to either the last custom word, or a random word by default
+  // Set word to either the last custom word
   if ($customWordCheckbox.is(":checked"))  {
     $('#game_word_to_guess').val($actions.data("custom-word"));
-  } else {
-    $('#game_word_to_guess').val($actions.data('random-word'));
   }
 
   $("#game_player_id").focus();

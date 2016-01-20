@@ -2,7 +2,7 @@
 
   <%= render :partial => "layouts/errors", :locals => { :item => @game } %>
 
-  <div class="actions" data-custom-word="<%= @custom_word %>" data-random-word="<%= @random_word %>" data-custom-word-checked="<%= params[:game] && params[:game][:custom_word] ? true : false %>">
+  <div class="actions" data-custom-word="<%= params[:game][:word_to_guess] if params[:game] %>" data-random-word="<%= @random_word %>" data-custom-word-checked="<%= params[:game] && params[:game][:custom_word] ? true : false %>">
     <%#TODO The above line is shit, pass the custom word through the controller, or make a service for loading random words. Embarassing. %>
     <div>
       <div style="display: inline-block;"><%= f.label :player_id, "Player" %></div>
@@ -12,16 +12,15 @@
 
     <div class="custom-word">
       <%= f.check_box :custom_word, { :class => "custom-word-checkbox" }, "checked", "" %>
-      <%= f.label :custom_word, "Use own custom word?", { :class => "custom-word-checkbox-label" } %>
+      <%= f.label :custom_word, "Custom word", { :class => "custom-word-checkbox-label" } %>
     </div>
 
     <div class="custom-word-field">
-      <%= f.label :word_to_guess, "Word to guess" %>
-      <%= f.password_field :word_to_guess, class: 'form-control' %>
+      <%= f.password_field :word_to_guess, class: 'form-control', placeholder: "Leave blank to generate a random word" %>
     </div>
 
-    <%= f.label :number_of_lives, "Number of guesses" %>
-    <%= f.text_field :number_of_lives, placeholder: "eg. 5", class: 'form-control' %>
+    <%= f.label :number_of_lives, "Number of lives" %>
+    <%= f.text_field :number_of_lives, value: "5", class: 'form-control' %>
 
     <%= f.submit "#{ f.object.new_record? ? "Create" : "Save" } Game", class: "btn btn-primary" %>
   </div>

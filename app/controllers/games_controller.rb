@@ -14,7 +14,6 @@ class GamesController < ApplicationController
 
   def new
     @game = Game.new
-    @random_word = GenerateRandomWord.new.call
     @custom_word = @game.custom_word
   end
 

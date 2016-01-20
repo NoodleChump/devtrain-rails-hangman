@@ -19,10 +19,14 @@ RSpec.describe Game, type: :model do
     it { is_expected.to_not be_valid }
   end
 
-  context "when creating a new game with an invalid word" do
+  context "when creating a new game with a blank word" do
     let(:word) { "" }
 
-    it { is_expected.not_to be_valid }
+    it { is_expected.to be_valid }
+
+    it "has a random word created in it's place" do
+      expect(game.word_to_guess).to be_present
+    end
   end
 
   context "when a game is created with a valid word and number of lives" do
