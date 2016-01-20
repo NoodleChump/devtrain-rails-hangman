@@ -4,7 +4,7 @@
 
   <div class="actions" data-custom-word-checked="<%= params[:game] && params[:game][:custom_word] %>">
     <div>
-      <div style="display: inline-block;"><%= f.label :user_id, "User" %></div>
+      <div style="display: inline-block;"><%= f.label :user_id, "Player" %></div>
       <div style="float: right;"><%= link_to "Create New User", new_user_path %></div>
     </div>
     <%= f.select :user_id, options_for_select(User.all.map { |user| [user.name, user.id] }), :class => 'form-control' %>
