@@ -3,7 +3,8 @@ class PlayersPresenter < BasePresenter
     'name' => -> (player) { player.name },
     'ranking' => -> (player) { FindPlayerRanking.new(player).call() },
     'won' => -> (player) { player.won_games.length },
-    'lost' => -> (player) { player.lost_games.length }
+    'lost' => -> (player) { player.lost_games.length },
+    'date' => -> (game) { game.created_at }
   }
 
   def self.apply_sort(games, field, direction)

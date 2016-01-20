@@ -5,7 +5,8 @@ class GamesPresenter < BasePresenter
     'name' => -> (game) { game.player.name },
     'guesses' => -> (game) { game.number_of_lives_remaining },
     'blanks' => -> (game) { (present game).number_of_blanks_remaining },
-    'progress' => -> (game) { (present game).progression }
+    'progress' => -> (game) { (present game).progression },
+    'date' => -> (game) { game.created_at }
   }
 
   def self.apply_sort(games, field, direction)

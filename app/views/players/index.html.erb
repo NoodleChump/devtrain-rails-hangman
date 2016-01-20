@@ -9,6 +9,7 @@
       <th><%= sortable("ranking", "Rank") %></th>
       <th><%= sortable("won", "Games Won") %></th>
       <th><%= sortable("lost", "Games Lost") %></th>
+      <th><%= sortable("date", "Date Created") %></th>
 
       <th class="right-aligned">Show</th>
       <th class="right-aligned">Edit</th>
@@ -23,6 +24,7 @@
         <td><%= @rankings[player.id] if @rankings %></td> <!-- Hotfix if for test, works fine on page -->
         <td><%= player.won_games.count %></td>
         <td><%= player.lost_games.count %></td>
+        <td><%= player.created_at.strftime('%a %e %b, %Y') %></td>
 
         <td class="right-aligned"><%= link_to 'Show', player %></td>
         <td class="right-aligned"><%= link_to 'Edit', edit_player_path(player) %></td>

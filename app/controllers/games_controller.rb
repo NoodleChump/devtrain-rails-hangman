@@ -4,7 +4,6 @@ class GamesController < ApplicationController
 
   def index
     @games = GamesPresenter.apply_sort(Game.all, sort_column, sort_direction)
-    #IDEA Add dates to sort and columns?
   end
 
   def show

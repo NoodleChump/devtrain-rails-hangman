@@ -6,6 +6,7 @@ class GuessesController < ApplicationController
     if MakeGuess.new(@guess).call
       redirect_to @game
     else
+      @game.guesses.reload
       render 'games/show'
     end
   end
