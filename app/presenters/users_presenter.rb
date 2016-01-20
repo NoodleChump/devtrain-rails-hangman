@@ -1,9 +1,9 @@
-class PlayersPresenter < BasePresenter
+class UsersPresenter < BasePresenter
   SORT_MAPPINGS = {
-    'name' => -> (player) { player.name },
-    'ranking' => -> (player) { FindPlayerRanking.new(player).call() },
-    'won' => -> (player) { player.won_games.length },
-    'lost' => -> (player) { player.lost_games.length },
+    'name' => -> (user) { user.name },
+    'ranking' => -> (user) { FindUserRanking.new(user).call() },
+    'won' => -> (user) { user.won_games.length },
+    'lost' => -> (user) { user.lost_games.length },
     'date' => -> (game) { game.created_at }
   }
 

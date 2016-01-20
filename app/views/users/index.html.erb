@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Players</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= sortable("name", "Name") %></th>
+      <th><%= sortable("ranking", "Rank") %></th>
+      <th><%= sortable("won", "Games Won") %></th>
+      <th><%= sortable("lost", "Games Lost") %></th>
+      <th><%= sortable("date", "Date Created") %></th>
+
+      <th class="right-aligned">Show</th>
+      <th class="right-aligned">Edit</th>
+      <th class="right-aligned">Delete</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= link_to user.name, user %></td>
+        <td><%= @rankings[user.id] if @rankings %></td>
+        <td><%= user.won_games.count %></td>
+        <td><%= user.lost_games.count %></td>
+        <td><%= user.created_at.strftime('%a %e %b, %Y') %></td>
+
+        <td class="right-aligned"><%= link_to 'Show', user %></td>
+        <td class="right-aligned"><%= link_to 'Edit', edit_user_path(user) %></td>
+        <td class="right-aligned"><%= link_to 'Delete', user, method: :delete, data: { confirm: "Are you sure? All of the user's games will be lost" } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= button_to 'Create New Player', new_user_path, {:class => "btn btn-primary", :method => :get} %>

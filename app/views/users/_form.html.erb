@@ -1,0 +1,11 @@
+<%= form_for(@user) do |f| %>
+
+  <%= render :partial => "layouts/errors", :locals => { :item => @user } %>
+
+  <div class="actions">
+    <%= f.label :name, "User name" %>
+    <%= f.text_field :name, class: 'form-control' %>
+
+    <%= f.submit (f.object.new_record? ? "Create" : "Save") + " User", class: "btn btn-primary" %>
+  </div>
+<% end %>

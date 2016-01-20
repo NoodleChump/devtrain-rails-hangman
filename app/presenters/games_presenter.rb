@@ -2,7 +2,7 @@ include ApplicationHelper
 
 class GamesPresenter < BasePresenter
   SORT_MAPPINGS = {
-    'name' => -> (game) { game.player.name },
+    'name' => -> (game) { game.user.name },
     'guesses' => -> (game) { game.number_of_lives_remaining },
     'blanks' => -> (game) { (present game).number_of_blanks_remaining },
     'progress' => -> (game) { (present game).progression },

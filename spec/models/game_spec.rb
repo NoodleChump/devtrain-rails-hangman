@@ -5,9 +5,9 @@ RSpec.describe Game, type: :model do
   let(:word) { "word" }
   let(:lives) { 5 }
   let(:letters_to_guess) { "" }
-  let(:player) { Player.create!(name: "Jordane") }
+  let(:user) { User.create!(name: "Jordane") }
 
-  subject(:game) { Game.create(word_to_guess: word, number_of_lives: lives, player: player) }
+  subject(:game) { Game.create(word_to_guess: word, number_of_lives: lives, user: user) }
 
   before do
     HangmanSpecHelper.make_guesses(game, letters_to_guess)

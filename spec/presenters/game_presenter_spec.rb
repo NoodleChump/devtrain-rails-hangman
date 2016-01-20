@@ -3,10 +3,10 @@ require 'rails_helper'
 RSpec.describe GamePresenter, type: :presenter do
   include ActionView::TestCase::Behavior
 
-  let(:player) { Player.create!(name: "Player") }
+  let(:user) { User.create!(name: "User") }
   let(:word) { "word" }
   let(:lives) { 5 }
-  let(:game) { Game.create!(word_to_guess: word, number_of_lives: lives, player: player) }
+  let(:game) { Game.create!(word_to_guess: word, number_of_lives: lives, user: user) }
   let(:letters_to_guess) { "" }
 
   subject(:presented_game) { present game }

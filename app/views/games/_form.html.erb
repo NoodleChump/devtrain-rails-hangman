@@ -4,10 +4,10 @@
 
   <div class="actions" data-custom-word-checked="<%= params[:game] && params[:game][:custom_word] %>">
     <div>
-      <div style="display: inline-block;"><%= f.label :player_id, "Player" %></div>
-      <div style="float: right;"><%= link_to "Create New Player", new_player_path %></div>
+      <div style="display: inline-block;"><%= f.label :user_id, "User" %></div>
+      <div style="float: right;"><%= link_to "Create New User", new_user_path %></div>
     </div>
-    <%= f.select :player_id, options_for_select(Player.all.map { |player| [player.name, player.id] }), :class => 'form-control' %>
+    <%= f.select :user_id, options_for_select(User.all.map { |user| [user.name, user.id] }), :class => 'form-control' %>
 
     <div class="custom-word">
       <%= f.check_box :custom_word, { :class => "custom-word-checkbox" }, "checked", "" %>

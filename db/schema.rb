@@ -18,10 +18,10 @@ ActiveRecord::Schema.define(version: 20160106032526) do
     t.datetime "updated_at",      null: false
     t.integer  "number_of_lives"
     t.string   "word_to_guess"
-    t.integer  "player_id"
+    t.integer  "user_id"
   end
 
-  add_index "games", ["player_id"], name: "index_games_on_player_id"
+  add_index "games", ["user_id"], name: "index_games_on_user_id"
 
   create_table "guesses", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20160106032526) do
 
   add_index "guesses", ["game_id"], name: "index_guesses_on_game_id"
 
-  create_table "players", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text     "name"

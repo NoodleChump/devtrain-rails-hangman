@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     resources :guesses
   end
 
-  resources :players
+  resources :users
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

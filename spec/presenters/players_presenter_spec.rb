@@ -1,19 +1,19 @@
 require 'rails_helper'
-=begin
-RSpec.describe PlayersPresenter, type: :presenter do
-  let(:player) { Player.create!(name: "Player") }
-  let(:other_player) { Player.create!(name: "Other Player") }
-  let(:ai_player) { Player.create!(name: "AI Player") }
+
+RSpec.describe UsersPresenter, type: :presenter do
+  let(:user) { User.create!(name: "User") }
+  let(:other_user) { User.create!(name: "Other User") }
+  let(:ai_user) { User.create!(name: "AI User") }
 
   let(:boring_word) { "word" }
   let(:a_word) { "a" }
   let(:other_word) { "other" }
 
-  let(:boring_game) { Game.create!(word_to_guess: boring_word, number_of_lives: 5, player: player) }
-  let(:a_game) { Game.create!(word_to_guess: a_word, number_of_lives: 3, player: ai_player) }
-  let(:other_game) { Game.create!(word_to_guess: other_word, number_of_lives: 1, player: other_player) }
+  let(:boring_game) { Game.create!(word_to_guess: boring_word, number_of_lives: 5, user: user) }
+  let(:a_game) { Game.create!(word_to_guess: a_word, number_of_lives: 3, user: ai_user) }
+  let(:other_game) { Game.create!(word_to_guess: other_word, number_of_lives: 1, user: other_user) }
 
-  let(:players) { [player, ai_player, other_player] }
+  let(:users) { [user, ai_user, other_user] }
 
   describe "#apply_sort" do
     before do
@@ -24,27 +24,26 @@ RSpec.describe PlayersPresenter, type: :presenter do
 
     context "when sorting by name" do
       it "sorts (ascending) correctly" do
-        sorted_players = PlayersPresenter.apply_sort(players, 'name', 'asc')
-        expect(sorted_players).to eq [ai_player, other_player, player]
+        sorted_users = UsersPresenter.apply_sort(users, 'name', 'asc')
+        expect(sorted_users).to eq [ai_user, other_user, user]
       end
 
       it "sorts (descending) correctly" do
-        sorted_players = PlayersPresenter.apply_sort(players, 'name', 'desc')
-        expect(sorted_players).to eq [player, other_player, ai_player]
+        sorted_users = UsersPresenter.apply_sort(users, 'name', 'desc')
+        expect(sorted_users).to eq [user, other_user, ai_user]
       end
     end
 
     context "when sorting by ranking" do
       it "sorts (ascending) correctly" do
-        sorted_players = PlayersPresenter.apply_sort(players, 'ranking', 'asc')
-        expect(sorted_players).to eq [ai_player, player, other_player]
+        sorted_users = UsersPresenter.apply_sort(users, 'ranking', 'asc')
+        expect(sorted_users).to eq [ai_user, user, other_user]
       end
 
       it "sorts (descending) correctly" do
-        sorted_players = PlayersPresenter.apply_sort(players, 'ranking', 'desc')
-        expect(sorted_players).to eq [other_player, player, ai_player]
+        sorted_users = UsersPresenter.apply_sort(users, 'ranking', 'desc')
+        expect(sorted_users).to eq [other_user, user, ai_user]
       end
     end
   end
 end
-=end

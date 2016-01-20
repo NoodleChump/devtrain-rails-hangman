@@ -44,6 +44,6 @@ class GamesController < ApplicationController
   end
 
   def game_params
-    params.require(:game).permit(:word_to_guess, :number_of_lives, :player_id)
+    params.require(:game).permit(:word_to_guess, :number_of_lives, :user_id)
   end
 end

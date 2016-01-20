@@ -19,7 +19,7 @@
     <% @games.each do |game| %>
       <% game_presenter = present game %>
       <tr>
-        <td><%= link_to game.player.name, game.player %></td>
+        <td><%= link_to game.user.name, game.user %></td>
         <td><%= game_presenter.censored_word %></td>
         <td><%= game_presenter.progression.to_s.humanize %></td>
         <td><%= game.number_of_lives_remaining %></td>

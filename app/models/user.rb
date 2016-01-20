@@ -1,4 +1,4 @@
-class Player < ActiveRecord::Base
+class User < ActiveRecord::Base
   has_many :games, :dependent => :destroy
 
   validates :name, presence: true, uniqueness: true, length: { minimum: 3, maximum: 20 }

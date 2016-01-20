@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "games/edit", type: :view do
   before(:each) do
-    @game = assign(:game, Game.create!(word_to_guess: "word", number_of_lives: 5, player: Player.create!(name: "Jordane")))
+    @game = assign(:game, Game.create!(word_to_guess: "word", number_of_lives: 5, user: User.create!(name: "Jordane")))
   end
 
   it "renders the edit game form" do

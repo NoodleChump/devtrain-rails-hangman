@@ -1,12 +1,12 @@
 class Game < ActiveRecord::Base
-  belongs_to :player
+  belongs_to :user
   has_many :guesses, :dependent => :destroy
 
   before_validation :fill_word_to_guess
 
   validates :word_to_guess, presence: true, on: :create
   validates :number_of_lives, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  validates :player, presence: true
+  validates :user, presence: true
 
   attr_writer :custom_word
 

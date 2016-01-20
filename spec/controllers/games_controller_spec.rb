@@ -23,14 +23,14 @@ RSpec.describe GamesController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Game. As you add validations to Game, be sure to
   # adjust the attributes here as well.
-  let(:player) { Player.create!(name: "Jordane") }
+  let(:user) { User.create!(name: "Jordane") }
 
   let(:valid_attributes) {
-    { word_to_guess: "word", number_of_lives: 2, player: player, player_id: player.id }
+    { word_to_guess: "word", number_of_lives: 2, user: user, user_id: user.id }
   }
 
   let(:invalid_attributes) {
-    { word_to_guess: "", number_of_lives: -1, player: player, player_id: player.id }
+    { word_to_guess: "", number_of_lives: -1, user: user, user_id: user.id }
   }
 
   # This should return the minimal set of values that should be in the session

@@ -1,27 +1,27 @@
 require 'rails_helper'
 
 RSpec.describe GamesPresenter, type: :presenter do
-  let(:player) { Player.create!(name: "Player") }
-  let(:other_player) { Player.create!(name: "Other Player") }
-  let(:ai_player) { Player.create!(name: "AI Player") }
+  let(:user) { User.create!(name: "User") }
+  let(:other_user) { User.create!(name: "Other User") }
+  let(:ai_user) { User.create!(name: "AI User") }
 
   let(:boring_word) { "word" }
   let(:a_word) { "a" }
   let(:other_word) { "other" }
 
-  let(:boring_game) { Game.create!(word_to_guess: boring_word, number_of_lives: 5, player: player) }
-  let(:a_game) { Game.create!(word_to_guess: a_word, number_of_lives: 3, player: ai_player) }
-  let(:other_game) { Game.create!(word_to_guess: other_word, number_of_lives: 1, player: other_player) }
+  let(:boring_game) { Game.create!(word_to_guess: boring_word, number_of_lives: 5, user: user) }
+  let(:a_game) { Game.create!(word_to_guess: a_word, number_of_lives: 3, user: ai_user) }
+  let(:other_game) { Game.create!(word_to_guess: other_word, number_of_lives: 1, user: other_user) }
 
   let(:games) { [boring_game, a_game, other_game] }
 
   describe "#apply_sort" do
-    it "sorts by player name (ascending) correctly" do
+    it "sorts by user name (ascending) correctly" do
       sorted_games = GamesPresenter.apply_sort(games, 'name', 'asc')
       expect(sorted_games).to eq [a_game, other_game, boring_game]
     end
 
-    it "sorts by player name (descending) correctly" do
+    it "sorts by user name (descending) correctly" do
       sorted_games = GamesPresenter.apply_sort(games, 'name', 'desc')
       expect(sorted_games).to eq [boring_game, other_game, a_game]
     end
