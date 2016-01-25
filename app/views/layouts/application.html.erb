@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= "[DEV] " if Rails.env.development? %>Rails Hangman</title>
+    <title><%= "[DEV] " if Rails.env.development? %><%= yield(:title) + " | " if yield(:title).present? %> Rails Hangman</title>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
