@@ -24,11 +24,11 @@ RSpec.describe UsersController, type: :controller do
   # User. As you add validations to User, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    { name: "Jordane" }
+    { name: "Jordane", email: "jordane@example.com" }
   }
 
   let(:invalid_attributes) {
-    { name: "" }
+    { name: "foo", email: "foo.bar.com" }
   }
 
   # This should return the minimal set of values that should be in the session

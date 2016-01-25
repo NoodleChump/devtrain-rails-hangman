@@ -3,6 +3,8 @@ class UsersController < ApplicationController
   before_action :set_rankings, only: [:index]
   helper_method :sort_column
 
+  #TODO Implement log in, sessions, etc. (https://www.railstutorial.org/book/modeling_users#cha-modeling_users)
+
   def index
     @users = UsersPresenter.apply_sort(User.all, sort_column, sort_direction)
   end
@@ -60,6 +62,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name)
+    params.require(:user).permit(:name, :email)
   end
 end

@@ -5,7 +5,7 @@ RSpec.describe Game, type: :model do
   let(:word) { "word" }
   let(:lives) { 5 }
   let(:letters_to_guess) { "" }
-  let(:user) { User.create!(name: "Jordane") }
+  let(:user) { User.create!(name: "Jordane", email: "example@foobar.com") }
 
   subject(:game) { Game.create(word_to_guess: word, number_of_lives: lives, user: user) }
 
