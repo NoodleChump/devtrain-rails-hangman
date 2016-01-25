@@ -7,13 +7,13 @@ class UsersPresenter < BasePresenter
     'date' => -> (game) { game.created_at }
   }
 
-  def self.apply_sort(games, field, direction)
+  def self.apply_sort(users, field, direction)
     if sorter = SORT_MAPPINGS[field]
-      games = games.sort_by(&sorter)
+      users = users.sort_by(&sorter)
     else
-      games = games.sort_by(&SORT_MAPPINGS['name'])
+      users = users.sort_by(&SORT_MAPPINGS['name'])
     end
 
-    direction == "desc" ? games.reverse : games
+    direction == "desc" ? users.reverse : users
   end
 end

@@ -1,6 +1,10 @@
+<% user_presenter = present @user %>
 <p id="notice"><%= notice %></p>
 
-<h1><%= @user.name %></h1>
+<div class="user_heading">
+  <%= user_presenter.gravatar %>
+  <h1><%= @user.name %></h1>
+</div>
 
 <h2>User Statistics</h2>
 <table id="stats">
