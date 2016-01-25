@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe GamesPresenter, type: :presenter do
-  let(:user) { User.create!(name: "User", email: "user@user.com") }
-  let(:other_user) { User.create!(name: "Other User", email: "another@user.com") }
-  let(:ai_user) { User.create!(name: "AI User", email: "more@user.com") }
+  let(:user) { User.create!(name: "User", email: "user@user.com", password: "foobar", password_confirmation: "foobar") }
+  let(:other_user) { User.create!(name: "Other User", email: "another@user.com", password: "foobar", password_confirmation: "foobar") }
+  let(:ai_user) { User.create!(name: "AI User", email: "more@user.com", password: "foobar", password_confirmation: "foobar") }
 
   let(:boring_word) { "word" }
   let(:a_word) { "a" }

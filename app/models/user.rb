@@ -8,6 +8,9 @@ class User < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true, length: { minimum: 3, maximum: 20 }
   validates :email, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 255 }, format: { with: EMAIL_REGEX }
 
+  has_secure_password
+  validates :password, presence: true, length: { minimum: 6 }
+
   def won_games
     games.select(&:won?)
   end

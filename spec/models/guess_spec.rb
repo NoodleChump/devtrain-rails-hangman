@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Guess, type: :model do
   let(:letter) { "a" }
-  let(:game) { Game.create(word_to_guess: "word", number_of_lives: 5, user: User.create!(name: "Jordane", email: "foo@bar.com")) }
+  let(:game) { Game.create(word_to_guess: "word", number_of_lives: 5, user: User.create!(name: "Jordane", email: "foo@bar.com", password: "foobar", password_confirmation: "foobar")) }
   subject(:guess) { Guess.new(letter: letter, game: game) }
 
   context "when creating a new guess" do

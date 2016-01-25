@@ -3,32 +3,48 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   let(:name) { "foobar" }
   let(:email) { "foo@bar.com" }
-  subject(:user) { User.create!(name: name, email: email) }
+  subject(:user) { User.create!(name: name, email: email, password: "foobar", password_confirmation: "foobar") }
 
   context "when creating a user with a name that is too small" do
     it "it doesn't pass validation" do
-      expect { User.create!(name: "f", email: email) }.to raise_exception(ActiveRecord::RecordInvalid)
+      expect { User.create!(name: "f", email: email, password: "foobar", password_confirmation: "foobar") }.to raise_exception(ActiveRecord::RecordInvalid)
     end
   end
 
   context "when creating a user with a name that is too long" do
     it "it doesn't pass validation" do
-      expect { User.create!(name: "foo" * 10, email: email) }.to raise_exception(ActiveRecord::RecordInvalid)
+      expect { User.create!(name: "foo" * 10, email: email, password: "foobar", password_confirmation: "foobar") }.to raise_exception(ActiveRecord::RecordInvalid)
     end
   end
 
   context "when creating a user with a name that isn't unique" do
     it "it doesn't pass validation" do
       user.save!
-      expect { User.create!(name: name, email: email) }.to raise_exception(ActiveRecord::RecordInvalid)
+      expect { User.create!(name: name, email: email, password: "foobar", password_confirmation: "foobar") }.to raise_exception(ActiveRecord::RecordInvalid)
     end
   end
 
   context "when creating a user with an email that isn't unique" do
     it "it doesn't pass validation" do
       user.save!
-      expect { User.create!(name: "name", email: email.upcase) }.to raise_exception(ActiveRecord::RecordInvalid)
+      expect { User.create!(name: "name", email: email.upcase, password: "foobar", password_confirmation: "foobar") }.to raise_exception(ActiveRecord::RecordInvalid)
     end
+  end
+
+  context "when creating a user without a password" do
+    before do
+      user.password = user.password_confirmation = ""
+    end
+
+    it { is_expected.not_to be_valid }
+  end
+
+  context "when creating a user with a password that is too short" do
+    before do
+      user.password = user.password_confirmation = "a" * 5
+    end
+
+    it { is_expected.not_to be_valid }
   end
 
   context "when a valid user is created with a name is of suitable length" do
@@ -52,8 +68,8 @@ RSpec.describe User, type: :model do
   end
 
   context "a user with a game won, lost, and in progress" do
-    subject(:user) { User.create!(name: "User", email: "foo@bar.com") }
-    subject(:another_user) { User.create!(name: "Another User", email: "bar@foo.com") }
+    subject(:user) { User.create!(name: "User", email: "foo@bar.com", password: "foobar", password_confirmation: "foobar") }
+    subject(:another_user) { User.create!(name: "Another User", email: "bar@foo.com", password: "foobar", password_confirmation: "foobar") }
     let(:lives) { 1 }
     let(:word_a) { "a" }
     let(:won_game) { Game.create!(word_to_guess: word_a, number_of_lives: lives, user: user) }

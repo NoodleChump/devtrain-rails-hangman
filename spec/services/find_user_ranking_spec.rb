@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe FindUserRanking, type: :service do
-  let(:leading_user) { User.create!(name: "Lead", email: "leader@user.com") }
-  let(:trailing_user) { User.create!(name: "Trailing", email: "loser@user.com") }
+  let(:leading_user) { User.create!(name: "Lead", email: "leader@user.com", password: "foobar", password_confirmation: "foobar") }
+  let(:trailing_user) { User.create!(name: "Trailing", email: "loser@user.com", password: "foobar", password_confirmation: "foobar") }
 
   let(:letter) { "a" }
   let(:game) { Game.create!(word_to_guess: letter, number_of_lives: 5, user: leading_user) }
