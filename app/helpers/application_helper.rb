@@ -1,7 +1,13 @@
 module ApplicationHelper
+  #REVIEW presenter_for
   def present(object, klass = nil)
-    klass ||= "#{object.class}Presenter".constantize
-    klass.new(object, self)
+    klass ||= "#{object.class.name}Presenter".constantize
+    klass.new(object, self) # REVIEW nickj
+=begin
+def html
+    @html ||= ActionView::Base.new.extend(ActionView::Helpers::TagHelper)
+  end
+=end
   end
 
   def sortable(column, title = nil)
@@ -13,7 +19,7 @@ module ApplicationHelper
 
   private
 
-  def sort_column
+  def sort_column #TODO ||
     params[:sort] ? params[:sort] : "id"
   end
 

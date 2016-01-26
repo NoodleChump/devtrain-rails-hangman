@@ -4,6 +4,7 @@ class GamePresenter < BasePresenter
   presents :game
 
   def censored_word
+    #TODO item || censor
     game.censored_word.map { |item| item != nil ? item : CENSOR_CHARACTER }.join
   end
 

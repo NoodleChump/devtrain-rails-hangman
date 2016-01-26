@@ -1,6 +1,6 @@
-include ApplicationHelper
+class GamesPresenter < BasePresenter # Not really a presenter
+  include ApplicationHelper # REVIEW Move Present helper out, class.new
 
-class GamesPresenter < BasePresenter
   SORT_MAPPINGS = {
     'name' => -> (game) { game.user.name },
     'guesses' => -> (game) { game.number_of_lives_remaining },
@@ -15,7 +15,7 @@ class GamesPresenter < BasePresenter
     direction == "desc" ? games.reverse : games
   end
 
-  def self.choose_sorter(field)
+  def self.choose_sorter(field) #TODO ||, fetch -- in users as well
     if sorter = SORT_MAPPINGS[field]
       sorter
     else

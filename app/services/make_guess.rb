@@ -1,9 +1,10 @@
 class MakeGuess
-  def initialize(guess)
+  def initialize(guess) #TODO pass the game and letter instead, make the guess?
     @guess = guess
   end
 
   def call
+    #TODO lock
     if already_guessed?
       @guess.errors.add(:letter, "has already been guessed")
       false
