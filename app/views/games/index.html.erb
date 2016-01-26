@@ -1,34 +1,39 @@
 <% provide(:title, "Games") %>
 <p id="notice"><%= notice %></p>
 
-<h1>Hangman Games</h1>
+<h1>Games</h1>
 
 <%= will_paginate %>
 
 <table cellspacing="20">
   <thead>
     <tr>
-      <th><%= sortable("name", "Player") %></th>
+      <th colspan="2"><%= sortable("name", "Player") %></th>
       <th><%= sortable("blanks", "Revealed") %></th>
       <th><%= sortable("progress", "Progress") %></th>
       <th><%= sortable("guesses", "Guesses Remaining") %></th>
       <th><%= sortable("date", "Date Created") %></th>
-      <th class="right-aligned">Play</th>
-      <th class="right-aligned">Delete</th>
+      <th colspan="2" class="right-aligned">Actions</th>
     </tr>
   </thead>
 
   <tbody>
     <% @games.each do |game| %>
       <% game_presenter = present game %>
+      <% presented_user = present game.user %>
       <tr>
+        <td><%= presented_user.small_gravatar %></td>
         <td><%= link_to game.user.name, game.user %></td>
         <td><%= game_presenter.censored_word %></td>
         <td><%= game_presenter.progression.to_s.humanize %></td>
         <td><%= game.number_of_lives_remaining %></td>
         <td><%= game.created_at.strftime('%a %e %b, %Y') %></td>
-        <td class="right-aligned"><%= link_to 'Play', game %></td>
-        <td class="right-aligned"><%= link_to 'Delete', game, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+        <td class="right-aligned"><%= link_to (current_user == game.user ? 'Play' : 'View'), game %></td>
+
+        <% if current_user.admin? %>
+          <td class="right-aligned"><%= link_to 'Delete', game, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
