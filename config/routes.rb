@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   get 'signup' => 'users#new'
   resources :users
 
-  get 'games/custom' => 'games#custom'
+  get 'games/new/custom' => 'games#custom'
   resources :games, except: :edit do
     resources :guesses
   end
