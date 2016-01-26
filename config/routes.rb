@@ -14,9 +14,10 @@ Rails.application.routes.draw do
   delete 'logout' => 'sessions#destroy'
 
   # Models
-  resources :users
   get 'signup' => 'users#new'
+  resources :users
 
+  get 'games/custom' => 'games#custom'
   resources :games, except: :edit do
     resources :guesses
   end

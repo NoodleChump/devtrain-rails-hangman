@@ -1,6 +1,6 @@
-class GamesPresenter < BasePresenter # Not really a presenter
-  include ApplicationHelper # REVIEW Move Present helper out, class.new
+include ApplicationHelper # REVIEW Move Present helper out, class.new
 
+class GamesPresenter < BasePresenter # Not really a presenter
   SORT_MAPPINGS = {
     'name' => -> (game) { game.user.name },
     'guesses' => -> (game) { game.number_of_lives_remaining },

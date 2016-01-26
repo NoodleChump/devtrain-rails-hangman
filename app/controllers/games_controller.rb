@@ -1,5 +1,7 @@
 class GamesController < ApplicationController
   before_action :set_game, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in, only: [:new, :custom]
+
   helper_method :sort_column
 
   def index
@@ -12,7 +14,14 @@ class GamesController < ApplicationController
   end
 
   def new
-    @game = Game.new
+    word = GenerateRandomWord.new.call
+    @game = Game.new(number_of_lives: Game::DEFAULT_NUMBER_OF_LIVES, user: current_user)
+    @game.save!
+    redirect_to @game
+  end
+
+  def custom
+    @game = Game.new(custom: true)
     @custom_word = @game.custom_word
   end
 
@@ -45,5 +54,13 @@ class GamesController < ApplicationController
 
   def game_params
     params.require(:game).permit(:word_to_guess, :number_of_lives, :user_id)
+  end
+
+  def logged_in
+    if !logged_in?
+      store_location
+      flash[:danger] = "Please log in."
+      redirect_to login_url
+    end
   end
 end

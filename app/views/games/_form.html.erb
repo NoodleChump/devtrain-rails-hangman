@@ -19,7 +19,7 @@
     </div>
 
     <%= f.label :number_of_lives, "Number of lives" %>
-    <%= f.text_field :number_of_lives, value: "5", class: 'form-control' %>
+    <%= f.text_field :number_of_lives, value: Game::DEFAULT_NUMBER_OF_LIVES.to_s, class: 'form-control' %>
 
     <%= f.submit "#{ f.object.new_record? ? "Create" : "Save" } Game", class: "btn btn-primary" %>
   </div>

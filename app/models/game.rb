@@ -1,7 +1,10 @@
 class Game < ActiveRecord::Base
+  DEFAULT_NUMBER_OF_LIVES = 8
+
   belongs_to :user
   has_many :guesses, :dependent => :destroy
 
+  before_validation :check_if_custom
   before_validation :fill_word_to_guess
 
   validates :word_to_guess, presence: true, on: :create
@@ -58,5 +61,9 @@ class Game < ActiveRecord::Base
 
   def fill_word_to_guess
     write_attribute(:word_to_guess, GenerateRandomWord.new.call) if !custom_word || word_to_guess.blank?
+  end
+
+  def check_if_custom
+    write_attribute(:custom, true) unless number_of_lives == DEFAULT_NUMBER_OF_LIVES && (!custom_word || word_to_guess.blank?)
   end
 end
