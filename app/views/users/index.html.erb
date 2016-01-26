@@ -4,24 +4,26 @@
 
 <h1>Players</h1>
 
+<%= will_paginate %>
+
 <table>
   <thead>
     <tr>
-      <th><%= sortable("name", "Name") %></th>
+      <th colspan="2"><%= sortable("name", "Player") %></th>
       <th><%= sortable("ranking", "Rank") %></th>
       <th><%= sortable("won", "Games Won") %></th>
       <th><%= sortable("lost", "Games Lost") %></th>
       <th><%= sortable("date", "Date Created") %></th>
 
-      <th class="right-aligned">Show</th>
-      <th class="right-aligned">Edit</th>
-      <th class="right-aligned">Delete</th>
+      <th class="right-aligned" colspan="3">Actions</th>
     </tr>
   </thead>
 
   <tbody>
     <% @users.each do |user| %>
+      <% presented_user = present user %>
       <tr>
+        <td><%= presented_user.small_gravatar %></td>
         <td><%= link_to user.name, user %></td>
         <td><%= @rankings[user.id] if @rankings %></td>
         <td><%= user.won_games.count %></td>
@@ -29,12 +31,18 @@
         <td><%= user.created_at.strftime('%a %e %b, %Y') %></td>
 
         <td class="right-aligned"><%= link_to 'Show', user %></td>
-        <td class="right-aligned"><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td class="right-aligned"><%= link_to 'Delete', user, method: :delete, data: { confirm: "Are you sure? All of the user's games will be lost" } %></td>
+        <% if current_user?(user) || current_user.admin? %>
+          <td class="right-aligned"><%= link_to 'Edit', edit_user_path(user) %></td>
+        <% end %>
+        <% if current_user.admin? && !current_user?(user) %>
+          <td class="right-aligned"><%= link_to 'Delete', user, method: :delete, data: { confirm: "Are you sure? All of the user's games will be lost" } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<%= will_paginate %>
 
 <br>
 
