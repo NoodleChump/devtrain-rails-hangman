@@ -57,4 +57,14 @@ class User < ActiveRecord::Base
   def forget
     update_attribute(:remember_digest, nil)
   end
+
+  def update_rank_weight
+    update_attribute(:rank_points, rank_weight)
+  end
+
+  private
+
+  def rank_weight
+    (win_loss_rate * games.length + won_games.count).to_i
+  end
 end

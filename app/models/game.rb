@@ -11,6 +11,8 @@ class Game < ActiveRecord::Base
   validates :number_of_lives, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :user, presence: true
 
+  after_create :update_user_rank
+
   attr_writer :custom_word
 
   def guessed_letters
