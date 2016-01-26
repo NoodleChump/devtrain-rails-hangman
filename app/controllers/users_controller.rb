@@ -2,8 +2,9 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :set_rankings, only: [:index]
 
-  before_action :logged_in_user, only: [:index, :edit, :update]
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update]
+  before_action :admin_user,     only: [:destroy]
 
   helper_method :sort_column
 
@@ -71,6 +72,10 @@ class UsersController < ApplicationController
       redirect_to login_url
     end
   end
+
+  def admin_user
+      redirect_to(root_url) unless current_user.admin?
+    end
 
   def correct_user
     @user = User.find(params[:id])
