@@ -13,6 +13,7 @@
       <th><%= sortable("progress", "Progress") %></th>
       <th><%= sortable("guesses", "Guesses Remaining") %></th>
       <th><%= sortable("date", "Date Created") %></th>
+      <th><%= sortable("ranked", "Ranked") %></th>
       <th colspan="2" class="right-aligned">Actions</th>
     </tr>
   </thead>
@@ -28,6 +29,7 @@
         <td><%= game_presenter.progression.to_s.humanize %></td>
         <td><%= game.number_of_lives_remaining %></td>
         <td><%= game.created_at.strftime('%a %e %b, %Y') %></td>
+        <td><%= game.custom? ? "Custom" : "Ranked" %></td>
 
         <td class="right-aligned"><%= link_to (current_user == game.user ? 'Play' : 'View'), game %></td>
 
