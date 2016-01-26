@@ -1,9 +1,11 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :set_rankings, only: [:index]
-  helper_method :sort_column
 
-  #TODO Implement log in, sessions, etc. (https://www.railstutorial.org/book/modeling_users#cha-modeling_users)
+  before_action :logged_in_user, only: [:edit, :update]
+  before_action :correct_user,   only: [:edit, :update]
+
+  helper_method :sort_column
 
   def index
     @users = UsersPresenter.apply_sort(User.all, sort_column, sort_direction)
@@ -60,6 +62,18 @@ class UsersController < ApplicationController
   def set_rankings
     @rankings = Hash.new
     User.all.each { |user| @rankings[user.id] = FindUserRanking.new(user).call() }
+  end
+
+  def logged_in_user
+    unless logged_in?
+      flash[:danger] = "Please log in."
+      redirect_to login_url
+    end
+  end
+
+  def correct_user
+    @user = User.find(params[:id])
+    redirect_to(root_url) unless current_user?(@user)
   end
 
   def user_params
