@@ -1,11 +1,14 @@
 <%= form_for([@game, @guess]) do |f| %>
+  <% if @game.user == current_user %>
+    <%= render :partial => "layouts/errors", :locals => { :item => @guess } %>
 
-  <%= render :partial => "layouts/errors", :locals => { :item => @guess } %>
+    <div class="actions">
+      <%= f.label :letter, "Letter" %>
+      <%= f.text_field :letter, :autocomplete => :off, class: 'form-control' %>
 
-  <div class="actions">
-    <%= f.label :letter, "Letter" %>
-    <%= f.text_field :letter, :autocomplete => :off, class: 'form-control' %>
-
-    <%= f.submit "Guess!", class: "btn btn-primary" %>
-  </div>
+      <%= f.submit "Guess!", class: "btn btn-primary" %>
+    </div>
+  <% else %>
+    <h3 class="center">Spectating <%= @game.user.name.possessive %> game</h3>
+  <% end %>
 <% end %>
