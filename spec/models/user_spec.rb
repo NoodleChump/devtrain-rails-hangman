@@ -13,7 +13,7 @@ RSpec.describe User, type: :model do
 
   context "when creating a user with a name that is too long" do
     it "it doesn't pass validation" do
-      expect { User.create!(name: "foo" * 10, email: email, password: "foobar", password_confirmation: "foobar") }.to raise_exception(ActiveRecord::RecordInvalid)
+      expect { User.create!(name: "foo" * 50, email: email, password: "foobar", password_confirmation: "foobar") }.to raise_exception(ActiveRecord::RecordInvalid)
     end
   end
 
@@ -72,16 +72,17 @@ RSpec.describe User, type: :model do
     subject(:another_user) { User.create!(name: "Another User", email: "bar@foo.com", password: "foobar", password_confirmation: "foobar") }
     let(:lives) { 1 }
     let(:word_a) { "a" }
-    let(:won_game) { Game.create!(word_to_guess: word_a, number_of_lives: lives, user: user) }
+    let(:won_game) { Game.create!(word_to_guess: word_a, number_of_lives: lives, user: user, custom: false) }
     let(:word_b) { "b" }
-    let(:lost_game) { Game.create!(word_to_guess: word_b, number_of_lives: lives, user: user) }
+    let(:lost_game) { Game.create!(word_to_guess: word_b, number_of_lives: lives, user: user, custom: false) }
     let(:word_ab) { "ab" }
-    let(:in_progress_game) { Game.create!(word_to_guess: word_ab, number_of_lives: lives, user: user) }
+    let(:in_progress_game) { Game.create!(word_to_guess: word_ab, number_of_lives: lives, user: user, custom: false) }
 
     before do
       HangmanSpecHelper.make_guess(won_game, word_a)
       HangmanSpecHelper.make_guess(lost_game, word_a)
       HangmanSpecHelper.make_guess(in_progress_game, word_a)
+      user.games.reload
     end
 
     it "has three total games" do
@@ -101,7 +102,13 @@ RSpec.describe User, type: :model do
       expect(user.in_progress_games).to eq [in_progress_game]
     end
 
-    it "has a win-loss rate of 1.0" do
+    it "has a win-loss rate of 0.0 (as games are marked custom)" do
+      expect(user.win_loss_rate).to eq 1.0
+    end
+
+    it "has a win-loss rate of 1.0 (as games are marked ranked)" do
+      won_game.update_attribute(:custom, false)
+      lost_game.update_attribute(:custom, false)
       expect(user.win_loss_rate).to eq 1.0
     end
 

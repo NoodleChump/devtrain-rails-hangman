@@ -27,8 +27,8 @@ class User < ActiveRecord::Base
   end
 
   def win_loss_rate
-    lost_ranked_games = lost_games.reject(&:custom)
-    won_ranked_games = won_games.reject(&:custom)
+    lost_ranked_games = lost_games.select(&:custom?)
+    won_ranked_games = won_games.select(&:custom?)
 
     if lost_ranked_games.count == 0
       won_ranked_games.count.to_f
