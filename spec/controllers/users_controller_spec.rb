@@ -24,23 +24,29 @@ RSpec.describe UsersController, type: :controller do
   # User. As you add validations to User, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    { name: "Jordane", email: "jordane@example.com", password: "foobar", password_confirmation: "foobar" }
+    { name: "Jordane", email: "jordane@example.com", password: "foobar", password_confirmation: "foobar", admin: true }
   }
 
   let(:invalid_attributes) {
     { name: "foo", email: "foo.bar.com", password: "foobar", password_confirmation: "foobar" }
   }
 
+  let(:admin) { User.create!(name: "Admin", email: "admin@example.com", password: "foobar", password_confirmation: "foobar", admin: true) }
+
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # UsersController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
+  before do
+    log_in admin
+  end
+
   describe "GET #index" do
     it "assigns all users as @users" do
       user = User.create! valid_attributes
       get :index, {}, valid_session
-      expect(assigns(:users)).to eq([user])
+      expect(assigns(:users)).to eq([admin, user])
     end
   end
 

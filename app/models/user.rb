@@ -27,10 +27,13 @@ class User < ActiveRecord::Base
   end
 
   def win_loss_rate
-    if lost_games.count == 0
-      won_games.count.to_f
+    lost_ranked_games = lost_games.reject(&:custom)
+    won_ranked_games = won_games.reject(&:custom)
+
+    if lost_ranked_games.count == 0
+      won_ranked_games.count.to_f
     else
-      won_games.count / lost_games.count.to_f
+      won_ranked_games.count / lost_ranked_games.count.to_f
     end
   end
 
@@ -65,6 +68,6 @@ class User < ActiveRecord::Base
   private
 
   def rank_weight
-    (win_loss_rate * games.length + won_games.count).to_i
+    (win_loss_rate * games.reject(&:custom).length + won_games.reject(&:custom).count).to_i
   end
 end

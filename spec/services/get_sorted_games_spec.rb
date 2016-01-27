@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe GamesPresenter, type: :presenter do
+RSpec.describe GetSortedGames, type: :service do
   let(:user) { User.create!(name: "User", email: "user@user.com", password: "foobar", password_confirmation: "foobar") }
   let(:other_user) { User.create!(name: "Other User", email: "another@user.com", password: "foobar", password_confirmation: "foobar") }
   let(:ai_user) { User.create!(name: "AI User", email: "more@user.com", password: "foobar", password_confirmation: "foobar") }
@@ -17,32 +17,32 @@ RSpec.describe GamesPresenter, type: :presenter do
 
   describe "#apply_sort" do
     it "sorts by user name (ascending) correctly" do
-      sorted_games = GamesPresenter.apply_sort(games, 'name', 'asc')
+      sorted_games = GetSortedGames.new('name', 'asc').call
       expect(sorted_games).to eq [a_game, other_game, boring_game]
     end
 
     it "sorts by user name (descending) correctly" do
-      sorted_games = GamesPresenter.apply_sort(games, 'name', 'desc')
+      sorted_games = GetSortedGames.new('name', 'desc').call
       expect(sorted_games).to eq [boring_game, other_game, a_game]
     end
 
     it "sorts by number of lives remaining (ascending) correctly" do
-      sorted_games = GamesPresenter.apply_sort(games, 'guesses', 'asc')
+      sorted_games = GetSortedGames.new('guesses', 'asc').call
       expect(sorted_games).to eq [other_game, a_game, boring_game]
     end
 
     it "sorts by number of lives remaining (descending) correctly" do
-      sorted_games = GamesPresenter.apply_sort(games, 'guesses', 'desc')
+      sorted_games = GetSortedGames.new('guesses', 'desc').call
       expect(sorted_games).to eq [boring_game, a_game, other_game]
     end
 
     it "sorts by number of blanks remaining (ascending) correctly" do
-      sorted_games = GamesPresenter.apply_sort(games, 'blanks', 'asc')
+      sorted_games = GetSortedGames.new('blanks', 'asc').call
       expect(sorted_games).to eq [a_game, boring_game, other_game]
     end
 
     it "sorts by number of blanks remaining (descending) correctly" do
-      sorted_games = GamesPresenter.apply_sort(games, 'blanks', 'desc')
+      sorted_games = GetSortedGames.new('blanks', 'desc').call
       expect(sorted_games).to eq [other_game, boring_game, a_game]
     end
 
@@ -53,12 +53,12 @@ RSpec.describe GamesPresenter, type: :presenter do
       end
 
       it "sorts by game progress (ascending) correctly" do
-        sorted_games = GamesPresenter.apply_sort(games, 'blanks', 'asc')
+        sorted_games = GetSortedGames.new('blanks', 'asc').call
         expect(sorted_games).to eq [other_game, a_game, boring_game]
       end
 
       it "sorts by game progress (descending) correctly" do
-        sorted_games = GamesPresenter.apply_sort(games, 'blanks', 'desc')
+        sorted_games = GetSortedGames.new('blanks', 'desc').call
         expect(sorted_games).to eq [boring_game, a_game, other_game]
       end
     end

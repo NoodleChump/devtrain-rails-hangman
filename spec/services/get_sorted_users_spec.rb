@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe UsersPresenter, type: :presenter do
+RSpec.describe GetSortedUsers, type: :service do
   let(:user) { User.create!(name: "User", email: "user@user.com", password: "foobar", password_confirmation: "foobar") }
   let(:other_user) { User.create!(name: "Other User", email: "another@user.com", password: "foobar", password_confirmation: "foobar") }
   let(:ai_user) { User.create!(name: "AI User", email: "yet.another@user.com", password: "foobar", password_confirmation: "foobar") }
@@ -24,24 +24,24 @@ RSpec.describe UsersPresenter, type: :presenter do
 
     context "when sorting by name" do
       it "sorts (ascending) correctly" do
-        sorted_users = UsersPresenter.apply_sort(users, 'name', 'asc')
+        sorted_users = GetSortedUsers.new('name', 'asc').call
         expect(sorted_users).to eq [ai_user, other_user, user]
       end
 
       it "sorts (descending) correctly" do
-        sorted_users = UsersPresenter.apply_sort(users, 'name', 'desc')
+        sorted_users = GetSortedUsers.new('name', 'desc').call
         expect(sorted_users).to eq [user, other_user, ai_user]
       end
     end
 
     context "when sorting by ranking" do
       it "sorts (ascending) correctly" do
-        sorted_users = UsersPresenter.apply_sort(users, 'ranking', 'asc')
+        sorted_users = GetSortedUsers.new('ranking', 'asc').call
         expect(sorted_users).to eq [ai_user, user, other_user]
       end
 
       it "sorts (descending) correctly" do
-        sorted_users = UsersPresenter.apply_sort(users, 'ranking', 'desc')
+        sorted_users = GetSortedUsers.new('ranking', 'desc').call
         expect(sorted_users).to eq [other_user, user, ai_user]
       end
     end

@@ -23,7 +23,7 @@ RSpec.describe GamesController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Game. As you add validations to Game, be sure to
   # adjust the attributes here as well.
-  let(:user) { User.create!(name: "Jordane", email: "user@user.com", password: "foobar", password_confirmation: "foobar") }
+  let(:user) { User.create!(name: "Jordane", email: "user@user.com", password: "foobar", password_confirmation: "foobar", admin: true) }
 
   let(:valid_attributes) {
     { word_to_guess: "word", number_of_lives: 2, user: user, user_id: user.id }
@@ -37,6 +37,10 @@ RSpec.describe GamesController, type: :controller do
   # in order to pass any filters (e.g. authentication) defined in
   # GamesController. Be sure to keep this updated too.
   let(:valid_session) { {} }
+
+  before do
+    log_in user
+  end
 
   describe "GET #index" do
     it "assigns all games as @games" do
@@ -57,8 +61,16 @@ RSpec.describe GamesController, type: :controller do
 
   describe "GET #new" do
     it "assigns a new game as @game" do
-      get :new, {}, valid_session
+      get :custom, {}, valid_session
+      expect(assigns(:game)).to be_a(Game)
+    end
+  end
+
+  describe "GET #custom" do
+    it "assigns a new custom game as @game" do
+      get :custom, {}, valid_session
       expect(assigns(:game)).to be_a_new(Game)
+      expect(assigns(:game).word_to_guess).not_to be_present
     end
   end
 

@@ -5,7 +5,7 @@ class GamesController < ApplicationController
   helper_method :sort_column
 
   def index
-    @games = GamesPresenter.apply_sort(Game.all, sort_column, sort_direction).paginate(page: params[:page], per_page: 10)
+    @games = GetSortedGames.new(sort_column, sort_direction).call.paginate(page: params[:page], per_page: 10)
   end
 
   def show

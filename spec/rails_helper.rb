@@ -6,6 +6,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'spec_helper'
 require 'rspec/rails'
 require 'hangman_spec_helper'
+include SessionsHelper
 # Add additional requires below this line. Rails is not loaded until this point!
 Dir[Rails.root.join("app/services/*.rb")].sort.each { |f| require f }
 Dir[Rails.root.join("app/presenters/*.rb")].sort.each { |f| require f }
