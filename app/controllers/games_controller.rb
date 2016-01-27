@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
   before_action :set_game, only: [:show, :edit, :update, :destroy]
-  before_action :logged_in, only: [:new, :custom]
+  before_action :logged_in, only: [:index, :show, :new, :custom]
 
   helper_method :sort_column
 
