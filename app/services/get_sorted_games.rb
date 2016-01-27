@@ -1,3 +1,4 @@
+include ApplicationHelper #TODO dodging
 class GetSortedGames
   def initialize(sort_column, direction_order)
     @sort_column = sort_column
@@ -35,19 +36,17 @@ class GetSortedGames
 
   def games_sorted_by_lives
     games = Game.all.sort_by(&:number_of_lives_remaining)
-    games.reverse! if @direction == "desc"
+    @direction == "desc" ? games.reverse : games
   end
 
   def games_sorted_by_blanks
     games = Game.all.sort_by { |game| (present game).number_of_blanks_remaining }
-    games.reverse! if @direction == "desc"
-    games
+    @direction == "desc" ? games.reverse : games
   end
 
   def games_sorted_by_progress
     games = Game.all.sort_by { |game| (present game).progression }
-    games.reverse! if @direction == "desc"
-    games
+    @direction == "desc" ? games.reverse : games
   end
 
   def games_sorted_by_date

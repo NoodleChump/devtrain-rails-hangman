@@ -14,12 +14,15 @@ RSpec.describe GetSortedUsers, type: :service do
   let(:other_game) { Game.create!(word_to_guess: other_word, number_of_lives: 1, user: other_user) }
 
   let(:users) { [user, ai_user, other_user] }
+  let(:games) { [boring_game, a_word, other_game] }
 
   describe "#apply_sort" do
     before do
       HangmanSpecHelper::make_guess(other_game, "z") # lost
       HangmanSpecHelper::make_guesses(boring_game, "wzr") # in progress
       HangmanSpecHelper::make_guesses(a_game, "a") # won
+
+      users.each(&:update_rank_weight)
     end
 
     context "when sorting by name" do
@@ -37,12 +40,16 @@ RSpec.describe GetSortedUsers, type: :service do
     context "when sorting by ranking" do
       it "sorts (ascending) correctly" do
         sorted_users = GetSortedUsers.new('ranking', 'asc').call
-        expect(sorted_users).to eq [ai_user, user, other_user]
+        0...sorted_users.count do |user|
+          expect(FindUserRanking.new(sorted_users[user]).call <= FindUserRanking.new(sorted_users[user + 1]).call).to be true
+        end
       end
 
       it "sorts (descending) correctly" do
         sorted_users = GetSortedUsers.new('ranking', 'desc').call
-        expect(sorted_users).to eq [other_user, user, ai_user]
+        0...sorted_users.count do |user|
+          expect(FindUserRanking.new(sorted_users[user]).call >= FindUserRanking.new(sorted_users[user + 1]).call).to be true
+        end
       end
     end
   end
