@@ -33,28 +33,84 @@ RSpec.describe UsersController, type: :controller do
 
   let(:admin) { User.create!(name: "Admin", email: "admin@example.com", password: "foobar", password_confirmation: "foobar", admin: true) }
 
+  let(:a_user) { User.create!(name: "Non Admin", email: "non_admin@example.com", password: "foobar", password_confirmation: "foobar", admin: false) }
+  let(:john) { User.create!(name: "John", email: "john@example.com", password: "foobar", password_confirmation: "foobar", admin: false) }
+  let(:bob) { User.create!(name: "Bob", email: "bob@example.com", password: "foobar", password_confirmation: "foobar", admin: false) }
+
+  let(:new_user) { { name: "New User", email: "new@example.com", password: "foobar", password_confirmation: "foobar", admin: false } }
+
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # UsersController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  before do
-    log_in admin
-  end
-
   describe "GET #index" do
-    it "assigns all users as @users" do
-      user = User.create! valid_attributes
-      get :index, {}, valid_session
-      expect(assigns(:users)).to eq([admin, user])
+    context "when logged in" do
+      before do
+        log_in a_user
+      end
+
+      it "assigns all users as @users" do
+        get :index, {}, valid_session
+        expect(assigns(:users)).to contain_exactly(admin, a_user, john, bob)
+      end
+    end
+
+    context "when logged out" do
+      before do
+        log_out if logged_in?
+      end
+
+      it "redirects to the login page" do
+        get :index, {}, valid_session
+        expect(response).to redirect_to(login_url)
+      end
     end
   end
 
   describe "GET #show" do
-    it "assigns the requested user as @user" do
-      user = User.create! valid_attributes
-      get :show, {:id => user.to_param}, valid_session
-      expect(assigns(:user)).to eq(user)
+    context "when logged in as john" do
+      before do
+        log_in john
+      end
+
+      it "assigns john as the @user" do
+        get :show, {:id => john.to_param}, valid_session
+        expect(assigns(:user)).to eq(john)
+      end
+    end
+
+    context "when logged in as an admin" do
+      before do
+        log_in admin
+      end
+
+      it "assigns john as the @user" do
+        get :show, {:id => john.to_param}, valid_session
+        expect(assigns(:user)).to eq(john)
+      end
+    end
+
+    context "when logged in as bob (another user)" do
+      before do
+        log_in bob
+      end
+
+      it "assigns john as the @user" do
+        get :show, {:id => john.to_param}, valid_session
+        expect(assigns(:user)).to eq(john)
+      end
+    end
+
+    context "when logged out" do
+      before do
+        log_out if logged_in?
+      end
+
+      it "redirects to the login page" do
+        get :show, {:id => john.to_param}, valid_session
+        expect(response).to redirect_to(login_url)
+      end
     end
   end
 
@@ -115,55 +171,199 @@ RSpec.describe UsersController, type: :controller do
         { name: new_name, email: new_email, password: password, password_confirmation: password }
       }
 
-      it "updates the requested user" do
-        user = User.create! valid_attributes
-        put :update, { :id => user.to_param, :user => new_attributes }, valid_session
-        user.reload
-        expect(user.name).to eq new_name
-        expect(user.email).to eq new_email
+      context "when logged in as the user being updated" do
+        before do
+          log_in john
+        end
+
+        it "updates the requested user" do
+          put :update, { :id => john.to_param, :user => new_attributes }, valid_session
+          john.reload
+          expect(john.name).to eq new_name
+          expect(john.email).to eq new_email
+        end
+
+        it "assigns the requested user as @user" do
+          put :update, {:id => john.to_param, :user => valid_attributes}, valid_session
+          expect(assigns(:user)).to eq(john)
+        end
+
+        it "redirects to the user" do
+          put :update, {:id => john.to_param, :user => valid_attributes}, valid_session
+          expect(response).to redirect_to(john)
+        end
       end
 
-      it "assigns the requested user as @user" do
-        user = User.create! valid_attributes
-        put :update, {:id => user.to_param, :user => valid_attributes}, valid_session
-        expect(assigns(:user)).to eq(user)
+      context "when logged in as an admin (not the user being updated)" do
+        before do
+          log_in admin
+        end
+
+        it "updates the requested user" do
+          put :update, { :id => john.to_param, :user => new_attributes }, valid_session
+          john.reload
+          expect(john.name).to eq new_name
+          expect(john.email).to eq new_email
+        end
+
+        it "assigns the requested user as @user" do
+          put :update, {:id => john.to_param, :user => valid_attributes}, valid_session
+          expect(assigns(:user)).to eq(john)
+        end
+
+        it "redirects to the user" do
+          put :update, {:id => john.to_param, :user => valid_attributes}, valid_session
+          expect(response).to redirect_to(john)
+        end
       end
 
-      it "redirects to the user" do
-        user = User.create! valid_attributes
-        put :update, {:id => user.to_param, :user => valid_attributes}, valid_session
-        expect(response).to redirect_to(user)
+      context "when logged in as another user (not an admin or the user being updated)" do
+        before do
+          log_in bob
+        end
+
+        it "doesn't update the requested user" do
+          put :update, { :id => john.to_param, :user => new_attributes }, valid_session
+          john.reload
+          expect(john.name).to_not eq new_name
+          expect(john.email).to_not eq new_email
+        end
+
+        it "redirects to the root page" do
+          put :update, {:id => john.to_param, :user => valid_attributes}, valid_session
+          expect(response).to redirect_to(root_url)
+        end
+      end
+
+      context "when logged out" do
+        before do
+          log_out if logged_in?
+        end
+
+        it "redirects to the login page" do
+          put :update, {:id => john.to_param, :user => valid_attributes}, valid_session
+          expect(response).to redirect_to(login_url)
+        end
       end
     end
 
     context "with invalid params" do
-      it "assigns the user as @user" do
-        user = User.create! valid_attributes
-        put :update, {:id => user.to_param, :user => invalid_attributes}, valid_session
-        expect(assigns(:user)).to eq(user)
+      context "when logged in as the user being updated" do
+        before do
+          log_in john
+        end
+
+        it "assigns the user as @user" do
+          put :update, {:id => john.to_param, :user => invalid_attributes}, valid_session
+          expect(assigns(:user)).to eq(john)
+        end
+
+        it "re-renders the 'edit' template" do
+          put :update, {:id => john.to_param, :user => invalid_attributes}, valid_session
+          expect(response).to render_template("edit")
+        end
       end
 
-      it "re-renders the 'edit' template" do
-        user = User.create! valid_attributes
-        put :update, {:id => user.to_param, :user => invalid_attributes}, valid_session
-        expect(response).to render_template("edit")
+      context "when logged in as an admin (not the user being updated)" do
+        before do
+          log_in admin
+        end
+
+        it "assigns the user as @user" do
+          put :update, {:id => john.to_param, :user => invalid_attributes}, valid_session
+          expect(assigns(:user)).to eq(john)
+        end
+
+        it "re-renders the 'edit' template" do
+          put :update, {:id => john.to_param, :user => invalid_attributes}, valid_session
+          expect(response).to render_template("edit")
+        end
+      end
+
+      context "when logged in as another user (not an admin or the user being updated)" do
+        before do
+          log_in bob
+        end
+
+        it "redirects to the root page" do
+          put :update, {:id => john.to_param, :user => valid_attributes}, valid_session
+          expect(response).to redirect_to(root_url)
+        end
+      end
+
+      context "when not logged in" do
+        before do
+          log_out if logged_in?
+        end
+
+        it "redirects to the log in page" do
+          put :update, {:id => john.to_param, :user => valid_attributes}, valid_session
+          expect(response).to redirect_to(login_url)
+        end
       end
     end
   end
 
   describe "DELETE #destroy" do
-    it "destroys the requested user" do
-      user = User.create! valid_attributes
-      expect {
-        delete :destroy, {:id => user.to_param}, valid_session
-      }.to change(User, :count).by(-1)
+    context "when logged in as an admin (not the user being destroyed)" do
+      before do
+        log_in admin
+      end
+
+      it "destroys the requested user" do
+        delete :destroy, {:id => john.to_param}, valid_session
+        expect(User.all.exclude?(john)).to be true
+      end
+
+      it "redirects to the users list" do
+        delete :destroy, {:id => john.to_param}, valid_session
+        expect(response).to redirect_to(users_url)
+      end
     end
 
-    it "redirects to the users list" do
-      user = User.create! valid_attributes
-      delete :destroy, {:id => user.to_param}, valid_session
-      expect(response).to redirect_to(users_url)
+    context "when logged in as the user being destroyed" do
+      before do
+        log_in john
+      end
+
+      it "doesn't destroy the requested user" do
+        expect {
+          delete :destroy, {:id => john.to_param}, valid_session
+        }.to change(User, :count).by(0)
+      end
+
+      it "redirects to the root page" do
+        delete :destroy, {:id => john.to_param}, valid_session
+        expect(response).to redirect_to(root_url)
+      end
+    end
+
+    context "when not logged in" do
+      before do
+        log_out if logged_in?
+      end
+
+      it "redirects to the log in page" do
+        put :update, {:id => john.to_param, :user => valid_attributes}, valid_session
+        expect(response).to redirect_to(login_url)
+      end
+    end
+
+    context "when an admin tries to delete themselves" do
+      before do
+        log_in admin
+      end
+
+      it "doesn't destroy the requested user" do
+        expect {
+          delete :destroy, {:id => admin.to_param}, valid_session
+        }.to change(User, :count).by(0)
+      end
+
+      it "redirects to the root page" do
+        delete :destroy, {:id => admin.to_param}, valid_session
+        expect(response).to redirect_to(users_url)
+      end
     end
   end
-
 end

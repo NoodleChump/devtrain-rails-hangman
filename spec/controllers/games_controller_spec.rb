@@ -23,7 +23,11 @@ RSpec.describe GamesController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Game. As you add validations to Game, be sure to
   # adjust the attributes here as well.
-  let(:user) { User.create!(name: "Jordane", email: "user@user.com", password: "foobar", password_confirmation: "foobar", admin: true) }
+
+  let(:admin) { User.create!(name: "Admin", email: "admin@example.com", password: "foobar", password_confirmation: "foobar", admin: true) }
+  let(:user) { User.create!(name: "Jordane", email: "user@user.com", password: "foobar", password_confirmation: "foobar", admin: false) }
+  let(:john) { User.create!(name: "John", email: "john@example.com", password: "foobar", password_confirmation: "foobar", admin: false) }
+  let(:bob) { User.create!(name: "Bob", email: "bob@example.com", password: "foobar", password_confirmation: "foobar", admin: false) }
 
   let(:valid_attributes) {
     { word_to_guess: "word", number_of_lives: 2, user: user, user_id: user.id }
