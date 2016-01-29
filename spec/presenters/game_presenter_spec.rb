@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe GamePresenter, type: :presenter do
   include ActionView::TestCase::Behavior
+  #TODO Also make UserPresenter spec
 
   let(:user) { User.create!(name: "User", email: "user@user.com", password: "foobar", password_confirmation: "foobar") }
   let(:word) { "word" }
@@ -9,7 +10,7 @@ RSpec.describe GamePresenter, type: :presenter do
   let(:game) { Game.create!(word_to_guess: word, number_of_lives: lives, user: user) }
   let(:letters_to_guess) { "" }
 
-  subject(:presented_game) { present game }
+  subject(:presented_game) { GamePresenter.new(game) }
 
   before do
     HangmanSpecHelper.make_guesses(game, letters_to_guess)
@@ -21,7 +22,7 @@ RSpec.describe GamePresenter, type: :presenter do
     end
 
     it "has an image of a blank hangman canvas" do
-      expect(presented_game.hangman_image).to include "hang0.gif"
+      expect(presented_game.hangman_image).to include "hang0"
     end
 
     it "has a status of not started" do
@@ -38,7 +39,7 @@ RSpec.describe GamePresenter, type: :presenter do
     end
 
     it "has an image of a hangman canvas, halfway through a game" do
-      expect(presented_game.hangman_image).to include "hang5.gif"
+      expect(presented_game.hangman_image).to include "hang5"
     end
 
     it "has a status of in progress" do
@@ -54,7 +55,7 @@ RSpec.describe GamePresenter, type: :presenter do
     end
 
     it "has an image of a blank hangman canvas" do
-      expect(presented_game.hangman_image).to include "hang0.gif"
+      expect(presented_game.hangman_image).to include "hang0"
     end
 
     it "has a status of won" do
@@ -71,7 +72,7 @@ RSpec.describe GamePresenter, type: :presenter do
     end
 
     it "has an image of a complete hangman canvas" do
-      expect(presented_game.hangman_image).to include "hang10.gif"
+      expect(presented_game.hangman_image).to include "hang10"
     end
   end
 end

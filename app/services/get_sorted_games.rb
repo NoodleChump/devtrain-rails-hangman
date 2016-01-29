@@ -40,12 +40,12 @@ class GetSortedGames
   end
 
   def games_sorted_by_blanks
-    games = Game.all.sort_by { |game| (present game).number_of_blanks_remaining }
+    games = Game.all.sort_by { |game| (GamePresenter.new(game)).number_of_blanks_remaining }
     @direction == "desc" ? games.reverse : games
   end
 
   def games_sorted_by_progress
-    games = Game.all.sort_by { |game| (present game).progression }
+    games = Game.all.sort_by { |game| (GamePresenter.new(game)).progression }
     @direction == "desc" ? games.reverse : games
   end
 
