@@ -4,7 +4,7 @@ class Guess < ActiveRecord::Base
   belongs_to :game
 
   before_validation :downcase_letter
-  validates :letter, presence: true, length: { is: 1 }, inclusion: { in: ALPHABET }
+  validates :letter, presence: true, length: { is: 1 }, inclusion: { in: ALPHABET } #TODO Custom error messages 'Letter is not included in the list'
 
   after_create :update_user_rank
 
