@@ -1,15 +1,4 @@
 module ApplicationHelper
-  #REVIEW presenter_for
-  def present(object, klass = nil)
-    klass ||= "#{object.class.name}Presenter".constantize
-    klass.new(object, self) # REVIEW nickj
-=begin
-def html
-    @html ||= ActionView::Base.new.extend(ActionView::Helpers::TagHelper)
-  end
-=end
-  end
-
   def sortable(column, title = nil)
     title ||= column.titleize
     css_class = column == sort_column ? "current #{sort_direction}" : nil

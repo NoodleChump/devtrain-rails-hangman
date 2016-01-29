@@ -1,4 +1,4 @@
-<% game_presenter = present @game %>
+<% game_presenter = GamePresenter.new(@game) %>
 <% provide(:title, game_presenter.censored_word) %>
 
 <p id="notice"><%= notice %></p>

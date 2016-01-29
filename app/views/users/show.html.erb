@@ -1,6 +1,6 @@
 <% provide(:title, @user.name) %>
 
-<% user_presenter = present @user %>
+<% user_presenter = UserPresenter.new(@user) %>
 <p id="notice"><%= notice %></p>
 
 <div class="user_heading">

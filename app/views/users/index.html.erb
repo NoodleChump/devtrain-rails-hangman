@@ -21,7 +21,7 @@
 
   <tbody>
     <% @users.each do |user| %>
-      <% presented_user = present user %>
+      <% presented_user = UserPresenter.new(user) %>
       <tr>
         <td><%= presented_user.small_gravatar %></td>
         <td><%= link_to user.name, user %></td>

@@ -20,8 +20,8 @@
 
   <tbody>
     <% @games.each do |game| %>
-      <% game_presenter = present game %>
-      <% presented_user = present game.user %>
+      <% game_presenter = GamePresenter.new(game) %>
+      <% presented_user = UserPresenter.new(game.user) %>
       <tr>
         <td><%= presented_user.small_gravatar %></td>
         <td><%= link_to game.user.name, game.user %></td>

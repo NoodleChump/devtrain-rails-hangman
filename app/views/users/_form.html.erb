@@ -1,4 +1,4 @@
-<% user_presenter = present @user %>
+<% user_presenter = UserPresenter.new(@user) %>
 
 <% if @user.persisted? %>
   <div class="gravatar_edit">
