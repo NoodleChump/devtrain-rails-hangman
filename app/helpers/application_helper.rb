@@ -8,8 +8,8 @@ module ApplicationHelper
 
   private
 
-  def sort_column #TODO ||
-    params[:sort] ? params[:sort] : "id"
+  def sort_column
+    params[:sort] || "id"
   end
 
   def sort_direction

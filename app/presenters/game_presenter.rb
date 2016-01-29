@@ -6,8 +6,7 @@ class GamePresenter
   end
 
   def censored_word
-    #TODO item || censor
-    @game.censored_word.map { |item| item != nil ? item : CENSOR_CHARACTER }.join
+    @game.censored_word.map { |letter| letter || CENSOR_CHARACTER }.join
   end
 
   def number_of_blanks_remaining

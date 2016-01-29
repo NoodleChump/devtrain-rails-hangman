@@ -4,13 +4,14 @@ class MakeGuess
   end
 
   def call
-    #TODO lock
+    @guess.game.lock!
     if already_guessed?
       @guess.errors.add(:letter, "has already been guessed")
       false
     else
       @guess.save
     end
+    @guess.game.save!
   end
 
   private

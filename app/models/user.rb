@@ -13,7 +13,6 @@ class User < ActiveRecord::Base
 
   attr_accessor :remember_token
 
-  #TODO Move into presenter?
   def won_games
     games.select(&:won?)
   end

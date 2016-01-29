@@ -1,4 +1,3 @@
-include ApplicationHelper #TODO dodging
 class GetSortedGames
   def initialize(sort_column, direction_order)
     @sort_column = sort_column
