@@ -73,6 +73,7 @@ RSpec.describe GamesController, type: :controller do
       before do
         log_in user
       end
+
       it "assigns the requested game as @game" do
         game = Game.create! valid_attributes
         get :show, {:id => game.to_param}, valid_session
@@ -84,135 +85,169 @@ RSpec.describe GamesController, type: :controller do
       before do
         log_out if logged_in?
       end
+
       it "redirects the user to the login page" do
         game = Game.create! valid_attributes
         get :show, {:id => game.to_param}, valid_session
         expect(response).to redirect_to(login_url)
       end
     end
-
   end
 
   describe "GET #new" do
-    it "assigns a new game as @game" do
-      skip
-      get :custom, {}, valid_session
-      expect(assigns(:game)).to be_a(Game)
+    context "when logged in" do
+      before do
+        log_in user
+      end
+
+      it "assigns a new game as @game" do
+        get :new, {}, valid_session
+        expect(assigns(:game)).to be_a(Game)
+      end
+
+      it "redirects the user to the new game" do
+        get :new, {}, valid_session
+        expect(response).to redirect_to(assigns(:game))
+      end
+    end
+
+    context "when logged out" do
+      before do
+        log_out if logged_in?
+      end
+
+      it "redirects the user to the login page" do
+        get :new, {}, valid_session
+        expect(response).to redirect_to(login_url)
+      end
     end
   end
 
   describe "GET #custom" do
-    it "assigns a new custom game as @game" do
-      skip
-      get :custom, {}, valid_session
-      expect(assigns(:game)).to be_a_new(Game)
-      expect(assigns(:game).word_to_guess).not_to be_present
-    end
-  end
-
-=begin
-  describe "GET #edit" do
-    it "assigns the requested game as @game" do
-      game = Game.create! valid_attributes
-      get :edit, {:id => game.to_param}, valid_session
-      expect(assigns(:game)).to eq(game)
-    end
-  end
-=end
-
-  describe "POST #create" do
-    context "with valid params" do
-      it "creates a new Game" do
-        expect {
-          post :create, {:game => valid_attributes}, valid_session
-        }.to change(Game, :count).by(1)
+    context "when logged in" do
+      before do
+        log_in user
       end
 
-      it "assigns a newly created game as @game" do
-        post :create, {:game => valid_attributes}, valid_session
-        expect(assigns(:game)).to be_a(Game)
-        expect(assigns(:game)).to be_persisted
-      end
-
-      it "redirects to the created game" do
-        post :create, {:game => valid_attributes}, valid_session
-        expect(response).to redirect_to(Game.last)
-      end
-    end
-
-    context "with invalid params" do
-      it "assigns a newly created but unsaved game as @game" do
-        post :create, {:game => invalid_attributes}, valid_session
+      it "assigns a new custom game as @game" do
+        get :custom, {}, valid_session
         expect(assigns(:game)).to be_a_new(Game)
       end
+    end
 
-      it "re-renders the 'new' template" do
-        post :create, {:game => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
+    context "when logged out" do
+      before do
+        log_out if logged_in?
+      end
+      it "redirects the user to the login page" do
+        get :custom, {}, valid_session
+        expect(response).to redirect_to(login_url)
       end
     end
   end
 
-=begin
-  describe "PUT #update" do
-    context "with valid params" do
-      let(:new_word) { "another_world" }
-      let(:new_lives) { 3 }
-      let(:new_attributes) {
-        { word_to_guess: new_word, number_of_lives: new_lives }
-      }
-
-      it "updates the requested game" do
-        game = Game.create! valid_attributes
-        put :update, {:id => game.to_param, :game => new_attributes}, valid_session
-        game.reload
-
-        expect(game.word_to_guess).to eq(new_word)
-        expect(game.number_of_lives).to eq(new_lives)
+  describe "POST #create" do
+    context "when logged in" do
+      before do
+        log_in user
       end
 
-      it "assigns the requested game as @game" do
-        game = Game.create! valid_attributes
-        put :update, {:id => game.to_param, :game => valid_attributes}, valid_session
-        expect(assigns(:game)).to eq(game)
+      context "with valid params" do
+        it "creates a new game" do
+          expect {
+            post :create, {:game => valid_attributes}, valid_session
+          }.to change(Game, :count).by(1)
+        end
+
+        it "assigns a newly created game as @game" do
+          post :create, {:game => valid_attributes}, valid_session
+          expect(assigns(:game)).to be_a(Game)
+          expect(assigns(:game)).to be_persisted
+        end
+
+        it "redirects to the created game" do
+          post :create, {:game => valid_attributes}, valid_session
+          expect(response).to redirect_to(Game.last)
+        end
       end
 
-      it "redirects to the game" do
-        game = Game.create! valid_attributes
-        put :update, {:id => game.to_param, :game => valid_attributes}, valid_session
-        expect(response).to redirect_to(game)
+      context "with invalid params" do
+        it "assigns a newly created but unsaved game as @game" do
+          post :create, {:game => invalid_attributes}, valid_session
+          expect(assigns(:game)).to be_a_new(Game)
+        end
+
+        it "re-renders the 'new' template" do
+          post :create, {:game => invalid_attributes}, valid_session
+          expect(response).to render_template("new")
+        end
       end
     end
 
-    context "with invalid params" do
-      it "assigns the game as @game" do
-        game = Game.create! valid_attributes
-        put :update, {:id => game.to_param, :game => invalid_attributes}, valid_session
-        expect(assigns(:game)).to eq(game)
+    context "when logged out" do
+      before do
+        log_out if logged_in?
       end
 
-      it "re-renders the 'edit' template" do
-        game = Game.create! valid_attributes
-        put :update, {:id => game.to_param, :game => invalid_attributes}, valid_session
-        expect(response).to render_template("edit")
+      it "redirects to the sign in page" do
+        post :create, {:game => valid_attributes}, valid_session
+        expect(response).to redirect_to(login_url)
       end
     end
   end
-=end
 
   describe "DELETE #destroy" do
-    it "destroys the requested game" do
-      game = Game.create! valid_attributes
-      expect {
+    context "when logged in as an admin" do
+      before do
+        log_in admin
+      end
+
+      it "destroys the requested game" do
+        game = Game.create! valid_attributes
+        expect {
+          delete :destroy, {:id => game.to_param}, valid_session
+        }.to change(Game, :count).by(-1)
+      end
+
+      it "redirects to the games list" do
+        game = Game.create! valid_attributes
         delete :destroy, {:id => game.to_param}, valid_session
-      }.to change(Game, :count).by(-1)
+        expect(response).to redirect_to(games_url)
+      end
     end
 
-    it "redirects to the games list" do
-      game = Game.create! valid_attributes
-      delete :destroy, {:id => game.to_param}, valid_session
-      expect(response).to redirect_to(games_url)
+    context "when logged in as the player of the game" do
+      before do
+        log_in user
+      end
+
+      it "doesn't destroy the requested game" do
+        game = Game.create! valid_attributes
+        expect {
+          delete :destroy, {:id => game.to_param}, valid_session
+        }.to change(Game, :count).by(0)
+      end
+
+      it "redirects to the games list" do
+        game = Game.create! valid_attributes
+        delete :destroy, {:id => game.to_param}, valid_session
+        expect(response).to redirect_to(root_url)
+      end
+    end
+
+    context "when logged in as the player of the game" do
+      it "doesn't destroy the requested game" do
+        game = Game.create! valid_attributes
+        expect {
+          delete :destroy, {:id => game.to_param}, valid_session
+        }.to change(Game, :count).by(0)
+      end
+
+      it "redirects to the login page" do
+        game = Game.create! valid_attributes
+        delete :destroy, {:id => game.to_param}, valid_session
+        expect(response).to redirect_to(login_url)
+      end
     end
   end
-
 end

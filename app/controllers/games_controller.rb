@@ -1,6 +1,7 @@
 class GamesController < ApplicationController
   before_action :set_game, only: [:show, :edit, :update, :destroy]
-  before_action :logged_in, only: [:index, :show, :new, :custom]
+  before_action :logged_in, only: [:index, :show, :new, :custom, :create, :destroy]
+  before_action :admin_user, only: [:destroy]
 
   helper_method :sort_column
 
@@ -54,6 +55,10 @@ class GamesController < ApplicationController
 
   def game_params
     params.require(:game).permit(:word_to_guess, :number_of_lives, :user_id)
+  end
+
+  def admin_user
+    redirect_to(root_url) unless current_user.admin?
   end
 
   def logged_in
