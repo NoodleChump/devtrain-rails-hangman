@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20160126230700) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "games", force: :cascade do |t|
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
@@ -22,7 +25,7 @@ ActiveRecord::Schema.define(version: 20160126230700) do
     t.boolean  "custom",          default: false
   end
 
-  add_index "games", ["user_id"], name: "index_games_on_user_id"
+  add_index "games", ["user_id"], name: "index_games_on_user_id", using: :btree
 
   create_table "guesses", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -31,7 +34,7 @@ ActiveRecord::Schema.define(version: 20160126230700) do
     t.integer  "game_id"
   end
 
-  add_index "guesses", ["game_id"], name: "index_guesses_on_game_id"
+  add_index "guesses", ["game_id"], name: "index_guesses_on_game_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at",                      null: false
@@ -44,7 +47,9 @@ ActiveRecord::Schema.define(version: 20160126230700) do
     t.integer  "rank_points",     default: 0
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["name"], name: "index_users_on_name", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["name"], name: "index_users_on_name", unique: true, using: :btree
 
+  add_foreign_key "games", "users"
+  add_foreign_key "guesses", "games"
 end

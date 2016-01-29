@@ -14,3 +14,5 @@ RSpec.describe "games/index", type: :view do
     render
   end
 end
+
+#TODO Update view tests for viewing own, other, and not logged in games
