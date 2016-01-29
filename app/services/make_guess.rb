@@ -1,5 +1,5 @@
 class MakeGuess
-  def initialize(guess) #TODO pass the game and letter instead, make the guess?
+  def initialize(guess) #TODO pass the game and letter instead, and build the guess?
     @guess = guess
   end
 
