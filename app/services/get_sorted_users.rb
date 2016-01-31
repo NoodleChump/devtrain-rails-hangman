@@ -33,8 +33,6 @@ class GetSortedUsers
 
   def users_sorted_by_ranking
     User.order("rank_points #{@direction}, name #{reversed_direction}")
-    #users = User.all.sort_by { |user| FindUserRanking.new(user).call }
-    #users.reverse! if @direction == "desc"
   end
 
   def users_sorted_by_won

@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :set_rankings, only: [:index]
 
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :show]
   before_action :correct_user,   only: [:edit, :update]
@@ -13,7 +12,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    @ranking = FindUserRanking.new(@user).call()
   end
 
   def new
@@ -63,11 +61,6 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
-  end
-
-  def set_rankings
-    @rankings = Hash.new
-    User.all.each { |user| @rankings[user.id] = FindUserRanking.new(user).call() }
   end
 
   def logged_in_user

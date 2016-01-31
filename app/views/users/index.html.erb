@@ -10,7 +10,7 @@
   <thead>
     <tr>
       <th colspan="2"><%= sortable("name", "Player") %></th>
-      <th><%= sortable("ranking", "Rank") %></th>
+      <th><%= sortable("ranking", "Ranked Score") %></th>
       <th><%= sortable("won", "Games Won") %></th>
       <th><%= sortable("lost", "Games Lost") %></th>
       <th><%= sortable("date", "Date Created") %></th>
@@ -25,7 +25,7 @@
       <tr>
         <td><%= presented_user.small_gravatar %></td>
         <td><%= link_to user.name, user %></td>
-        <td><%= @rankings[user.id] if @rankings %></td>
+        <td><%= user.rank_points %></td>
         <td><%= user.won_games.count %></td>
         <td><%= user.lost_games.count %></td>
         <td><%= user.created_at.strftime('%a %e %b, %Y') %></td>

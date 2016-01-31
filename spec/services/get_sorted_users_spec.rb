@@ -41,14 +41,14 @@ RSpec.describe GetSortedUsers, type: :service do
       it "sorts (ascending) correctly" do
         sorted_users = GetSortedUsers.new('ranking', 'asc').call
         0...sorted_users.count do |user|
-          expect(FindUserRanking.new(sorted_users[user]).call <= FindUserRanking.new(sorted_users[user + 1]).call).to be true
+          expect(sorted_users[user].rank_points <= sorted_users[user + 1].rank_points).to be true
         end
       end
 
       it "sorts (descending) correctly" do
         sorted_users = GetSortedUsers.new('ranking', 'desc').call
         0...sorted_users.count do |user|
-          expect(FindUserRanking.new(sorted_users[user]).call >= FindUserRanking.new(sorted_users[user + 1]).call).to be true
+          expect(sorted_users[user].rank_points >= sorted_users[user + 1].rank_points).to be true
         end
       end
     end
