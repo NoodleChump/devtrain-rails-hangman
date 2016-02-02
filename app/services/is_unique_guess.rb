@@ -1,4 +1,4 @@
-class MakeGuess
+class IsUniqueGuess
   def initialize(guess) #TODO pass the game and letter instead, and build the guess?
     @guess = guess
   end
@@ -12,7 +12,7 @@ class MakeGuess
       result = @guess.save
     end
     @guess.game.save!
-    result
+    result #TODO tap this
   end
 
   private

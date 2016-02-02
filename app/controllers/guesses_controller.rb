@@ -1,11 +1,10 @@
 class GuessesController < ApplicationController
   before_action :find_game
-
   before_action :logged_in, only: [:create]
 
   def create
     @guess = @game.guesses.build(guess_params)
-    if MakeGuess.new(@guess).call
+    if IsUniqueGuess.new(@guess).call
       redirect_to @game
     else
       @game.guesses.reload
