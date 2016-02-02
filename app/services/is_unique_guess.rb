@@ -1,5 +1,5 @@
 class IsUniqueGuess
-  def initialize(guess) #TODO pass the game and letter instead, and build the guess?
+  def initialize(guess)
     @guess = guess
   end
 
