@@ -21,3 +21,16 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    models:
+      user: "Player"
+    attributes:
+      user:
+        email: "Email address"
+    errors:
+      models:
+        guess:
+          attributes:
+            letter:
+              inclusion: "isn't a character of the English alphabet"
+              length: "should only be a single character long"

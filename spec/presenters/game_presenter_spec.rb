@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe GamePresenter, type: :presenter do
   include ActionView::TestCase::Behavior
-  #TODO Also make UserPresenter spec
+  #TODO UserPresenter specs need making
 
   let(:user) { User.create!(name: "User", email: "user@user.com", password: "foobar", password_confirmation: "foobar") }
   let(:word) { "word" }

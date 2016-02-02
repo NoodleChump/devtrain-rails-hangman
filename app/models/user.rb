@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  include Authentication
+  
   EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   has_many :games, :dependent => :destroy
@@ -7,8 +9,6 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true, length: { minimum: 3, maximum: 40 }
   validates :email, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 255 }, format: { with: EMAIL_REGEX }
-
-  has_secure_password
   validates :password, presence: true, length: { minimum: 6 }
 
   attr_accessor :remember_token
@@ -34,30 +34,6 @@ class User < ActiveRecord::Base
     else
       won_ranked_games.count / lost_ranked_games.count.to_f
     end
-  end
-
-  #TODO Move into an auth decorator/service/concern?
-  def User.digest(string)
-    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
-    BCrypt::Password.create(string, cost: cost)
-  end
-
-  def User.new_token
-    SecureRandom.urlsafe_base64
-  end
-
-  def remember
-    self.remember_token = User.new_token
-    update_attribute(:remember_digest, User.digest(remember_token))
-  end
-
-  def authenticated?(remember_token)
-    return false if remember_digest.nil?
-    BCrypt::Password.new(remember_digest).is_password?(remember_token)
-  end
-
-  def forget
-    update_attribute(:remember_digest, nil)
   end
 
   def update_rank_weight

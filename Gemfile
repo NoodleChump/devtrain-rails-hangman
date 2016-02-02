@@ -28,6 +28,7 @@ gem 'bootstrap-will_paginate'
 gem 'faker'
 gem 'possessive'
 gem 'pg',             '0.17.1'
+gem 'capybara'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
