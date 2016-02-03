@@ -1,19 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe GetSortedUsers, type: :service do
-  let(:user) { User.create!(name: "User", email: "user@user.com", password: "foobar", password_confirmation: "foobar") }
-  let(:other_user) { User.create!(name: "Other User", email: "another@user.com", password: "foobar", password_confirmation: "foobar") }
-  let(:ai_user) { User.create!(name: "AI User", email: "yet.another@user.com", password: "foobar", password_confirmation: "foobar") }
+  let(:gary) { create(:named_user, name: "Gary") }
+  let(:john) { create(:named_user, name: "John") }
+  let(:bob) { create(:named_user, name: "Bob") }
 
   let(:boring_word) { "word" }
   let(:a_word) { "a" }
   let(:other_word) { "other" }
 
-  let(:boring_game) { Game.create!(word_to_guess: boring_word, number_of_lives: 5, user: user) }
-  let(:a_game) { Game.create!(word_to_guess: a_word, number_of_lives: 3, user: ai_user) }
-  let(:other_game) { Game.create!(word_to_guess: other_word, number_of_lives: 1, user: other_user) }
+  let(:boring_game) { Game.create!(word_to_guess: boring_word, number_of_lives: 5, user: gary) }
+  let(:a_game) { Game.create!(word_to_guess: a_word, number_of_lives: 3, user: bob) }
+  let(:other_game) { Game.create!(word_to_guess: other_word, number_of_lives: 1, user: john) }
 
-  let(:users) { [user, ai_user, other_user] }
+  let(:users) { [gary, bob, john] }
   let(:games) { [boring_game, a_word, other_game] }
 
   describe "#apply_sort" do
@@ -25,15 +25,21 @@ RSpec.describe GetSortedUsers, type: :service do
       users.each(&:update_rank_weight)
     end
 
+    #TODO Finish these tests with other sort fields, and also the same for games
+
     context "when sorting by name" do
       it "sorts (ascending) correctly" do
         sorted_users = GetSortedUsers.new('name', 'asc').call
-        expect(sorted_users).to eq [ai_user, other_user, user]
+        0...sorted_users.length do |user|
+          expect(sorted_users[user].name <= sorted_users[user + 1].name).to be true
+        end
       end
 
       it "sorts (descending) correctly" do
         sorted_users = GetSortedUsers.new('name', 'desc').call
-        expect(sorted_users).to eq [user, other_user, ai_user]
+        0...sorted_users.length do |user|
+          expect(sorted_users[user].name >= sorted_users[user + 1].name).to be true
+        end
       end
     end
 

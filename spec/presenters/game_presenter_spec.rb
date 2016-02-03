@@ -4,11 +4,11 @@ RSpec.describe GamePresenter, type: :presenter do
   include ActionView::TestCase::Behavior
   #TODO UserPresenter specs need making
 
-  let(:user) { User.create!(name: "User", email: "user@user.com", password: "foobar", password_confirmation: "foobar") }
   let(:word) { "word" }
   let(:lives) { 5 }
-  let(:game) { Game.create!(word_to_guess: word, number_of_lives: lives, user: user) }
   let(:letters_to_guess) { "" }
+
+  let(:game) { create(:game, word_to_guess: word, number_of_lives: lives, user: create(:user)) }
 
   subject(:presented_game) { GamePresenter.new(game) }
 

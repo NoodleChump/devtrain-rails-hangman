@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.describe MakeGuess, type: :service do
   let(:letter) { "a" }
-  let(:game) { Game.create(word_to_guess: "word", number_of_lives: 5, user: User.create!(name: "Jordane", email: "user@user.com", password: "foobar", password_confirmation: "foobar")) }
-  subject(:invalid_guess?) { MakeGuess.new(game, letter).call.persisted? }
+  let(:game) { Game.create(word_to_guess: "word", number_of_lives: 5, user: create(:user)) }
+  let(:make_guess) { MakeGuess.new(game, letter).call }
+  subject(:guess_made?) { make_guess.persisted? }
 
   context "when making a call to make a guess" do
     let(:letter) { "" }
@@ -33,7 +34,7 @@ RSpec.describe MakeGuess, type: :service do
     it { is_expected.to be false }
 
     it "doesn't save and the number of guesses taken is not affected" do
-      expect{ invalid_guess? }.to change{ game.guesses.length }.by(0)
+      expect{ make_guess }.to change{ game.guesses.length }.by(0)
     end
   end
 end
