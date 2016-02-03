@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 feature "Logging in" do
+  #TODO Create more feature specs for auth? to have_content and to not if no permission
   let(:name) { "a_user" }
   let(:email) { "email@example.com" }
   let(:password) { "abc123" }

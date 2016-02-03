@@ -55,8 +55,8 @@ RSpec.describe GetSortedGames, type: :service do
 
     context "with some guesses made" do
       before do
-        HangmanSpecHelper::make_guess(other_game, "z") # lost
-        HangmanSpecHelper::make_guesses(boring_game, "wzr") # in progress
+        HangmanSpecHelper.make_guesses(other_game, "z") # lost
+        HangmanSpecHelper.make_guesses(boring_game, "wzr") # in progress
       end
 
       it "sorts by game progress (ascending) correctly" do

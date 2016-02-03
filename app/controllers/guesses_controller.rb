@@ -3,13 +3,17 @@ class GuessesController < ApplicationController
   before_action :logged_in, only: [:create]
 
   def create
-    @guess = @game.guesses.build(guess_params)
-    if IsUniqueGuess.new(@guess).call
+    @guess = MakeGuess.new(@game, guess_params[:letter]).call#@game.guesses.build(guess_params)
+    if @guess == true || @guess.errors.blank?
       redirect_to @game
     else
       @game.guesses.reload
       render 'games/show'
     end
+  end
+
+  def update
+    create
   end
 
   private

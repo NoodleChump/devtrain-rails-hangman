@@ -18,9 +18,9 @@ RSpec.describe GetSortedUsers, type: :service do
 
   describe "#apply_sort" do
     before do
-      HangmanSpecHelper::make_guess(other_game, "z") # lost
-      HangmanSpecHelper::make_guesses(boring_game, "wzr") # in progress
-      HangmanSpecHelper::make_guesses(a_game, "a") # won
+      HangmanSpecHelper.make_guesses(other_game, "z") # lost
+      HangmanSpecHelper.make_guesses(boring_game, "wzr") # in progress
+      HangmanSpecHelper.make_guesses(a_game, "a") # won
 
       users.each(&:update_rank_weight)
     end

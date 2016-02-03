@@ -16,4 +16,5 @@
 //= require turbolinks
 //= require_tree .
 
+// Fix for turbolinks conflicting with bootstrap dropdown menus
 $('.dropdown-toggle').dropdown()

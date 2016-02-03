@@ -79,9 +79,9 @@ RSpec.describe User, type: :model do
     let(:in_progress_game) { Game.create!(word_to_guess: word_ab, number_of_lives: lives, user: user, custom: false) }
 
     before do
-      HangmanSpecHelper.make_guess(won_game, word_a)
-      HangmanSpecHelper.make_guess(lost_game, word_a)
-      HangmanSpecHelper.make_guess(in_progress_game, word_a)
+      HangmanSpecHelper.make_guesses(won_game, word_a)
+      HangmanSpecHelper.make_guesses(lost_game, word_a)
+      HangmanSpecHelper.make_guesses(in_progress_game, word_a)
       user.games.reload
     end
 
