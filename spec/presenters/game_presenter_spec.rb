@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe GamePresenter, type: :presenter do
   include ActionView::TestCase::Behavior
-  #TODO UserPresenter specs need making
 
   let(:word) { "word" }
   let(:lives) { 5 }

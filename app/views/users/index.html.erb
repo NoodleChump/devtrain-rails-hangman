@@ -23,7 +23,7 @@
     <% @users.each do |user| %>
       <% presented_user = UserPresenter.new(user) %>
       <tr>
-        <td><%= presented_user.small_gravatar %></td>
+        <td><%= presented_user.gravatar(size: :small) %></td>
         <td><%= link_to user.name, user %></td>
         <td><%= user.rank_points %></td>
         <td><%= user.won_games.count %></td>

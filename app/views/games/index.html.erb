@@ -23,7 +23,7 @@
       <% game_presenter = GamePresenter.new(game) %>
       <% presented_user = UserPresenter.new(game.user) %>
       <tr>
-        <td><%= presented_user.small_gravatar %></td>
+        <td><%= presented_user.gravatar(size: :small) %></td>
         <td><%= link_to game.user.name, game.user %></td>
         <td><%= game_presenter.censored_word %></td>
         <td><%= game_presenter.progression.to_s.humanize %></td>
