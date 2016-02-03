@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20160126230700) do
     t.integer  "number_of_lives"
     t.string   "word_to_guess"
     t.integer  "user_id"
-    t.boolean  "custom",          default: false
+    t.boolean  "custom",          default: false #TODO On new custom game, make hidden field to make this true
   end
 
   add_index "games", ["user_id"], name: "index_games_on_user_id", using: :btree

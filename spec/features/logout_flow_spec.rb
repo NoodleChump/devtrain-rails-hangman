@@ -1,11 +1,7 @@
 require 'spec_helper'
 
 feature "Logging out" do
-  let(:name) { "a_user" }
-  let(:email) { "email@example.com" }
-  let(:password) { "abc123" }
-
-  let(:user) { User.create!(name: name, email: email, password: password, password_confirmation: password) }
+  let(:user) { create(:user) }
 
   scenario "Log out when logged in" do
     log_in_as_user
@@ -28,7 +24,7 @@ feature "Logging out" do
   end
 
   def expect_to_see_account_links
-    expect(page).to have_content name
+    expect(page).to have_content user.name
     expect(page).to have_content "Settings"
     expect(page).to have_content "Log Out"
   end
@@ -49,7 +45,7 @@ feature "Logging out" do
 
   def enter_login_details
     fill_in 'session_email', with: user.email
-    fill_in 'session_password', with: password
+    fill_in 'session_password', with: user.password
   end
 
   def submit_page

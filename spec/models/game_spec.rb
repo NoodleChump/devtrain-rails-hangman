@@ -5,9 +5,10 @@ RSpec.describe Game, type: :model do
   let(:word) { "word" }
   let(:lives) { 5 }
   let(:letters_to_guess) { "" }
-  let(:user) { User.create!(name: "Jordane", email: "example@foobar.com", password: "foobar", password_confirmation: "foobar") }
 
-  subject(:game) { Game.create(word_to_guess: word, number_of_lives: lives, user: user) }
+  let(:user) { build(:user) }
+  subject(:game) { build(:game, word_to_guess: word, number_of_lives: lives, user: user) }
+
 
   before do
     HangmanSpecHelper.make_guesses(game, letters_to_guess)
@@ -19,8 +20,12 @@ RSpec.describe Game, type: :model do
     it { is_expected.to_not be_valid }
   end
 
-  context "when creating a new game with a blank word" do
+  context "when saving a new game with a blank word" do
     let(:word) { "" }
+
+    before do
+      game.save!
+    end
 
     it { is_expected.to be_valid }
 

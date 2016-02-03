@@ -1,16 +1,16 @@
 FactoryGirl.define do
   factory :user, aliases: [:player] do
     name "John Doe"
-    email { "#{name}@example.com".squish.downcase.tr(" ", "_") }
+    email "john.doe@example.com"
     password "abcd1234"
-    password_confirmation "abcd1234"
-  end
+    password_confirmation { password }
 
-  factory :admin, class: User do
-    name "Administrator"
-    email { "#{name}@example.com".squish.downcase.tr(" ", "_") }
-    password "somethingsecure"
-    password_confirmation "somethingsecure"
-    admin true
+    factory :admin do
+      admin true
+    end
+
+    factory :named_user do
+      email { "#{name.squish.tr(" ", ".")}@example.com".downcase }
+    end
   end
 end

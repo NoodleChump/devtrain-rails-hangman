@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   include Authentication
-  
+
   EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   has_many :games, :dependent => :destroy
@@ -26,8 +26,8 @@ class User < ActiveRecord::Base
   end
 
   def win_loss_rate
-    lost_ranked_games = lost_games.select(&:custom?)
-    won_ranked_games = won_games.select(&:custom?)
+    lost_ranked_games = lost_games.reject(&:custom?)
+    won_ranked_games = won_games.reject(&:custom?)
 
     if lost_ranked_games.count == 0
       won_ranked_games.count.to_f
@@ -43,6 +43,6 @@ class User < ActiveRecord::Base
   private
 
   def rank_weight
-    (win_loss_rate * games.reject(&:custom).length + won_games.reject(&:custom).count).to_i
+    won_games.select(&:ranked?).map { |game| game.number_of_lives_remaining }.sum
   end
 end

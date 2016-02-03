@@ -6,7 +6,7 @@ class Guess < ActiveRecord::Base
   before_validation :downcase_letter
   validates :letter, presence: true, length: { is: 1 }, inclusion: { in: ALPHABET }
 
-  after_create :update_user_rank
+  after_save :update_user_rank
 
   private
 
@@ -14,9 +14,13 @@ class Guess < ActiveRecord::Base
     letter = letter.downcase if letter
   end
 
+  def user
+    game.user
+  end
+
   def update_user_rank
     if game.game_over?
-      game.user.update_rank_weight
+      user.update_rank_weight
     end
   end
 end
