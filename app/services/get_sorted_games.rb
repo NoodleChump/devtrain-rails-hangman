@@ -25,6 +25,7 @@ class GetSortedGames
     when 'ranked'
       games_sorted_by_ranked
     else
+      @direction = "asc"
       games_sorted_by_date
     end
   end

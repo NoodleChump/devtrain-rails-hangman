@@ -44,7 +44,11 @@ class GamesController < ApplicationController
   private
 
   def sort_column
-    params[:sort] || "name"
+    params[:sort] || "date"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
   end
 
   def set_game

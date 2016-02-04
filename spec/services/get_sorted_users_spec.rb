@@ -25,8 +25,6 @@ RSpec.describe GetSortedUsers, type: :service do
       users.each(&:update_rank_weight)
     end
 
-    #TODO Finish these tests with other sort fields, and also the same for games
-
     context "when sorting by name" do
       it "sorts (ascending) correctly" do
         sorted_users = GetSortedUsers.new('name', 'asc').call
