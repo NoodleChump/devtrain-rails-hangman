@@ -104,5 +104,12 @@ RSpec.describe GetSortedUsers, type: :service do
         end
       end
     end
+
+    it "sorts by name (ascending) by default" do
+      sorted_users = GetSortedUsers.new(nil, nil).call
+      0...sorted_users.length do |user|
+        expect(sorted_users[user].name <= sorted_users[user + 1].name).to be true
+      end
+    end
   end
 end

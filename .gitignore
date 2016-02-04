@@ -23,6 +23,9 @@
 # JetBrains
 .idea/
 
+# SimpleCov
+coverage
+
 # Some other junky files
 .keep
 *.json.jbuilder

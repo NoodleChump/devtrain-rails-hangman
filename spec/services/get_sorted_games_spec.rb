@@ -80,14 +80,14 @@ RSpec.describe GetSortedGames, type: :service do
       end
     end
 
-    it "sorts by the game creation date (ascending) correctly" do
+    it "sorts by the game start (creation) date (ascending) correctly" do
       sorted_games = GetSortedGames.new('date', 'asc').call
       0...sorted_games.length do |game|
         expect(GamePresenter.new(sorted_games[game]).created_at <= GamePresenter.new(sorted_games[game + 1]).created_at).to be true
       end
     end
 
-    it "sorts by the game creation date (descending) correctly" do
+    it "sorts by the game start (creation) date (descending) correctly" do
       sorted_games = GetSortedGames.new('date', 'desc').call
       0...sorted_games.length do |game|
         expect(GamePresenter.new(sorted_games[game]).created_at >= GamePresenter.new(sorted_games[game + 1]).created_at).to be true
@@ -105,6 +105,13 @@ RSpec.describe GetSortedGames, type: :service do
       sorted_games = GetSortedGames.new('ranked', 'desc').call
       0...sorted_games.length do |game|
         expect(GamePresenter.new(sorted_games[game]).custom >= GamePresenter.new(sorted_games[game + 1]).custom).to be true
+      end
+    end
+
+    it "sorts by the game start (creation) date (descending) by default" do
+      sorted_games = GetSortedGames.new(nil, nil).call
+      0...sorted_games.length do |game|
+        expect(GamePresenter.new(sorted_games[game]).created_at >= GamePresenter.new(sorted_games[game + 1]).created_at).to be true
       end
     end
 
