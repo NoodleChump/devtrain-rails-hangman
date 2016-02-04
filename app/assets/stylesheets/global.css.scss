@@ -1,6 +1,5 @@
-@import "bootstrap-sprockets";
 @import "bootstrap";
-
+@import "bootstrap-sprockets";
 
 /* mixins, variables, etc. */
 
@@ -73,13 +72,8 @@ a:hover {
   text-decoration: none;
 }
 
-table {
-  width: 100%;
-}
-
 tr:hover td {
   transition: background-color 0.25s ease;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 
 form {
@@ -221,18 +215,6 @@ footer {
 }
 
 
-
-/* miscellaneous */
-
-.debug_dump {
-  clear: both;
-  float: left;
-  width: 100%;
-  margin-top: 45px;
-  @include box_sizing;
-}
-
-
 /* forms */
 
 input, textarea, select, .uneditable-input {
@@ -315,4 +297,26 @@ aside {
 
 .btn {
   transition: background-color 0.25s ease;
+  max-width: 25em;
+}
+
+.btn-secondary {
+  color: #428bca;
+  background-color: #fff;
+  border-color: #ddd;
+  &:hover {
+    color: #428bca;
+    background-color: #eee;
+  }
+}
+
+
+/* miscellaneous */
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  @include box_sizing;
 }

@@ -5,7 +5,7 @@
 
 <%= will_paginate @games %>
 
-<table cellspacing="20">
+<table cellspacing="20" class="table table-hover">
   <thead>
     <tr>
       <th colspan="2"><%= sortable("name", "Player") %></th>
@@ -45,6 +45,8 @@
 
 <br />
 
-<%= button_to 'New Ranked Game', new_game_path, {:class => "btn btn-primary", :method => :get} %>
-<br />
-<%= button_to 'New Custom Game', games_new_custom_path, {:class => "btn btn-primary", :method => :get} %>
+<div class="center container">
+  <%= button_to 'New Ranked Game', new_game_path, {:class => "btn btn-primary", :method => :get} %>
+  <br />
+  <%= button_to 'New Custom Game', games_new_custom_path, {:class => "btn btn-secondary", :method => :get} %>
+</div>
