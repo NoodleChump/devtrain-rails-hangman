@@ -8,7 +8,6 @@ class MakeGuess
   def call
     @game.lock!
     @guess.save if !already_guessed?
-    # An already guessed guess (letter) is made in memory, but NOT PERSISTED
     @game.save!
 
     @guess
