@@ -25,5 +25,4 @@ RSpec.describe UserPresenter, type: :presenter do
       expect(presented_user.gravatar(size: :full)).to_not include("?s=")
     end
   end
-
 end

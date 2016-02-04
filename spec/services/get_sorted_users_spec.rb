@@ -46,15 +46,63 @@ RSpec.describe GetSortedUsers, type: :service do
     context "when sorting by ranking" do
       it "sorts (ascending) correctly" do
         sorted_users = GetSortedUsers.new('ranking', 'asc').call
-        0...sorted_users.count do |user|
+        0...sorted_users.length do |user|
           expect(sorted_users[user].rank_points <= sorted_users[user + 1].rank_points).to be true
         end
       end
 
       it "sorts (descending) correctly" do
         sorted_users = GetSortedUsers.new('ranking', 'desc').call
-        0...sorted_users.count do |user|
+        0...sorted_users.length do |user|
           expect(sorted_users[user].rank_points >= sorted_users[user + 1].rank_points).to be true
+        end
+      end
+    end
+
+    context "when sorting by won games" do
+      it "sorts (ascending) correctly" do
+        sorted_users = GetSortedUsers.new('won', 'asc').call
+        0...sorted_users.length do |user|
+          expect(sorted_users[user].won_games.count <= sorted_users[user + 1].won_games.count).to be true
+        end
+      end
+
+      it "sorts (ascending) correctly" do
+        sorted_users = GetSortedUsers.new('won', 'desc').call
+        0...sorted_users.length do |user|
+          expect(sorted_users[user].won_games.count >= sorted_users[user + 1].won_games.count).to be true
+        end
+      end
+    end
+
+    context "when sorting by lost games" do
+      it "sorts (ascending) correctly" do
+        sorted_users = GetSortedUsers.new('lost', 'asc').call
+        0...sorted_users.length do |user|
+          expect(sorted_users[user].lost_games.count <= sorted_users[user + 1].lost_games.count).to be true
+        end
+      end
+
+      it "sorts (ascending) correctly" do
+        sorted_users = GetSortedUsers.new('lost', 'desc').call
+        0...sorted_users.length do |user|
+          expect(sorted_users[user].lost_games.count >= sorted_users[user + 1].lost_games.count).to be true
+        end
+      end
+    end
+
+    context "when sorting by join (creation) date" do
+      it "sorts (ascending) correctly" do
+        sorted_users = GetSortedUsers.new('date', 'asc').call
+        0...sorted_users.length do |user|
+          expect(sorted_users[user].created_at <= sorted_users[user + 1].created_at).to be true
+        end
+      end
+
+      it "sorts (ascending) correctly" do
+        sorted_users = GetSortedUsers.new('date', 'desc').call
+        0...sorted_users.length do |user|
+          expect(sorted_users[user].created_at >= sorted_users[user + 1].created_at).to be true
         end
       end
     end

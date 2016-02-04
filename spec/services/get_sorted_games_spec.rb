@@ -66,6 +66,48 @@ RSpec.describe GetSortedGames, type: :service do
       end
     end
 
+    it "sorts by the game progress (ascending) correctly" do
+      sorted_games = GetSortedGames.new('progress', 'asc').call
+      0...sorted_games.length do |game|
+        expect(GamePresenter.new(sorted_games[game]).progression <= GamePresenter.new(sorted_games[game + 1]).progression).to be true
+      end
+    end
+
+    it "sorts by the game progress (descending) correctly" do
+      sorted_games = GetSortedGames.new('progress', 'desc').call
+      0...sorted_games.length do |game|
+        expect(GamePresenter.new(sorted_games[game]).progression >= GamePresenter.new(sorted_games[game + 1]).progression).to be true
+      end
+    end
+
+    it "sorts by the game creation date (ascending) correctly" do
+      sorted_games = GetSortedGames.new('date', 'asc').call
+      0...sorted_games.length do |game|
+        expect(GamePresenter.new(sorted_games[game]).created_at <= GamePresenter.new(sorted_games[game + 1]).created_at).to be true
+      end
+    end
+
+    it "sorts by the game creation date (descending) correctly" do
+      sorted_games = GetSortedGames.new('date', 'desc').call
+      0...sorted_games.length do |game|
+        expect(GamePresenter.new(sorted_games[game]).created_at >= GamePresenter.new(sorted_games[game + 1]).created_at).to be true
+      end
+    end
+
+    it "sorts by if the game is custom or ranked (ascending) correctly" do
+      sorted_games = GetSortedGames.new('ranked', 'asc').call
+      0...sorted_games.length do |game|
+        expect(GamePresenter.new(sorted_games[game]).custom <= GamePresenter.new(sorted_games[game + 1]).custom).to be true
+      end
+    end
+
+    it "sorts by the game creation date (descending) correctly" do
+      sorted_games = GetSortedGames.new('ranked', 'desc').call
+      0...sorted_games.length do |game|
+        expect(GamePresenter.new(sorted_games[game]).custom >= GamePresenter.new(sorted_games[game + 1]).custom).to be true
+      end
+    end
+
     context "with some guesses made" do
       before do
         HangmanSpecHelper.make_guesses(other_game, "z")
