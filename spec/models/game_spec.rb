@@ -50,6 +50,7 @@ RSpec.describe Game, type: :model do
   end
 
   context "when the game runs out of guesses" do
+    let(:word) { "word" }
     let(:letters_to_guess) { "z" }
     let(:lives) { 1 }
 
@@ -67,6 +68,7 @@ RSpec.describe Game, type: :model do
   end
 
   context "when all the letters in the word to guess are guessed without mistake" do
+    let(:word) { "word" }
     let(:letters_to_guess) { "word" }
 
     it { is_expected.to_not be_lost }
@@ -87,6 +89,7 @@ RSpec.describe Game, type: :model do
   end
 
   context "when there are some correct and incorrect guesses in a running game" do
+    let(:word) { "word" }
     let(:letters_to_guess) { "woxz" }
     let(:lives) { 4 }
 
