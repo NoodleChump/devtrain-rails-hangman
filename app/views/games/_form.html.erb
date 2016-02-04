@@ -11,7 +11,7 @@
 
     <div class="custom-word">
       <%= f.check_box :custom_word, { :class => "custom-word-checkbox" }, "checked", "" %>
-      <%= f.label :custom_word, "Custom word", { :class => "custom-word-checkbox-label" } %>
+      <%= f.label :custom_word, "Word to guess", { :class => "custom-word-checkbox-label" } %>
     </div>
 
     <div class="custom-word-field">
@@ -20,6 +20,8 @@
 
     <%= f.label :number_of_lives, "Number of lives" %>
     <%= f.text_field :number_of_lives, value: Game::DEFAULT_NUMBER_OF_LIVES.to_s, class: 'form-control' %>
+
+    <%= f.hidden_field :custom, value: true %>
 
     <%= f.submit "#{ f.object.new_record? ? "Create" : "Save" } Game", class: "btn btn-primary" %>
   </div>

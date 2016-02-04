@@ -15,15 +15,13 @@ class GamesController < ApplicationController
   end
 
   def new
-    word = GenerateRandomWord.new.call
-    @game = Game.new(number_of_lives: Game::DEFAULT_NUMBER_OF_LIVES, user: current_user)
+    @game = Game.new(number_of_lives: Game::DEFAULT_NUMBER_OF_LIVES, user: current_user, custom: false)
     @game.save!
     redirect_to @game
   end
 
   def custom
     @game = Game.new(custom: true)
-    @custom_word = @game.custom_word
   end
 
   def create
@@ -54,7 +52,7 @@ class GamesController < ApplicationController
   end
 
   def game_params
-    params.require(:game).permit(:word_to_guess, :number_of_lives, :user_id)
+    params.require(:game).permit(:word_to_guess, :number_of_lives, :user_id, :custom, :custom_word)
   end
 
   def admin_user

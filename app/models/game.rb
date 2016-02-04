@@ -6,18 +6,14 @@ class Game < ActiveRecord::Base
 
   before_validation :fill_word_to_guess
 
-  validates :word_to_guess, presence: true, on: :create
+  validates :word_to_guess, presence: true
   validates :number_of_lives, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :user, presence: true
 
-  attr_writer :custom_word
+  attr_accessor :custom_word
 
   def guessed_letters
     guesses.map(&:letter)
-  end
-
-  def custom_word
-    @custom_word || true
   end
 
   def censored_word
@@ -63,6 +59,6 @@ class Game < ActiveRecord::Base
   private
 
   def fill_word_to_guess
-    write_attribute(:word_to_guess, GenerateRandomWord.new.call) if !custom_word || word_to_guess.blank?
+    write_attribute(:word_to_guess, GenerateRandomWord.new.call) if word_to_guess.blank?
   end
 end
