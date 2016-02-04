@@ -4,7 +4,7 @@ class Game < ActiveRecord::Base
   belongs_to :user
   has_many :guesses, :dependent => :destroy
 
-  before_validation :fill_word_to_guess
+  before_validation :fill_and_lower_word_to_guess
 
   validates :word_to_guess, presence: true
   validates :number_of_lives, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
@@ -58,7 +58,11 @@ class Game < ActiveRecord::Base
 
   private
 
-  def fill_word_to_guess
-    write_attribute(:word_to_guess, GenerateRandomWord.new.call) if word_to_guess.blank?
+  def fill_and_lower_word_to_guess
+    if word_to_guess.blank?
+      write_attribute(:word_to_guess, GenerateRandomWord.new.call.downcase)
+    else
+      write_attribute(:word_to_guess, word_to_guess.downcase)
+    end
   end
 end

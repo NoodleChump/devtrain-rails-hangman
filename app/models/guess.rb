@@ -11,7 +11,7 @@ class Guess < ActiveRecord::Base
   private
 
   def downcase_letter
-    letter = letter.downcase if letter
+    write_attribute(:letter, letter.downcase) if letter
   end
 
   def user

@@ -4,7 +4,7 @@ class GuessesController < ApplicationController
 
   def create
     @guess = MakeGuess.new(@game, guess_params[:letter]).call#@game.guesses.build(guess_params)
-    if @guess == true || @guess.errors.blank?
+    if @guess.errors.blank?
       redirect_to @game
     else
       @game.guesses.reload
