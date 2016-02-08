@@ -10,9 +10,9 @@
 
 <% if @game.game_over? %>
   <% if @game.won? %>
-    <h2><%= current_user == @game.user ? "You" : @game.user.name %> guessed the word correctly with <%= pluralize(@game.number_of_lives_remaining, "guess") %> remaining!</h2>
+    <h2><%= current_user == @game.user ? "You" : @game.user.name %> guessed the word correctly with <%= pluralize(@game.number_of_lives_remaining, "life") %> remaining!</h2>
   <% else %>
-    <h2><%= current_user == @game.user ? "Sorry, you've" : "#{@game.user.name} has" %> run out of guesses!</h2>
+    <h2><%= current_user == @game.user ? "Sorry, you've" : "#{@game.user.name} has" %> run out of lives!</h2>
   <% end %>
   <%= button_to 'New Ranked Game', new_game_path, {:class => "btn btn-primary", :method => :get} %>
   <br />
