@@ -16,7 +16,7 @@
   <% end %>
   <%= button_to 'New Ranked Game', new_game_path, {:class => "btn btn-primary", :method => :get} %>
   <br />
-  <%= button_to 'New Custom Game', games_new_custom_path, {:class => "btn btn-primary", :method => :get} %>
+  <%= button_to 'New Custom Game', games_new_custom_path, {:class => "btn btn-secondary", :method => :get} %>
 <% else %>
   <h2><%= pluralize(@game.number_of_lives_remaining, "Life") %> Remaining</h2>
   <%= render 'guesses/form' %>
