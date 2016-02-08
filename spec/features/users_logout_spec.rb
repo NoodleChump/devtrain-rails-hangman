@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature "Logging out" do
+feature "User logout" do
   let(:user) { create(:user) }
 
   scenario "Log out when logged in" do

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature "Logging in" do
+feature "User login" do
   let(:user) { create(:user) }
 
   scenario "Log in correctly as a user" do
