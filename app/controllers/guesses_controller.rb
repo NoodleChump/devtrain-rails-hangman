@@ -7,7 +7,6 @@ class GuessesController < ApplicationController
     if @guess.errors.blank?
       redirect_to @game
     else
-      @game.guesses.reload #REVIEW nec?
       render 'games/show'
     end
   end
