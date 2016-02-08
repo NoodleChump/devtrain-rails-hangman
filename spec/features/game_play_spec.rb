@@ -1,8 +1,10 @@
 require 'spec_helper'
 
 feature "User signup", type: :feature, tag: :play do
+  include ActionView::Helpers::TextHelper
 
   let(:user) { create(:user) }
+
   let(:word) { "word" }
   let(:lives) { 3 }
   let(:game) { create(:game, user: user, word_to_guess: word, number_of_lives: lives) }
@@ -29,6 +31,19 @@ feature "User signup", type: :feature, tag: :play do
     visit_game_page
     (('a'..'z').to_a - word.chars).first(lives).each { |letter| fill_and_submit_guess(letter) }
     expect_to_see_game_lost
+  end
+
+  scenario "Makes invalid guesses" do
+    log_in_as_user
+    visit_game_page
+    fill_and_submit_guess("asdf")
+    expect_to_see_letter_error
+
+    fill_and_submit_guess("!")
+    expect_to_see_alphabet_error
+
+    2.times { fill_and_submit_guess("a") }
+    expect_to_see_already_guessed_error
   end
 
   private
@@ -58,6 +73,21 @@ feature "User signup", type: :feature, tag: :play do
   end
 
   def expect_to_see_game_lost
-    expect(page).to have_content "out of li" #life, lives
+    expect(page).to have_content "out of lives"
+  end
+
+  def expect_to_see_letter_error
+    expect(page).to have_content "error"
+    expect(page).to have_content "length"
+  end
+
+  def expect_to_see_alphabet_error
+    expect(page).to have_content "error"
+    expect(page).to have_content "alphabet"
+  end
+
+  def expect_to_see_already_guessed_error
+    expect(page).to have_content "error"
+    expect(page).to have_content "already been guessed"
   end
 end
