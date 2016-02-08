@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
-  before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :show]
-  before_action :correct_user,   only: [:edit, :update]
-  before_action :admin_user,     only: [:destroy]
+  before_action :check_logged_in, except: [:new, :create]
+  before_action :check_correct_user,   only: [:edit, :update]
+  before_action :check_admin_user,     only: [:destroy]
 
   helper_method :sort_column
 
@@ -67,19 +67,7 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 
-  def logged_in_user
-    unless logged_in?
-      store_location
-      flash[:danger] = "Please log in."
-      redirect_to login_url
-    end
-  end
-
-  def admin_user
-    redirect_to(root_url) unless current_user.admin?
-  end
-
-  def correct_user
+  def check_correct_user
     @user = User.find(params[:id])
     redirect_to(root_url) unless current_user?(@user) || current_user.admin?
   end

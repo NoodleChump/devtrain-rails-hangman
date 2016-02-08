@@ -58,7 +58,7 @@ class Game < ActiveRecord::Base
 
   private
 
-  def fill_and_lower_word_to_guess
+  def fill_and_lower_word_to_guess #TODO MOve into service, MakeGame -- called in controller
     if word_to_guess.blank?
       write_attribute(:word_to_guess, GenerateRandomWord.new.call.downcase)
     else

@@ -1,13 +1,13 @@
 class GuessesController < ApplicationController
   before_action :find_game
-  before_action :logged_in, only: [:create]
+  before_action :check_logged_in
 
   def create
-    @guess = MakeGuess.new(@game, guess_params[:letter]).call#@game.guesses.build(guess_params)
+    @guess = MakeGuess.new(@game, guess_params[:letter]).call
     if @guess.errors.blank?
       redirect_to @game
     else
-      @game.guesses.reload
+      @game.guesses.reload #REVIEW nec?
       render 'games/show'
     end
   end
@@ -24,13 +24,5 @@ class GuessesController < ApplicationController
 
   def guess_params
     params.require(:guess).permit(:letter, :game_id)
-  end
-
-  def logged_in
-    if !logged_in?
-      store_location
-      flash[:danger] = "Please log in."
-      redirect_to login_url
-    end
   end
 end
