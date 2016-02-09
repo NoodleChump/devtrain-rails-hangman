@@ -3,8 +3,6 @@
 
 <h1>Games</h1>
 
-<%= will_paginate @games %>
-
 <table cellspacing="20" class="table table-hover">
   <thead>
     <tr>
@@ -41,10 +39,6 @@
   </tbody>
 </table>
 
-<%= will_paginate @games %>
-
-<br />
-
-<%= button_to 'New Ranked Game', new_game_path, {:class => "btn btn-primary", :method => :get} %>
-<br />
-<%= button_to 'New Custom Game', games_new_custom_path, {:class => "btn btn-secondary", :method => :get} %>
+<div class="center">
+  <%= will_paginate @games %>
+</div>
