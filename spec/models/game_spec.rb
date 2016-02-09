@@ -6,8 +6,9 @@ RSpec.describe Game, type: :model do
   let(:lives) { 5 }
   let(:letters_to_guess) { "" }
 
-  let(:user) { build(:user) }
-  subject(:game) { build(:game, word_to_guess: word, number_of_lives: lives, user: user) }
+  let(:user) { create(:user) }
+  subject(:game) { MakeGame.new(word_to_guess: word, number_of_lives: lives, user: user).call }
+  #subject(:game) { build(:game, word_to_guess: word, number_of_lives: lives, user: user) }
 
 
   before do

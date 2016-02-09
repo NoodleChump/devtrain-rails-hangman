@@ -15,7 +15,7 @@ class GamesController < ApplicationController
   end
 
   def new
-    @game = Game.new(number_of_lives: Game::DEFAULT_NUMBER_OF_LIVES, user: current_user, custom: false)
+    @game = MakeGame.new(user: current_user).call
     @game.save!
     redirect_to @game
   end
@@ -25,7 +25,12 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.new(game_params)
+    @game = MakeGame.new(
+        user:             User.find(game_params[:user_id]),
+        word_to_guess:    game_params[:word_to_guess],
+        number_of_lives:  game_params[:number_of_lives],
+        ranked:           !game_params[:custom]
+        ).call
 
     if @game.save
       flash[:success] = "Game created successfully"

@@ -4,8 +4,6 @@ class Game < ActiveRecord::Base
   belongs_to :user
   has_many :guesses, :dependent => :destroy
 
-  before_validation :fill_and_lower_word_to_guess
-
   validates :word_to_guess, presence: true
   validates :number_of_lives, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :user, presence: true
@@ -54,15 +52,5 @@ class Game < ActiveRecord::Base
 
   def ranked?
     !custom?
-  end
-
-  private
-
-  def fill_and_lower_word_to_guess #TODO MOve into service, MakeGame -- called in controller
-    if word_to_guess.blank?
-      write_attribute(:word_to_guess, GenerateRandomWord.new.call.downcase)
-    else
-      write_attribute(:word_to_guess, word_to_guess.downcase)
-    end
   end
 end
