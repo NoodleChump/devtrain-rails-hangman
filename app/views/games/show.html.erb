@@ -4,7 +4,11 @@
 <p id="notice"><%= notice %></p>
 
 <h1><%= game_presenter.censored_word %></h1>
-<h2>Previous Guesses: <%= @game.guessed_letters.join(", ") %></h2>
+<% if @game.guesses.empty? %>
+  <h2>No Previous Guesses</h2>
+<% else %>
+  <h2>Previous Guesses: <%= @game.guessed_letters.join(", ") %></h2>
+<% end %>
 
 <%= game_presenter.hangman_image %>
 

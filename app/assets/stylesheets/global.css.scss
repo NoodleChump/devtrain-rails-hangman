@@ -47,7 +47,8 @@ textarea {
 }
 
 #stats {
-  width: 50%;
+  width: 100%;
+  max-width: 30em;
   margin-left: auto;
   margin-right: auto;
   th:hover {
@@ -77,8 +78,8 @@ tr:hover td {
 }
 
 form {
-  width: 50%;
   margin: auto;
+  max-width: 30em;
 }
 
 #error_explanation {
@@ -297,7 +298,7 @@ aside {
 
 .btn {
   transition: background-color 0.25s ease;
-  max-width: 25em;
+  max-width: 30em;
   display: block;
   margin-left: auto;
   margin-right: auto;
