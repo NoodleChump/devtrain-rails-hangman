@@ -29,12 +29,18 @@
         <td><%= user.created_at.strftime('%a %e %b, %Y') %></td>
 
         <td class="right-aligned"><%= link_to 'Show', user %></td>
-        <% if current_user?(user) || current_user.admin? %>
-          <td class="right-aligned"><%= link_to 'Edit', edit_user_path(user) %></td>
-        <% end %>
-        <% if current_user.admin? && !current_user?(user) %>
-          <td class="right-aligned"><%= link_to 'Delete', user, method: :delete, data: { confirm: "Are you sure? All of the user's games will be lost" } %></td>
-        <% end %>
+
+        <td class="right-aligned">
+          <% if current_user?(user) || current_user.admin? %>
+            <%= link_to 'Edit', edit_user_path(user) %>
+          <% end %>
+        </td>
+
+        <td class="right-aligned">
+          <% if current_user.admin? && !current_user?(user) %>
+            <%= link_to 'Delete', user, method: :delete, data: { confirm: "Are you sure? All of the user's games will be lost" } %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

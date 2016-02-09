@@ -31,9 +31,11 @@
 
         <td class="right-aligned"><%= link_to (current_user == game.user ? 'Play' : 'View'), game %></td>
 
-        <% if current_user.admin? %>
-          <td class="right-aligned"><%= link_to 'Delete', game, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
+        <td class="right-aligned">
+          <% if current_user.admin? %>
+            <%= link_to 'Delete', game, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
