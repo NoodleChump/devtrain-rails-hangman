@@ -43,6 +43,6 @@ class User < ActiveRecord::Base
   private
 
   def rank_weight
-    Game.where(custom: false).select(&:won?).map { |game| game.number_of_lives_remaining }.sum
+    Game.where(custom: false, user: self.id).select(&:won?).map { |game| game.number_of_lives_remaining }.sum
   end
 end
