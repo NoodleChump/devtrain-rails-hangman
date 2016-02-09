@@ -2,6 +2,11 @@ class GuessesController < ApplicationController
   before_action :find_game
   before_action :authenticated
 
+  def index
+    @guesses = Guess.where("game_id = ? and created_at > ?", params[:game_id], Time.at(params[:after].to_i + 1))
+    p @guesses
+  end
+
   def create
     @guess = MakeGuess.new(@game, guess_params[:letter]).call
     if @guess.errors.blank?

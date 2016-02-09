@@ -181,6 +181,42 @@ p {
   transition: color 0.25s ease;
 }
 
+#guesses {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+
+
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+    padding-right: 0;
+
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+  }
+}
+
+.guess {
+  display: inline-block;
+  li {
+    text-decoration: none;
+    font-size: 1.5em;
+    text-align: center;
+    font-weight: normal;
+    color: $gray-medium-dark;
+    display: inline-block;
+    margin-left: 0.25em;
+    margin-right: 0.25em;
+  }
+}
+
 
 /* footer */
 

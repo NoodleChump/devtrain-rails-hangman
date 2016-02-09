@@ -22,6 +22,8 @@ Rails.application.routes.draw do
     resources :guesses
   end
 
+  get 'guesses' => 'guesses#index'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

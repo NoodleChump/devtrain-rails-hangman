@@ -3,29 +3,33 @@
 
 <p id="notice"><%= notice %></p>
 
-<h1><%= game_presenter.censored_word %></h1>
-<% if @game.guesses.empty? %>
-  <h2>No Previous Guesses</h2>
-<% else %>
-  <h2>Previous Guesses: <%= @game.guessed_letters.join(", ") %></h2>
-<% end %>
+<div id="game<%= '-spectate' if current_user != @game.user %>" data-id="<%= @game.id %>">
+  <h1><%= game_presenter.censored_word %></h1>
 
-<%= game_presenter.hangman_image %>
+  <h2>Guesses Made:</h2>
+  <div id="guesses">
+    <ul>
+      <%= render @game.guesses %>
+    </ul>
+  </div>
 
-<% if @game.game_over? %>
-  <% if @game.won? %>
-    <h2><%= current_user == @game.user ? "You" : @game.user.name %> guessed the word correctly with <%= pluralize(@game.number_of_lives_remaining, "life") %> remaining!</h2>
-  <% else # game is lost %>
-    <h2><%= current_user == @game.user ? "Sorry, you've" : "#{@game.user.name} has" %> run out of lives!</h2>
+  <%= game_presenter.hangman_image %>
+
+  <% if @game.game_over? %>
+    <% if @game.won? %>
+      <h2><%= current_user == @game.user ? "You" : @game.user.name %> guessed the word correctly with <%= pluralize(@game.number_of_lives_remaining, "life") %> remaining!</h2>
+    <% else # game is lost %>
+      <h2><%= current_user == @game.user ? "Sorry, you've" : "#{@game.user.name} has" %> run out of lives!</h2>
+    <% end %>
+    <%= button_to 'New Ranked Game', new_game_path, { class: "btn btn-primary", method: :get } %>
+    <br />
+    <%= button_to 'New Custom Game', games_new_custom_path, { class: "btn btn-secondary", method: :get } %>
+
+  <% else %>
+
+    <h2><%= pluralize(@game.number_of_lives_remaining, "Life") %> Remaining</h2>
+    <%= render 'guesses/form' %>
   <% end %>
-  <%= button_to 'New Ranked Game', new_game_path, {:class => "btn btn-primary", :method => :get} %>
-  <br />
-  <%= button_to 'New Custom Game', games_new_custom_path, {:class => "btn btn-secondary", :method => :get} %>
-
-<% else %>
-
-  <h2><%= pluralize(@game.number_of_lives_remaining, "Life") %> Remaining</h2>
-  <%= render 'guesses/form' %>
-<% end %>
+</div>
 
 <%= link_to 'Back', games_path %>
