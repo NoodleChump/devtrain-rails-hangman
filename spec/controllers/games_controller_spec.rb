@@ -60,9 +60,11 @@ RSpec.describe GamesController, type: :controller do
         log_out if logged_in?
       end
 
-      it "redirects the user to the login page" do
+      it "assigns all games as @games" do
+        game = Game.create! valid_attributes
         get :index, {}, valid_session
-        expect(response).to redirect_to(login_url)
+        expect(assigns(:games)).to eq [game]
+        expect(assigns(:games).length).to eq 1
       end
     end
   end
@@ -85,10 +87,10 @@ RSpec.describe GamesController, type: :controller do
         log_out if logged_in?
       end
 
-      it "redirects the user to the login page" do
+      it "assigns the requested game as @game" do
         game = Game.create! valid_attributes
         get :show, {:id => game.to_param}, valid_session
-        expect(response).to redirect_to(login_url)
+        expect(assigns(:game)).to eq game
       end
     end
   end

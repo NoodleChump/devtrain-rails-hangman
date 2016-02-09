@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
-  before_action :set_game, only: [:show, :edit, :update, :destroy]
-  before_action :check_logged_in
-  before_action :check_admin_user, only: [:destroy]
+  before_action :set_game,          only: [:show, :edit, :update, :destroy]
+  before_action :authenticated,     except: [:index, :show]
+  before_action :admin_privileged,  only: [:destroy]
 
   helper_method :sort_column
 
@@ -24,10 +24,10 @@ class GamesController < ApplicationController
 
   def create
     @game = MakeGame.new(
-      user:             User.find(game_params[:user_id]),
-      word_to_guess:    game_params[:word_to_guess],
+      user:                     User.find(game_params[:user_id]),
+      word_to_guess:            game_params[:word_to_guess],
       initial_number_of_lives:  game_params[:initial_number_of_lives],
-      ranked:           !game_params[:custom]
+      ranked:                   !game_params[:custom]
     ).call
 
     if @game.save

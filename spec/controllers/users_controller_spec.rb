@@ -61,9 +61,9 @@ RSpec.describe UsersController, type: :controller do
         log_out if logged_in?
       end
 
-      it "redirects to the login page" do
+      it "assigns all users as @users" do
         get :index, {}, valid_session
-        expect(response).to redirect_to(login_url)
+        expect(assigns(:users)).to contain_exactly(admin, a_user, john, bob)
       end
     end
   end

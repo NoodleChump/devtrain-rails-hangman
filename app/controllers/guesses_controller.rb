@@ -1,6 +1,6 @@
 class GuessesController < ApplicationController
   before_action :find_game
-  before_action :check_logged_in
+  before_action :authenticated
 
   def create
     @guess = MakeGuess.new(@game, guess_params[:letter]).call
