@@ -39,7 +39,8 @@ RSpec.describe MakeGuess, type: :service do
       ranked:                   ranked
     ).call }
 
-    it { is_expected.to_not be_ranked } #custom word and lives should override given ranked param
+    #custom word and lives should override given ranked param
+    it { is_expected.to_not be_ranked }
 
     it "has the custom word to guess" do
       expect(game.word_to_guess).to eq word
