@@ -184,23 +184,19 @@ p {
 #guesses {
   margin-left: auto;
   margin-right: auto;
-  display: block;
 
+  list-style-type: none;
+  padding-left: 0;
+  padding-right: 0;
 
-  ul {
-    list-style-type: none;
-    padding-left: 0;
-    padding-right: 0;
-
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: row;
-    flex-direction: row;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-  }
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
 }
 
 .guess {

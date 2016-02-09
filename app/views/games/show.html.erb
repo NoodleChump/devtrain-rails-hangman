@@ -4,11 +4,11 @@
 <p id="notice"><%= notice %></p>
 
 <div id="game<%= '-spectate' if current_user != @game.user %>" data-id="<%= @game.id %>">
-  <h1><%= game_presenter.censored_word %></h1>
+  <h1 id="censored_word"><%= game_presenter.censored_word %></h1>
 
   <h2>Guesses Made:</h2>
-  <div id="guesses">
-    <ul>
+  <div>
+    <ul id="guesses">
       <%= render @game.guesses %>
     </ul>
   </div>
@@ -27,7 +27,7 @@
 
   <% else %>
 
-    <h2><%= pluralize(@game.number_of_lives_remaining, "Life") %> Remaining</h2>
+    <h2 id="lives_remaining"><%= pluralize(@game.number_of_lives_remaining, "Life") %> Remaining</h2>
     <%= render 'guesses/form' %>
   <% end %>
 </div>

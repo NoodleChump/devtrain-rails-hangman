@@ -1,0 +1,3 @@
+$('#censored_word').text("<%= GamePresenter.new(@game).censored_word %>")
+$('#lives_remaining').text("<%= pluralize(@game.number_of_lives_remaining, 'Life') %> Remaining")
+//TODO Hangman image update
