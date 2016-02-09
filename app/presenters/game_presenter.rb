@@ -40,6 +40,6 @@ class GamePresenter
   end
 
   def lives_used_as_percentage
-    @game.lost? ? 100.0 : (number_of_incorrect_guesses / @game.number_of_lives.to_f) * 100
+    @game.lost? ? 100.0 : (number_of_incorrect_guesses / @game.initial_number_of_lives.to_f) * 100
   end
 end

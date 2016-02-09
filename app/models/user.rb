@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
     lost_ranked_games = lost_games.reject(&:custom?)
     won_ranked_games = won_games.reject(&:custom?)
 
-    if lost_ranked_games.count == 0
+    if lost_ranked_games.empty?
       won_ranked_games.count.to_f
     else
       won_ranked_games.count / lost_ranked_games.count.to_f
@@ -43,6 +43,6 @@ class User < ActiveRecord::Base
   private
 
   def rank_weight
-    won_games.select(&:ranked?).map { |game| game.number_of_lives_remaining }.sum
+    Game.where(custom: false).select(&:won?).map { |game| game.number_of_lives_remaining }.sum
   end
 end

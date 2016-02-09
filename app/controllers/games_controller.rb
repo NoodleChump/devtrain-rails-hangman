@@ -10,13 +10,11 @@ class GamesController < ApplicationController
   end
 
   def show
-    @guess = Guess.new
     @game = Game.find(params[:id])
   end
 
   def new
     @game = MakeGame.new(user: current_user).call
-    @game.save!
     redirect_to @game
   end
 
@@ -26,11 +24,11 @@ class GamesController < ApplicationController
 
   def create
     @game = MakeGame.new(
-        user:             User.find(game_params[:user_id]),
-        word_to_guess:    game_params[:word_to_guess],
-        number_of_lives:  game_params[:number_of_lives],
-        ranked:           !game_params[:custom]
-        ).call
+      user:             User.find(game_params[:user_id]),
+      word_to_guess:    game_params[:word_to_guess],
+      initial_number_of_lives:  game_params[:initial_number_of_lives],
+      ranked:           !game_params[:custom]
+    ).call
 
     if @game.save
       flash[:success] = "Game created successfully"
@@ -61,6 +59,6 @@ class GamesController < ApplicationController
   end
 
   def game_params
-    params.require(:game).permit(:word_to_guess, :number_of_lives, :user_id, :custom, :custom_word)
+    params.require(:game).permit(:word_to_guess, :initial_number_of_lives, :user_id, :custom, :custom_word)
   end
 end

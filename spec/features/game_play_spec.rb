@@ -7,7 +7,7 @@ feature "User signup", type: :feature, tag: :play do
 
   let(:word) { "word" }
   let(:lives) { 3 }
-  let(:game) { create(:game, user: user, word_to_guess: word, number_of_lives: lives) }
+  let(:game) { create(:game, user: user, word_to_guess: word, initial_number_of_lives: lives) }
 
   scenario "Aces a game without errors" do
     log_in_as_user

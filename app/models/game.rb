@@ -5,13 +5,13 @@ class Game < ActiveRecord::Base
   has_many :guesses, :dependent => :destroy
 
   validates :word_to_guess, presence: true
-  validates :number_of_lives, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :initial_number_of_lives, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :user, presence: true
 
   attr_accessor :custom_word
 
   def guessed_letters
-    guesses.map(&:letter)
+    guesses.pluck(:letter)
   end
 
   def censored_word
@@ -47,7 +47,7 @@ class Game < ActiveRecord::Base
   end
 
   def number_of_lives_remaining
-    [number_of_lives - incorrect_guesses.length, 0].max
+    [initial_number_of_lives - incorrect_guesses.length, 0].max
   end
 
   def ranked?

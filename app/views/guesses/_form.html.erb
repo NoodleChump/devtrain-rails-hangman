@@ -1,3 +1,5 @@
+<% @guess ||= Guess.new %>
+
 <%= form_for([@game, @guess]) do |f| %>
   <% if @game.user == current_user %>
     <%= render :partial => "layouts/errors", :locals => { :item => @guess } %>

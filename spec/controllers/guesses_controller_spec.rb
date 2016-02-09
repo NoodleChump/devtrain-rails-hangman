@@ -8,7 +8,7 @@ RSpec.describe GuessesController, type: :controller do
 
   let(:word) { "word" }
   let(:lives) { 5 }
-  let(:game) { Game.create!(word_to_guess: word, number_of_lives: lives, user: user) }
+  let(:game) { Game.create!(word_to_guess: word, initial_number_of_lives: lives, user: user) }
 
   let(:valid_attributes) {
     { letter: "a", game: game }

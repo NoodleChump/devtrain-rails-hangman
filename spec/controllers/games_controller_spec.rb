@@ -29,11 +29,11 @@ RSpec.describe GamesController, type: :controller do
   let(:john) { User.create!(name: "John", email: "john@example.com", password: "foobar", password_confirmation: "foobar", admin: false) }
 
   let(:valid_attributes) {
-    { word_to_guess: "word", number_of_lives: 2, user: user, user_id: user.id }
+    { word_to_guess: "word", initial_number_of_lives: 2, user: user, user_id: user.id }
   }
 
   let(:invalid_attributes) {
-    { word_to_guess: "", number_of_lives: -1, user: user, user_id: user.id }
+    { word_to_guess: "", initial_number_of_lives: -1, user: user, user_id: user.id }
   }
 
   # This should return the minimal set of values that should be in the session

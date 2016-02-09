@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-
   before_action :check_logged_in, except: [:new, :create]
   before_action :check_correct_user,   only: [:edit, :update]
   before_action :check_admin_user,     only: [:destroy]
@@ -56,7 +55,7 @@ class UsersController < ApplicationController
   private
 
   def sort_column
-    params[:sort] ? params[:sort] : "name"
+    params[:sort] || "name"
   end
 
   def set_user

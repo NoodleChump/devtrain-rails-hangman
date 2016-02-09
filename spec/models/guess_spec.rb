@@ -4,7 +4,7 @@ RSpec.describe Guess, type: :model do
   let(:letter) { "a" }
   
   let(:user) { create(:user) }
-  let(:game) { create(:game, word_to_guess: "word", number_of_lives: 5, user: user) }
+  let(:game) { create(:game, word_to_guess: "word", initial_number_of_lives: 5, user: user) }
   subject(:guess) { build(:guess, letter: letter, game: game) }
 
   context "when creating a new guess" do

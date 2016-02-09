@@ -70,9 +70,9 @@ RSpec.describe User, type: :model do
     subject(:john) { create(:named_user, name: "John") }
     subject(:bob) { create(:named_user, name: "Bob") }
 
-    let(:won_game) { create(:game, word_to_guess: "a", number_of_lives: 1, user: john) }
-    let(:lost_game) { create(:game, word_to_guess: "b", number_of_lives: 1, user: john) }
-    let(:in_progress_game) { create(:game, word_to_guess: "ab", number_of_lives: 1, user: john) }
+    let(:won_game) { create(:game, word_to_guess: "a", initial_number_of_lives: 1, user: john) }
+    let(:lost_game) { create(:game, word_to_guess: "b", initial_number_of_lives: 1, user: john) }
+    let(:in_progress_game) { create(:game, word_to_guess: "ab", initial_number_of_lives: 1, user: john) }
 
     before do
       HangmanSpecHelper.make_guesses(won_game, "a")

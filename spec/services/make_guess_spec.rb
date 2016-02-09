@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe MakeGuess, type: :service do
   let(:letter) { "a" }
-  let(:game) { Game.create(word_to_guess: "word", number_of_lives: 5, user: create(:user)) }
+  let(:game) { Game.create(word_to_guess: "word", initial_number_of_lives: 5, user: create(:user)) }
   let(:make_guess) { MakeGuess.new(game, letter).call }
   subject(:guess_made?) { make_guess.persisted? }
 

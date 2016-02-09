@@ -11,13 +11,15 @@
 <% if @game.game_over? %>
   <% if @game.won? %>
     <h2><%= current_user == @game.user ? "You" : @game.user.name %> guessed the word correctly with <%= pluralize(@game.number_of_lives_remaining, "life") %> remaining!</h2>
-  <% else %>
+  <% else # game is lost %>
     <h2><%= current_user == @game.user ? "Sorry, you've" : "#{@game.user.name} has" %> run out of lives!</h2>
   <% end %>
   <%= button_to 'New Ranked Game', new_game_path, {:class => "btn btn-primary", :method => :get} %>
   <br />
   <%= button_to 'New Custom Game', games_new_custom_path, {:class => "btn btn-secondary", :method => :get} %>
+
 <% else %>
+
   <h2><%= pluralize(@game.number_of_lives_remaining, "Life") %> Remaining</h2>
   <%= render 'guesses/form' %>
 <% end %>

@@ -7,7 +7,7 @@ RSpec.describe GamePresenter, type: :presenter do
   let(:lives) { 5 }
   let(:letters_to_guess) { "" }
 
-  let(:game) { create(:game, word_to_guess: word, number_of_lives: lives, user: create(:user)) }
+  let(:game) { create(:game, word_to_guess: word, initial_number_of_lives: lives, user: create(:user)) }
 
   subject(:presented_game) { GamePresenter.new(game) }
 

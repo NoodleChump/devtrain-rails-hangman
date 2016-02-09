@@ -9,9 +9,9 @@ RSpec.describe GetSortedUsers, type: :service do
   let(:a_word) { "a" }
   let(:other_word) { "other" }
 
-  let(:boring_game) { Game.create!(word_to_guess: boring_word, number_of_lives: 5, user: gary) }
-  let(:a_game) { Game.create!(word_to_guess: a_word, number_of_lives: 3, user: bob) }
-  let(:other_game) { Game.create!(word_to_guess: other_word, number_of_lives: 1, user: john) }
+  let(:boring_game) { Game.create!(word_to_guess: boring_word, initial_number_of_lives: 5, user: gary) }
+  let(:a_game) { Game.create!(word_to_guess: a_word, initial_number_of_lives: 3, user: bob) }
+  let(:other_game) { Game.create!(word_to_guess: other_word, initial_number_of_lives: 1, user: john) }
 
   let(:users) { [gary, bob, john] }
   let(:games) { [boring_game, a_word, other_game] }
