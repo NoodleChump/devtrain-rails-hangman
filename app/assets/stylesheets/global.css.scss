@@ -5,6 +5,7 @@
 
 $gray-medium-light: #eaeaea;
 $gray-medium-dark: #545454;
+$blue: #428bca;
 
 
 /* universal */
@@ -337,11 +338,11 @@ aside {
 }
 
 .btn-secondary {
-  color: #428bca;
+  color: $blue;
   background-color: #fff;
   border-color: #ddd;
   &:hover {
-    color: #428bca;
+    color: $blue;
     background-color: #eee;
   }
 }
@@ -355,4 +356,10 @@ aside {
   width: 100%;
   margin-top: 45px;
   @include box_sizing;
+}
+
+.unread {
+  background: url('bullet.png') center right no-repeat;
+  background-size: 8px;
+  background-position: 98%, 50%;
 }

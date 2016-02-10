@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160209024310) do
+ActiveRecord::Schema.define(version: 20160209024311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,17 @@ ActiveRecord::Schema.define(version: 20160209024310) do
   end
 
   add_index "guesses", ["game_id"], name: "index_guesses_on_game_id", using: :btree
+
+  create_table "notifications", force: :cascade do |t|
+    t.string   "type"
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.integer  "game_id"
+    t.boolean  "read"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at",                      null: false
