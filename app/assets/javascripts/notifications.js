@@ -20,5 +20,5 @@ function updateNotifications () {
 
   $.getScript("/notifications.js?user_id=" + user_id);
 
-  setTimeout(updateNotifications, 5000);
+  //setTimeout(updateNotifications, 5000);
 };
