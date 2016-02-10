@@ -26,16 +26,10 @@
           <b class="caret"></b></a>
           <ul class="dropdown-menu">
             <% Notification.where(receiver: current_user).order("read, created_at desc").limit(8).each do |notification| %>
-              <li <%= 'class=unread' if !notification.read? %>>
-                <%= link_to notification.description, notification.game %>
+              <li id="notification" data-id="<%= notification.id %>" <%= 'class=unread' if !notification.read? %>>
+                <%= link_to notification.description, notification_path(notification) %>
               </li>
             <% end %>
-
-            <li class="divider"></li>
-            <li>
-              <%# TODO fix nil and actually mark all as read %>
-              <%= link_to "Clear All", nil, method: "delete" %>
-            </li>
           </ul>
         </li>
 

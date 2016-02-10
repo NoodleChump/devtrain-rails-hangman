@@ -22,6 +22,8 @@ Rails.application.routes.draw do
     resources :guesses
   end
 
+  resources :notifications, only: :show
+
   get 'guesses' => 'guesses#index'
 
   # Example of regular route:
