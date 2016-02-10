@@ -1,10 +1,15 @@
 class NotificationsController < ApplicationController
-  before_action :find_notification
+  before_action :find_notification, except: :destroy
 
   def show
     @notification.read = true
     @notification.save!
     redirect_to @notification.read_action if @notification.read_action
+  end
+
+  def destroy
+    ClearNotifications.new(current_user).call
+    render nothing: true
   end
 
   private

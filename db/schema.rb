@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160209024311) do
+ActiveRecord::Schema.define(version: 20160210214125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20160209024311) do
     t.string   "word_to_guess"
     t.integer  "user_id"
     t.boolean  "custom",                  default: false
+    t.integer  "sender_id"
   end
 
   add_index "games", ["user_id"], name: "index_games_on_user_id", using: :btree
@@ -39,9 +40,9 @@ ActiveRecord::Schema.define(version: 20160209024311) do
   create_table "notifications", force: :cascade do |t|
     t.string   "type"
     t.integer  "sender_id"
-    t.integer  "receiver_id"
+    t.integer  "receiver_id",                 null: false
     t.integer  "game_id"
-    t.boolean  "read"
+    t.boolean  "read",        default: false
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"

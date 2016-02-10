@@ -27,14 +27,15 @@ class GamesController < ApplicationController
       user:                     User.find(game_params[:user_id]),
       word_to_guess:            game_params[:word_to_guess],
       initial_number_of_lives:  game_params[:initial_number_of_lives],
-      ranked:                   !game_params[:custom]
+      ranked:                   !game_params[:custom],
+      sender:                   current_user
     ).call
 
     if @game.save
       flash[:success] = "Game created successfully"
       redirect_to @game
 
-      Notification.create!(
+      NewGameNotification.create!(
         sender: current_user,
         receiver: @game.user,
         game_id: @game.id

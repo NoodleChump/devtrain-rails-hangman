@@ -22,9 +22,13 @@ Rails.application.routes.draw do
     resources :guesses
   end
 
-  resources :notifications, only: :show
-
+  # Guess json updates for polling
   get 'guesses' => 'guesses#index'
+
+  resources :notifications, only: :show
+  delete 'notifications' => 'notifications#destroy'
+
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

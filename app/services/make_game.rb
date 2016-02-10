@@ -1,16 +1,18 @@
 class MakeGame
-  def initialize(user: nil, ranked: true, word_to_guess: nil, initial_number_of_lives: Game::DEFAULT_NUMBER_OF_LIVES)
+  def initialize(user: nil, ranked: true, word_to_guess: nil, initial_number_of_lives: Game::DEFAULT_NUMBER_OF_LIVES, sender: nil)
     @user = user
     @word_to_guess = word_to_guess
     @initial_number_of_lives = initial_number_of_lives
     @custom = !ranked || is_custom?
+    @sender = sender
   end
 
   def call
     @game = @user.games.create(
       custom:                   @custom,
       word_to_guess:            word_to_guess.downcase,
-      initial_number_of_lives:  @initial_number_of_lives
+      initial_number_of_lives:  @initial_number_of_lives,
+      sender:                   @sender
     )
   end
 

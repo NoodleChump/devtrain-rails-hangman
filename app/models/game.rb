@@ -2,6 +2,8 @@ class Game < ActiveRecord::Base
   DEFAULT_NUMBER_OF_LIVES = 8
 
   belongs_to :user
+  belongs_to :sender, foreign_key: "sender_id", class_name: "User"
+
   has_many :guesses, :dependent => :destroy
 
   validates :word_to_guess, presence: true
