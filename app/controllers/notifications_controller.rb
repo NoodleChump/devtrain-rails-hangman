@@ -4,7 +4,7 @@ class NotificationsController < ApplicationController
   def show
     @notification.read = true
     @notification.save!
-    redirect_to @notification.game
+    redirect_to @notification.read_action if @notification.read_action
   end
 
   private
