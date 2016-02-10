@@ -3,7 +3,7 @@
 
 <p id="notice"><%= notice %></p>
 
-<div id="game<%= '-spectate' if current_user != @game.user %>" data-id="<%= @game.id %>">
+<div id="game<%= '-spectate' if current_user != @game.user %>" data-id="<%= @game.id %>" data-game-over="<%= @game.game_over? %>">
   <h1 id="censored_word"><%= game_presenter.censored_word %></h1>
 
   <h2>Guesses Made:</h2>
@@ -18,15 +18,14 @@
   <% if @game.game_over? %>
     <% if @game.won? %>
       <h2><%= current_user == @game.user ? "You" : @game.user.name %> guessed the word correctly with <%= pluralize(@game.number_of_lives_remaining, "life") %> remaining!</h2>
-    <% else # game is lost %>
+    <% else #game is lost %>
       <h2><%= current_user == @game.user ? "Sorry, you've" : "#{@game.user.name} has" %> run out of lives!</h2>
     <% end %>
+
     <%= button_to 'New Ranked Game', new_game_path, { class: "btn btn-primary", method: :get } %>
     <br />
     <%= button_to 'New Custom Game', games_new_custom_path, { class: "btn btn-secondary", method: :get } %>
-
   <% else %>
-
     <h2 id="lives_remaining"><%= pluralize(@game.number_of_lives_remaining, "Life") %> Remaining</h2>
     <%= render 'guesses/form' %>
   <% end %>

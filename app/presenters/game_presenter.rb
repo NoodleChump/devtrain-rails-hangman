@@ -26,7 +26,11 @@ class GamePresenter
   end
 
   def hangman_image
-    html.image_tag("hang#{ (lives_used_as_percentage / 10).to_i }.gif", class: "hangman-image")
+    html.image_tag(hangman_image_src, id: "hangman-image")
+  end
+
+  def hangman_image_src
+    "hang#{ (lives_used_as_percentage / 10).to_i }.gif"
   end
 
   private

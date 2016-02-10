@@ -3,8 +3,7 @@ class GuessesController < ApplicationController
   before_action :authenticated
 
   def index
-    @guesses = Guess.where("game_id = ? and created_at > ?", params[:game_id], Time.at(params[:after].to_i + 1))
-    p @guesses
+    @guesses = Guess.where("game_id = ?", params[:game_id])
   end
 
   def create

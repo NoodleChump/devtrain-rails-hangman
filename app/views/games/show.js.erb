@@ -1,3 +1,6 @@
-$('#censored_word').text("<%= GamePresenter.new(@game).censored_word %>")
-$('#lives_remaining').text("<%= pluralize(@game.number_of_lives_remaining, 'Life') %> Remaining")
-//TODO Hangman image update
+$('#censored_word').text("<%= GamePresenter.new(@game).censored_word %>");
+$('#lives_remaining').text("<%= pluralize(@game.number_of_lives_remaining, 'Life') %> Remaining");
+$('#hangman-image').attr("src" , "<%= image_path GamePresenter.new(@game).hangman_image_src, id: 'hangman-image' %>");
+<% if @game.game_over? %>
+  $('#game-spectate').attr("id", 'game');
+<% end %>
