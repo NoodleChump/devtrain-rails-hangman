@@ -4,6 +4,7 @@ class GuessesController < ApplicationController
 
   def index
     @guesses = Guess.where("game_id = ?", params[:game_id])
+    render nothing: true
   end
 
   def create

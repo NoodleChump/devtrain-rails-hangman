@@ -1,0 +1,3 @@
+<li class="notification" data-id="<%= new_game_notification.id %>" <%= 'class=unread' if !new_game_notification.read? %>>
+  <%= link_to new_game_notification.description, notification_path(new_game_notification) %>
+</li>

@@ -1,0 +1,5 @@
+$("#notifications").html("<%=raw escape_javascript(render(@notifications)) + escape_javascript(render partial: 'notifications/notification_bottom') %>");
+$("#notifications-dropdown").removeClass("unread");
+if (<%= @unread_notifications > 0 %>) {
+  $("#notifications-dropdown").addClass("unread");
+}

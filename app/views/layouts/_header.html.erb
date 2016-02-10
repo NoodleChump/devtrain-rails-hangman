@@ -25,7 +25,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             Notifications
           <b class="caret"></b></a>
-          <ul class="dropdown-menu">
+          <ul id="notifications" class="dropdown-menu">
             <% notifications.each do |notification| %>
               <li id="notification" data-id="<%= notification.id %>" <%= 'class=unread' if !notification.read? %>>
                 <%= link_to notification.description, notification_path(notification) %>
@@ -42,7 +42,7 @@
 
         <% if logged_in? %>
           <!-- Profile -->
-          <li class="dropdown">
+          <li id="user-dropdown" data-id="<%= current_user.id %>" class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <%= current_user.name %>
             <b class="caret"></b></a>

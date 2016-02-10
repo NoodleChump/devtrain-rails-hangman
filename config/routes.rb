@@ -17,16 +17,23 @@ Rails.application.routes.draw do
   get 'signup' => 'users#new'
   resources :users
 
+  # Guess json updates for polling
+  get 'guesses' => 'guesses#index'
+
+  # Notifications
+  resources :notifications, only: :show
+  delete 'notifications' => 'notifications#destroy'
+
+  # Notification json updates for polling
+  get 'notifications' => 'notifications#index'
+  
+
   get 'games/new/custom' => 'games#custom'
   resources :games, except: :edit do
     resources :guesses
   end
 
-  # Guess json updates for polling
-  get 'guesses' => 'guesses#index'
 
-  resources :notifications, only: :show
-  delete 'notifications' => 'notifications#destroy'
 
 
 

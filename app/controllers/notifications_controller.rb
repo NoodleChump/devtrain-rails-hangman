@@ -1,5 +1,10 @@
 class NotificationsController < ApplicationController
-  before_action :find_notification, except: :destroy
+  before_action :find_notification, only: :show
+
+  def index
+    @notifications = FetchRecentNotifications.new(User.find(params[:user_id])).call
+    @unread_notifications = @notifications.reject(&:read?).length
+  end
 
   def show
     @notification.read = true
