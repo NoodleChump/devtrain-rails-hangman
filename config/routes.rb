@@ -26,7 +26,7 @@ Rails.application.routes.draw do
 
   # Notification json updates for polling
   get 'notifications' => 'notifications#index'
-  
+
 
   get 'games/new/custom' => 'games#custom'
   resources :games, except: :edit do

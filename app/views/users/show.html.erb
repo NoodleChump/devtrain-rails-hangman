@@ -36,5 +36,9 @@
     </tr>
 </table>
 
+<br />
+<%= button_to 'Send a Game', games_new_custom_path, class: "btn btn-primary", method: :get, params: { user: @user.id } %>
+<br />
+
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', :back %>

@@ -19,6 +19,7 @@ class GamesController < ApplicationController
   end
 
   def custom
+    @user = params[:user]
     @game = Game.new(custom: true)
   end
 
