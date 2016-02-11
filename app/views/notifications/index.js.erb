@@ -1,7 +1,7 @@
 $('.notification').remove();
 
 if (<%= @notifications.length == 0 %>) {
-  $("#notifications").prepend("<li><a href='#'>No Notifications</a></li>");
+  $("#notifications").prepend("<li class='notification'><a href='#'>No Notifications</a></li>");
 } else {
   $('#notifications').prepend("<%=raw escape_javascript(render(@notifications)) %>");
 }
