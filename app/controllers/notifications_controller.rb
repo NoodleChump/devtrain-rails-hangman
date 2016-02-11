@@ -9,7 +9,7 @@ class NotificationsController < ApplicationController
   def show
     @notification.read = true
     @notification.save!
-    redirect_to @notification.read_action if @notification.read_action
+    redirect_to @notification.read_action
   end
 
   def destroy

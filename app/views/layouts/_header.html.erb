@@ -26,15 +26,15 @@
             Notifications
           <b class="caret"></b></a>
           <ul id="notifications" class="dropdown-menu">
-            <% notifications.each do |notification| %>
-              <li id="notification" data-id="<%= notification.id %>" <%= 'class=unread' if !notification.read? %>>
-                <%= link_to notification.description, notification_path(notification) %>
-              </li>
+
+            <% if notifications.size == 0 %>
+              <li><a href='#'>No Notifications</a></li>
+            <% else %>
+              <%= render(notifications) %>
             <% end %>
 
             <li class="divider"></li>
-
-            <li id="clear-notifications">
+            <li class="clear-notifications">
               <%= link_to "Clear All", notifications_path, method: :delete, remote: true %>
             </li>
           </ul>

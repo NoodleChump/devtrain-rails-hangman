@@ -1,4 +1,11 @@
-$("#notifications").html("<%=raw escape_javascript(render(@notifications)) + escape_javascript(render partial: 'notifications/notification_bottom') %>");
+$('.notification').remove();
+
+if (<%= @notifications.length == 0 %>) {
+  $("#notifications").prepend("<li><a href='#'>No Notifications</a></li>");
+} else {
+  $('#notifications').prepend("<%=raw escape_javascript(render(@notifications)) %>");
+}
+
 $("#notifications-toggle").removeClass("unread");
 if (<%= @unread_notifications > 0 %>) {
   $("#notifications-toggle").addClass("unread");

@@ -40,10 +40,10 @@ ActiveRecord::Schema.define(version: 20160210214125) do
   create_table "notifications", force: :cascade do |t|
     t.string   "type"
     t.integer  "sender_id"
-    t.integer  "receiver_id",                 null: false
+    t.integer  "receiver_id",                            null: false
     t.integer  "game_id"
     t.boolean  "read",        default: false
-    t.string   "description"
+    t.string   "description", default: "No description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

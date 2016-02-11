@@ -26,7 +26,7 @@ RSpec.describe FetchRecentNotifications, type: :service do
   context "with few unread and many read notifications" do
     before do
       MakeNewGameNotification.new(from: user, to: another_user, game: game).call
-      5.times { MakeNewGameNotification.new(from: user, to: another_user, game: game).call.mark_read }
+      8.times { MakeNewGameNotification.new(from: user, to: another_user, game: game).call.mark_read }
     end
 
     it "fetches notifications and displays them in correct order" do
@@ -42,7 +42,7 @@ RSpec.describe FetchRecentNotifications, type: :service do
     it "fetches all of the unread notifications, but only some of the read ones" do
       notifications = FetchRecentNotifications.new(another_user).call
       expect(notifications.reject(&:read).length).to be 1
-      expect(notifications.select(&:read).length).to be 3
+      expect(notifications.select(&:read).length).to be 5
     end
   end
 end

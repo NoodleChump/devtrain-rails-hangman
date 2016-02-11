@@ -6,7 +6,7 @@ class CreateNotifications < ActiveRecord::Migration
       t.integer :receiver_id, null: false
       t.integer :game_id
       t.boolean :read, default: false
-      t.string :description
+      t.string :description, default: "No description"
 
       t.timestamps
     end

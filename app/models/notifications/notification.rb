@@ -3,6 +3,7 @@ class Notification < ActiveRecord::Base
   belongs_to :receiver, foreign_key: "receiver_id", class_name: "User"
 
   def read_action
+    :back
   end
 
   def mark_read
