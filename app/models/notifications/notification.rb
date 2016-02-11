@@ -4,4 +4,12 @@ class Notification < ActiveRecord::Base
 
   def read_action
   end
+
+  def mark_read
+    update(read: true)
+  end
+
+  def mark_unread
+    update(read: false)
+  end
 end

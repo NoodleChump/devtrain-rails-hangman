@@ -40,6 +40,10 @@ class User < ActiveRecord::Base
     update_attribute(:rank_points, rank_weight)
   end
 
+  def notifications
+    Notification.where(receiver_id: id)
+  end
+
   private
 
   def rank_weight

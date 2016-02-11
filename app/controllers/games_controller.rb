@@ -35,12 +35,11 @@ class GamesController < ApplicationController
       flash[:success] = "Game created successfully"
       redirect_to @game
 
-      NewGameNotification.create!(
-        sender: current_user,
-        receiver: @game.user,
-        game_id: @game.id
-      ) if @game.user != current_user
-
+      MakeNewGameNotification.new(
+        from: current_user,
+        to:   @game.user,
+        game: @game
+      ).call if @game.user != current_user
     else
       render 'new'
     end
