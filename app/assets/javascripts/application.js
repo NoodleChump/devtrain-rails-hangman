@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require turbolinks
+//= require toastr
 //= require_tree .
 
 // Fix for turbolinks conflicting with bootstrap dropdown menus

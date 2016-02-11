@@ -33,6 +33,7 @@ class GamesController < ApplicationController
     ).call
 
     if @game.save
+      
       flash[:success] = "Game created successfully"
       redirect_to @game
 
