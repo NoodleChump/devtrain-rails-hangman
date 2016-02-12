@@ -2,11 +2,6 @@ class GuessesController < ApplicationController
   before_action :find_game
   before_action :authenticated
 
-  def index
-    @guesses = Guess.where("game_id = ?", params[:game_id])
-    render nothing: true
-  end
-
   def create
     @guess = MakeGuess.new(@game, guess_params[:letter]).call
     if @guess.errors.blank?

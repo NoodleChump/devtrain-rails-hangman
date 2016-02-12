@@ -13,7 +13,6 @@ function update () {
   var time = $(".guess:last-child").attr("data-time");
   var over = $("#game-spectate").attr("data-game-over");
 
-  $.getScript("/guesses.js?game_id=" + game_id + "&after=" + time);
   $.getScript("/games/" + game_id + ".js");
 
   setTimeout(update, 2000);

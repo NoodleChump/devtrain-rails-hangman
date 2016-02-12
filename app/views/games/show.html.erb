@@ -22,9 +22,7 @@
       <h2><%= current_user == @game.user ? "Sorry, you've" : "#{@game.user.name} has" %> run out of lives!</h2>
     <% end %>
 
-    <%= button_to 'New Ranked Game', new_game_path, { class: "btn btn-primary", method: :get } %>
-    <br />
-    <%= button_to 'New Custom Game', games_new_custom_path, { class: "btn btn-secondary", method: :get } %>
+    <%= render 'layouts/new_game_buttons' %>
   <% else %>
     <h2 id="lives_remaining"><%= pluralize(@game.number_of_lives_remaining, "Life") %> Remaining</h2>
     <%= render 'guesses/form' %>
