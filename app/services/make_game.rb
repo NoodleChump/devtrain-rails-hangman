@@ -14,6 +14,14 @@ class MakeGame
       initial_number_of_lives:  @initial_number_of_lives,
       sender:                   @sender
     )
+
+    MakeNewGameNotification.new(
+      from: @sender,
+      to:   @user,
+      game: @game
+    ).call if @user != @sender
+
+    @game
   end
 
   private

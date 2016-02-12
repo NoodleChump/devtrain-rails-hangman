@@ -11,12 +11,6 @@ class GuessesController < ApplicationController
     @guess = MakeGuess.new(@game, guess_params[:letter]).call
     if @guess.errors.blank?
       redirect_to @game
-
-      MakeCompletedGameNotification.new(
-        to:   @game.sender,
-        from: @game.user,
-        game: @game
-      ).call if @game.sender && @game.game_over? && @game.sender != @game.user
     else
       render 'games/show'
     end

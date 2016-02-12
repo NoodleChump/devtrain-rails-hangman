@@ -7,8 +7,14 @@ class MakeGuess
 
   def call
     @game.lock!
-    @guess.save if !already_guessed?
+    valid = !already_guessed? ? @guess.save : false
     @game.save!
+
+    MakeCompletedGameNotification.new(
+      to:   @game.sender,
+      from: @game.user,
+      game: @game
+    ).call if valid && @game.sender && @game.game_over? && @game.sender != @game.user
 
     @guess
   end
