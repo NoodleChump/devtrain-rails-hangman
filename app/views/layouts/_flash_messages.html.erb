@@ -1,0 +1,16 @@
+<% unless flash.empty? %>
+  <script type="text/javascript">
+    toastr.options = {
+      "closeButton": true,
+      "positionClass": "toast-bottom-right",
+      "progressBar": true,
+      "onclick": function() {
+        $(".notification.unread:eq(" + index + ")").find("a")[0].click();
+      }
+    }
+    <% flash.each do |message_type, message| %>
+    <% type = message_type.to_s.gsub('alert', 'error').gsub('notice', 'info') %>
+      toastr['<%= type %>']('<%= message %>');
+    <% end %>
+  </script>
+<% end %>
