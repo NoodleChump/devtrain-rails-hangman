@@ -9,7 +9,7 @@
       }
     }
     <% flash.each do |message_type, message| %>
-    <% type = message_type.to_s.gsub('alert', 'error').gsub('notice', 'info') %>
+    <% type = message_type.to_s.gsub('alert', 'error').gsub('notice', 'info').gsub('danger', 'error') %>
       toastr['<%= type %>']('<%= message %>');
     <% end %>
   </script>

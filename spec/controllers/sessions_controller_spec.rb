@@ -24,14 +24,20 @@ RSpec.describe SessionsController, type: :controller do
     end
 
     context "when credentials are incorrect" do
-      it "re-renders the login page" do
+      before do
         post :create, {session: invalid_login}, valid_session
+      end
+
+      it "re-renders the login page" do
         expect(response).to render_template('new')
       end
 
       it "has nobody logged in" do
-        post :create, {session: invalid_login}, valid_session
         expect(logged_in?).to be false
+      end
+
+      it "shows an error flash message" do
+        expect(flash[:danger]).to be_present
       end
     end
   end

@@ -17,7 +17,6 @@ feature "User login" do
     enter_bad_login_details
     submit_page
     expect_to_see_login_form
-    expect_to_see_invalid
   end
 
   def visit_login_page
@@ -48,9 +47,5 @@ feature "User login" do
   def expect_to_see_user_detail_page
     expect(page).to have_content user.name
     expect(page).to have_content "User Statistics"
-  end
-
-  def expect_to_see_invalid
-    expect(page).to have_content "Invalid"
   end
 end
