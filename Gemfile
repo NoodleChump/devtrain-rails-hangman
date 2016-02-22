@@ -11,7 +11,8 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+#gem 'therubyracer', platforms: :ruby
+gem 'execjs'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -27,10 +28,13 @@ gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 gem 'faker'
 gem 'possessive'
-gem 'pg',             '0.17.1'
+
 gem 'capybara'
 gem 'factory_girl_rails'
 gem 'simplecov', :require => false, :group => :test
+
+# Windows fix
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -45,6 +49,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   # Use sqlite3 as the database for Active Record
+  gem 'sqlite3'
 end
 
 group :development do
@@ -56,6 +61,7 @@ group :development do
 end
 
 group :production do
+  gem 'pg'
   gem 'rails_12factor', '0.0.2'
 end
 

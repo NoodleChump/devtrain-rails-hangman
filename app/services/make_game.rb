@@ -19,7 +19,7 @@ class MakeGame
       from: @sender,
       to:   @user,
       game: @game
-    ).call if @user != @sender
+    ).call if @user != @sender && @sender
 
     @game
   end
